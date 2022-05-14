@@ -1,7 +1,9 @@
 package OSS.geteatwithme.Connection;
 
+import java.util.LinkedList;
 import java.util.List;
 
+import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -35,5 +37,11 @@ public interface UserProfileAPI {
     Call<Integer> checkLogin(
             @Path("id")String id,
             @Path("password")String password
+    );
+    @GET("/post/all")
+    Call<LinkedList<Post>> getAllPost();
+    @GET("/post/{category}/alllist")
+    Call<LinkedList<Post>> getCategoryPost(
+      @Path("category")int category
     );
 }

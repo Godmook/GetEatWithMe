@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ActionBar;
 import android.graphics.Color;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,12 +19,18 @@ import android.widget.Toolbar;
 
 import com.google.android.material.chip.ChipGroup;
 
+import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import OSS.geteatwithme.Connection.RetrofitService;
+import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.Post;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     RadioButton[] radioButtons = new RadioButton[8];
@@ -72,7 +79,21 @@ public class MainActivity extends AppCompatActivity {
 
         // 전체 post 보여주기
         // posts <- 전체 포스트
-        showPosts();
+        RetrofitService retrofitService = new RetrofitService();
+        UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+        userProfileAPI.getAllPost()
+                .enqueue(new Callback<LinkedList<Post>>() {
+                    @Override
+                    public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                        posts=response.body();
+                        showPosts();
+                    }
+
+                    @Override
+                    public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                    }
+                });
 
         // 한식
         radioButtons[0].setOnClickListener(new View.OnClickListener(){
@@ -92,6 +113,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setAllRadioButtonOff();
                 radioButtons[1].setChecked(true);
+                userProfileAPI.getCategoryPost(1)
+                        .enqueue(new Callback<LinkedList<Post>>() {
+                            @Override
+                            public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                posts=response.body();
+                                showPosts();
+                            }
+
+                            @Override
+                            public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                            }
+                        });
             }
         });
 
