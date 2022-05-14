@@ -65,7 +65,7 @@
                 <EditText
                     android:id="@+id/signName"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="66dp"
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:hint=" 이름"
@@ -84,13 +84,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="54dp"
+                    android:layout_height="67dp"
                     android:orientation="horizontal">
 
                     <EditText
                         android:id="@+id/signID"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="66dp"
                         android:layout_marginBottom="20dp"
                         android:ems="10"
                         android:hint=" 아이디"
@@ -124,7 +124,7 @@
                 <EditText
                     android:id="@+id/signage"
                     android:layout_width="100dp"
-                    android:layout_height="40dp"
+                    android:layout_height="66dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="20dp"
                     android:ems="10"
@@ -146,7 +146,7 @@
                 <EditText
                     android:id="@+id/signPW"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="66dp"
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:hint=" 비밀번호"
@@ -171,7 +171,7 @@
                     <EditText
                         android:id="@+id/signPW2"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="66dp"
                         android:layout_marginBottom="20dp"
                         android:ems="10"
                         android:hint=" 비밀번호 다시 입력"
@@ -208,7 +208,7 @@
                     <EditText
                         android:id="@+id/signNickname"
                         android:layout_width="228dp"
-                        android:layout_height="40dp"
+                        android:layout_height="66dp"
                         android:layout_marginBottom="20dp"
                         android:ems="10"
                         android:hint="닉네임"
