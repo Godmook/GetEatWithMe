@@ -13,6 +13,9 @@
         android:theme="@style/Theme.GetEatWithMe"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".PostingActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
