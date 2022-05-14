@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
@@ -12,13 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.UserInfo.UserProfile;
-import lombok.val;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -222,7 +218,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                                     // 서버에 모든 정보 전달.
                                                                     Call<UserProfile> calls= userProfileAPI.createPost(id_str,name.getText().toString(),gender,PW_str,Integer.parseInt(age.getText().toString()),nickname_str);
                                                                     new LogincheckTask().execute(calls);
-                                                                    Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+                                                                    Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
                                                                     startActivity(intent);
                                                                     Toast.makeText(SignUpActivity.this, "가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
                                                                 }
