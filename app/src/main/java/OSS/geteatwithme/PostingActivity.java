@@ -9,6 +9,6 @@ public class PostingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_posting2);
+        setContentView(R.layout.activity_posting);
     }
 }
