@@ -35,6 +35,7 @@
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="595dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="2">>
 
             <LinearLayout
@@ -43,6 +44,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
+                android:layout_marginBottom="50dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -144,21 +146,21 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/radioButton"
+                            android:id="@+id/radioButton_0"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="한식" />
 
                         <RadioButton
-                            android:id="@+id/radioButton3"
+                            android:id="@+id/radioButton_1"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="중식" />
 
                         <RadioButton
-                            android:id="@+id/radioButton2"
+                            android:id="@+id/radioButton_2"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -172,21 +174,21 @@
                         android:orientation="horizontal">
 
                         <RadioButton
-                            android:id="@+id/radioButton7"
+                            android:id="@+id/radioButton_3"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="양식" />
 
                         <RadioButton
-                            android:id="@+id/radioButton5"
+                            android:id="@+id/radioButton_4"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
                             android:text="분식" />
 
                         <RadioButton
-                            android:id="@+id/radioButton6"
+                            android:id="@+id/radioButton_5"
                             android:layout_width="100dp"
                             android:layout_height="wrap_content"
                             android:layout_margin="5dp"
@@ -195,7 +197,7 @@
                     </LinearLayout>
 
                     <RadioButton
-                        android:id="@+id/radioButton4"
+                        android:id="@+id/radioButton_6"
                         android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="5dp"
@@ -208,14 +210,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text=" 모집 인원"
+                    android:text=" 모일 인원"
                     android:textSize="20sp" />
 
+
                 <Spinner
-                    android:id="@+id/spinner"
+                    android:id="@+id/spinner1"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_margin="3dp" />
+                    android:layout_margin="3dp"
+                    android:spinnerMode="dropdown" />
 
                 <TextView
                     android:id="@+id/textView21"
@@ -228,7 +232,8 @@
                     android:id="@+id/spinner2"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:layout_margin="3dp" />
+                    android:layout_margin="3dp"
+                    android:spinnerMode="dropdown" />
 
                 <TextView
                     android:id="@+id/textView22"
@@ -287,20 +292,26 @@
                     android:textSize="20sp" />
 
                 <EditText
-                    android:id="@+id/editTextTextPersonName3"
-                    android:layout_width="match_parent"
+                    android:id="@+id/editPostingText"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="posting text"
-                    android:inputType="textPersonName" />
+                    android:ems="20"
+                    android:gravity="top|left"
+                    android:hint="포스팅할 글을 입력하세요."
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:maxWidth="5.0dip"
+                    android:minWidth="10.0dip"
+                    android:scrollHorizontally="false" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginBottom="30dp"
                     android:orientation="horizontal">
 
                     <Button
-                        android:id="@+id/button"
+                        android:id="@+id/btn_cancel"
                         android:layout_width="100dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -308,7 +319,7 @@
                         android:text="취소" />
 
                     <Button
-                        android:id="@+id/button6"
+                        android:id="@+id/btn_post"
                         android:layout_width="61dp"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
