@@ -3,30 +3,45 @@ package OSS.geteatwithme;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.app.ActionBar;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.google.android.material.chip.ChipGroup;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.ListIterator;
 
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
+import OSS.geteatwithme.PostInfo.MyPostView;
 import OSS.geteatwithme.PostInfo.Post;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -36,27 +51,47 @@ public class MainActivity extends AppCompatActivity {
     RadioButton[] radioButtons = new RadioButton[8];
     LinkedList<Post> posts = new LinkedList<Post>();
     LinearLayout linearlayout = null;
+    // 현재 위치
+    double longitude;
+    double latitude;
 
-    void setAllRadioButtonOff(){
-        for(int i=0; i< 8; i++)
+    void setAllRadioButtonOff() {
+        for (int i = 0; i < 8; i++)
             radioButtons[i].setChecked(false);
     }
 
-    void showPosts(){
-        if(linearlayout != null)
-            ((ViewGroup)linearlayout.getParent()).removeView(linearlayout);
+    void showPosts() {
+        if (linearlayout != null)
+            ((ViewGroup) linearlayout.getParent()).removeView(linearlayout);
         linearlayout = new LinearLayout(this);
         linearlayout.setOrientation(LinearLayout.VERTICAL);
 
-        // test-
+        // 게시글 만들기
         int idx = 0;
-        for(Post p : posts){
-            Button b = new Button(this);
-            b.setLayoutParams(new androidx.appcompat.app.ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT ));
-            b.setText(p.getRestaurant());
-            linearlayout.addView(b, idx++);
+        for (Post p : posts) {
+            MyPostView postView = new MyPostView(this);
+            postView.set(p);
+            String bg = null;
+            int age = 22; //test 값
+            // 나이별 배경 색
+            if (age < 20) bg = "#66FFB2";    // 10대
+            else if (age < 30) bg = "#33FF99";    // 20대
+            else if (age < 40) bg = "#00FF80";    // 30대
+            else if (age < 50) bg = "#00CC66";    // 40대
+            else if (age < 60) bg = "#00994C";    // 50대
+            else bg = "#006633";    // 60대 이상
+            postView.setDistance(p, longitude, latitude); // 거리 값 세팅
+            postView.setBackgroundColor(Color.parseColor(bg));  // 배경 색 세팅
+            postView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent myIntent = new Intent(getApplicationContext(), ShowPosting.class);
+                    startActivity(myIntent);
+                }
+            });
+            linearlayout.addView(postView, idx++);
+
         }
-        // -test
 
         ScrollView view = (ScrollView)findViewById(R.id.scrollView2);
         view.addView(linearlayout, 0);
@@ -66,7 +101,48 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         setContentView(R.layout.activity_main);
+
+        // 현재 경도, 위도 가져오기
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // gps 권한 요청
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
+        Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        longitude = location.getLongitude();
+        latitude = location.getLatitude();
+
+        Geocoder g = new Geocoder(this);
+        List<Address> address = null;
+        try {
+            address = g.getFromLocation(latitude, longitude, 10);
+            System.out.println(address.get(0).getAddressLine(0));
+            TextView textView = (TextView) findViewById(R.id.textview);
+            textView.setText(address.get(2).getAddressLine(0));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        // test-
+        Post post = new Post();
+        post.setId("MinI0123");
+        post.setRestaurant("국빈");
+        post.setLongitude(126.7728);
+        post.setLatitude(37.6926);
+        post.setMeeting_place("현산초등학교");
+        post.setCategory(1);
+        post.setMax_people(4);
+        post.setCur_people(2);
+        post.setMeeting_date("22/05/17");
+        post.setMeeting_time("18:30");
+        post.setContents("짜장면, 짬뽕, 탕수육");
+        post.setGender(2);
+        posts.add(post);
+        showPosts();
+        // -test
 
         radioButtons[0] = (RadioButton) findViewById(R.id.radioButton11);
         radioButtons[1] = (RadioButton) findViewById(R.id.radioButton12);
@@ -78,7 +154,6 @@ public class MainActivity extends AppCompatActivity {
         radioButtons[7] = (RadioButton) findViewById(R.id.radioButton19);
 
         // 전체 post 보여주기
-        // posts <- 전체 포스트
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
         userProfileAPI.getAllPost()
@@ -186,6 +261,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setAllRadioButtonOff();
                 radioButtons[7].setChecked(true);
+            }
+        });
+
+        Button registration = (Button) findViewById(R.id.registrationButton);
+        registration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), PostingActivity.class);
+                startActivity(myIntent);
             }
         });
     }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyPostView">
+        <attr name="textRestaurant" format="string"/>
+        <attr name="textCategory" format="string"/>
+        <attr name="textDate" format="string"/>
+        <attr name="textTime" format="string"/>
+        <attr name="textID" format="string"/>
+        <attr name="textGender" format="string"/>
+        <attr name="textPeople" format="string"/>
+        <attr name="textDistance" format="string"/>
+    </declare-styleable>
+</resources>

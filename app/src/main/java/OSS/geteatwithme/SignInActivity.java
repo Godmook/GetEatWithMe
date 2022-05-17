@@ -52,9 +52,9 @@ public class SignInActivity extends AppCompatActivity {
                             //로그인 성공
                             if (login_result == true) {
                                 Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
-                                // 수정 필요
-                                //Intent myIntent = new Intent(getApplicationContext(), SignUpActivity.class);
-                                //startActivity(myIntent);
+
+                                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(myIntent);
                             }
                             // 로그인 실패
                             else {
