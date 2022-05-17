@@ -44,4 +44,19 @@ public interface UserProfileAPI {
     Call<LinkedList<Post>> getCategoryPost(
       @Path("category")int category
     );
+    @FormUrlEncoded
+    @PUT("/post/{id}")
+    Call<Post> PutUserPost(
+            @Path("id")String id,
+            @Field("restaurant")String restaurant,
+            @Field("meeting_place")String meeting_place,
+            @Field("category")int category,
+            @Field("max_people")int max_people,
+            @Field("cur_people")int cur_people,
+            @Field("meeting_date")String meeting_date,
+            @Field("meeting_time")String meeting_time,
+            @Field("contents")String contents,
+            @Field("Longtitude")Double Longitutde,
+            @Field("Latitude")Double Latitude
+    );
 }

@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -17,18 +16,17 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 
-import lombok.val;
+import OSS.geteatwithme.Connection.RetrofitService;
+import OSS.geteatwithme.Connection.UserProfileAPI;
+import OSS.geteatwithme.PostInfo.Post;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class PostingActivity extends AppCompatActivity {
-
     String []number_of_people1 = {"2", "3", "4", "5", "6", "7", "8"};
     String []number_of_people2 = {"1", "2", "3", "4", "5", "6", "7"};
     String posting_text = new String("");
@@ -63,7 +61,12 @@ public class PostingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting);
-
+        Post InputPost=new Post();
+            /*
+        test
+        //아이디 값을 전역적으로 가지고 오는 변수가 존재하지 않아서 우선은 id 값은 보류
+        */
+        InputPost.setId("abcd");
 
         // 모일 인원 및 모인 인원 spinner 설정
         Spinner spinner_1 = findViewById(R.id.spinner1);
@@ -77,7 +80,7 @@ public class PostingActivity extends AppCompatActivity {
         spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                num_of_people1 = Integer.parseInt(number_of_people1[position]);
+                InputPost.setMax_people(Integer.parseInt(number_of_people1[position]));
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -91,7 +94,7 @@ public class PostingActivity extends AppCompatActivity {
         spinner_2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                num_of_people2 = Integer.parseInt(number_of_people2[position]);
+                InputPost.setCur_people(Integer.parseInt(number_of_people2[position]));
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {}
@@ -112,7 +115,7 @@ public class PostingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setAllRadioButtonOff();
                 radioButtons[0].setChecked(true);
-                category = 0;
+                InputPost.setCategory(0);
             }
         });
         // 중식
@@ -121,7 +124,7 @@ public class PostingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setAllRadioButtonOff();
                 radioButtons[1].setChecked(true);
-                category = 1;
+                InputPost.setCategory(1);
             }
         });
         // 일식
@@ -130,7 +133,7 @@ public class PostingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setAllRadioButtonOff();
                 radioButtons[2].setChecked(true);
-                category = 2;
+                InputPost.setCategory(2);
             }
         });
         // 양식
@@ -139,7 +142,7 @@ public class PostingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setAllRadioButtonOff();
                 radioButtons[3].setChecked(true);
-                category = 3;
+                InputPost.setCategory(3);
             }
         });
         // 분식
@@ -148,7 +151,7 @@ public class PostingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setAllRadioButtonOff();
                 radioButtons[4].setChecked(true);
-                category = 4;
+                InputPost.setCategory(4);
             }
         });
         // 아시안
@@ -157,7 +160,7 @@ public class PostingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setAllRadioButtonOff();
                 radioButtons[5].setChecked(true);
-                category = 5;
+                InputPost.setCategory(5);
             }
         });
         // 패스트 푸드
@@ -166,11 +169,9 @@ public class PostingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setAllRadioButtonOff();
                 radioButtons[6].setChecked(true);
-                category = 6;
+                InputPost.setCategory(6);
             }
         });
-
-
         // 날짜 설정
         EditText et_Date = (EditText) findViewById(R.id.Date);
         et_Date.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +180,7 @@ public class PostingActivity extends AppCompatActivity {
                 new DatePickerDialog(PostingActivity.this, myDatePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
+        InputPost.setMeeting_date(et_Date.getText().toString());
 
         // 시간 설정
         final EditText et_time = (EditText) findViewById(R.id.Time);
@@ -200,7 +201,9 @@ public class PostingActivity extends AppCompatActivity {
                             state = "PM";
                         }
                         // EditText에 출력할 형식 지정
-                        et_time.setText(state + " " + selectedHour + "시 " + selectedMinute + "분");
+                        String tmp=state + " " + selectedHour + "시 " + selectedMinute + "분";
+                        et_time.setText(tmp);
+                        InputPost.setMeeting_time(tmp);
                     }
                 }, hour, minute, true); // true의 경우 24시간 형식의 TimePicker 출현
                 mTimePicker.setTitle("Select Time");
@@ -208,10 +211,9 @@ public class PostingActivity extends AppCompatActivity {
             }
         });
 
-
         // posting text 관리
         editPosting = (EditText)findViewById(R.id.editPostingText);
-        posting_text = editPosting.getText().toString();
+        InputPost.setContents(editPosting.getText().toString());
 
 
         // button 관리
@@ -226,13 +228,41 @@ public class PostingActivity extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(num_of_people1 <= num_of_people2)
+                if(InputPost.getMax_people() <= InputPost.getCur_people())
                 {
                     Toast.makeText(getApplicationContext(), "모인인원의 수는 모일 인원의 수보다 작아야 합니다.", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
+                    InputPost.setRestaurant("미식반점");
+                    InputPost.setMeeting_place("김예진 집 앞");
                     // 정보 서버에 posting
+                    RetrofitService retrofitService = new RetrofitService();
+                    UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+                    userProfileAPI.PutUserPost(
+                            InputPost.getId(),
+                            InputPost.getRestaurant(),
+                            InputPost.getMeeting_place(),
+                            InputPost.getCategory(),
+                            InputPost.getMax_people(),
+                            InputPost.getCur_people(),
+                            InputPost.getMeeting_date(),
+                            InputPost.getMeeting_time(),
+                            InputPost.getContents(),
+                            InputPost.getLongitude(),
+                            InputPost.getLatitude()
+                    )
+                            .enqueue(new Callback<Post>() {
+                                @Override
+                                public void onResponse(Call<Post> call, Response<Post> response) {
+                                    Toast.makeText(PostingActivity.this,"성공!",Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(Call<Post> call, Throwable t) {
+                                    Toast.makeText(PostingActivity.this,"실패!",Toast.LENGTH_SHORT).show();
+                                }
+                            });
                 }
             }
         });
