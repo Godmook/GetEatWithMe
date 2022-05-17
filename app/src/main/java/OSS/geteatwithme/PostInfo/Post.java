@@ -13,6 +13,15 @@ public class Post {
     String meeting_date;
     String meeting_time;
     String contents;
+    int age;
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     public String getId() {
         return id;

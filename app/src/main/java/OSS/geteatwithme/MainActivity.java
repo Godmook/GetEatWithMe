@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             MyPostView postView = new MyPostView(this);
             postView.set(p);
             String bg = null;
-            int age = 22; //test 값
+            int age = p.getAge(); //test 값
             // 나이별 배경 색
             if (age < 20) bg = "#66FFB2";    // 10대
             else if (age < 30) bg = "#33FF99";    // 20대
@@ -127,21 +127,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         // test-
-        Post post = new Post();
-        post.setId("MinI0123");
-        post.setRestaurant("국빈");
-        post.setLongitude(126.7728);
-        post.setLatitude(37.6926);
-        post.setMeeting_place("현산초등학교");
-        post.setCategory(1);
-        post.setMax_people(4);
-        post.setCur_people(2);
-        post.setMeeting_date("22/05/17");
-        post.setMeeting_time("18:30");
-        post.setContents("짜장면, 짬뽕, 탕수육");
-        post.setGender(2);
-        posts.add(post);
-        showPosts();
         // -test
 
         radioButtons[0] = (RadioButton) findViewById(R.id.radioButton11);

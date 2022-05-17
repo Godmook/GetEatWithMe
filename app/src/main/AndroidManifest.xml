@@ -23,7 +23,7 @@
             android:name=".PostingActivity"
             android:exported="false" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -35,8 +35,8 @@
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="true"
+            android:name=".SignInActivity"
+            android:exported="false"
             android:windowSoftInputMode="adjustNothing"/>
     </application>
 
