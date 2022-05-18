@@ -46,7 +46,7 @@ public interface UserProfileAPI {
     );
     @FormUrlEncoded
     @PUT("/post/{id}")
-    Call<Post> PutUserPost(
+    Call<Integer> PutUserPost(
             @Path("id")String id,
             @Field("restaurant")String restaurant,
             @Field("meeting_place")String meeting_place,

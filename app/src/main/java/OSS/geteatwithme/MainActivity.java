@@ -141,20 +141,6 @@ public class MainActivity extends AppCompatActivity {
         // 전체 post 보여주기
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
-        userProfileAPI.getAllPost()
-                .enqueue(new Callback<LinkedList<Post>>() {
-                    @Override
-                    public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
-                        posts=response.body();
-                        showPosts();
-                    }
-
-                    @Override
-                    public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
-
-                    }
-                });
-
         // 한식
         radioButtons[0].setOnClickListener(new View.OnClickListener(){
 
@@ -246,9 +232,34 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 setAllRadioButtonOff();
                 radioButtons[7].setChecked(true);
+                userProfileAPI.getAllPost()
+                        .enqueue(new Callback<LinkedList<Post>>() {
+                            @Override
+                            public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                posts=response.body();
+                                showPosts();
+                            }
+
+                            @Override
+                            public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                            }
+                        });
             }
         });
+        userProfileAPI.getAllPost()
+                .enqueue(new Callback<LinkedList<Post>>() {
+                    @Override
+                    public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                        posts=response.body();
+                        showPosts();
+                    }
 
+                    @Override
+                    public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                    }
+                });
         Button registration = (Button) findViewById(R.id.registrationButton);
         registration.setOnClickListener(new View.OnClickListener() {
             @Override

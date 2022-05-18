@@ -3,6 +3,7 @@ package OSS.geteatwithme;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -180,7 +181,6 @@ public class PostingActivity extends AppCompatActivity {
                 new DatePickerDialog(PostingActivity.this, myDatePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-        InputPost.setMeeting_date(et_Date.getText().toString());
 
         // 시간 설정
         final EditText et_time = (EditText) findViewById(R.id.Time);
@@ -203,7 +203,6 @@ public class PostingActivity extends AppCompatActivity {
                         // EditText에 출력할 형식 지정
                         String tmp=state + " " + selectedHour + "시 " + selectedMinute + "분";
                         et_time.setText(tmp);
-                        InputPost.setMeeting_time(tmp);
                     }
                 }, hour, minute, true); // true의 경우 24시간 형식의 TimePicker 출현
                 mTimePicker.setTitle("Select Time");
@@ -213,7 +212,6 @@ public class PostingActivity extends AppCompatActivity {
 
         // posting text 관리
         editPosting = (EditText)findViewById(R.id.editPostingText);
-        InputPost.setContents(editPosting.getText().toString());
 
 
         // button 관리
@@ -228,14 +226,19 @@ public class PostingActivity extends AppCompatActivity {
         post.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                InputPost.setContents(editPosting.getText().toString());
+                InputPost.setMeeting_date(et_Date.getText().toString());
+                InputPost.setMeeting_time(et_time.getText().toString());
+                InputPost.setRestaurant("미식반점");
+                InputPost.setMeeting_place("김예진 집 앞");
+                InputPost.setLongitude(111.7);
+                InputPost.setLatitude(37.6);
                 if(InputPost.getMax_people() <= InputPost.getCur_people())
                 {
                     Toast.makeText(getApplicationContext(), "모인인원의 수는 모일 인원의 수보다 작아야 합니다.", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
-                    InputPost.setRestaurant("미식반점");
-                    InputPost.setMeeting_place("김예진 집 앞");
                     // 정보 서버에 posting
                     RetrofitService retrofitService = new RetrofitService();
                     UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
@@ -252,14 +255,16 @@ public class PostingActivity extends AppCompatActivity {
                             InputPost.getLongitude(),
                             InputPost.getLatitude()
                     )
-                            .enqueue(new Callback<Post>() {
+                            .enqueue(new Callback<Integer>() {
                                 @Override
-                                public void onResponse(Call<Post> call, Response<Post> response) {
+                                public void onResponse(Call<Integer> call, Response<Integer> response) {
                                     Toast.makeText(PostingActivity.this,"성공!",Toast.LENGTH_SHORT).show();
+                                    Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                    startActivity(myIntent);
                                 }
 
                                 @Override
-                                public void onFailure(Call<Post> call, Throwable t) {
+                                public void onFailure(Call<Integer> call, Throwable t) {
                                     Toast.makeText(PostingActivity.this,"실패!",Toast.LENGTH_SHORT).show();
                                 }
                             });
