@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShowPosting">
+    tools:context=".MyPageActivity">
 
     <TextView
-        android:id="@+id/textView8"
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="게시글 상세 정보"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="296dp" />
+        android:text="마이 페이지"
+        tools:layout_editor_absoluteX="168dp"
+        tools:layout_editor_absoluteY="241dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

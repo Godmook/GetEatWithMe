@@ -1,8 +1,15 @@
 package OSS.geteatwithme;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -10,21 +17,30 @@ import android.widget.Toast;
 
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
+import OSS.geteatwithme.UserInfo.user;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SignInActivity extends AppCompatActivity {
     boolean login_result = false;
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_main);
 
-        initializeComponents();
+        // 현재 경도, 위도 가져오기
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // gps 권한 요청
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
+        Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        ((user)getApplication()).setLatitude(location.getLatitude());
+        ((user)getApplication()).setLogitude(location.getLongitude());
     }
-    private void initializeComponents(){
 
-    }
     // 회원가입 버튼
     public void onSignUpClicked(View v){
         Intent myIntent = new Intent(getApplicationContext(), SignUpActivity.class);
@@ -37,6 +53,8 @@ public class SignInActivity extends AppCompatActivity {
         EditText editText_password = (EditText)findViewById(R.id.editTextTextPassword);
         String id = editText_id.getText().toString();
         String password = editText_password.getText().toString();
+
+
         if (id.matches("") || password.matches("")) {
             Toast.makeText(this, "You did not enter a nickname", Toast.LENGTH_SHORT).show();
         }
@@ -53,6 +71,8 @@ public class SignInActivity extends AppCompatActivity {
                             if (login_result == true) {
                                 Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
 
+                                // id 저장
+                                ((user)getApplication()).setUserID(id);
                                 Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(myIntent);
                             }
@@ -70,7 +90,6 @@ public class SignInActivity extends AppCompatActivity {
                         }
                     });
         }
-        // test-
 
     }
 }

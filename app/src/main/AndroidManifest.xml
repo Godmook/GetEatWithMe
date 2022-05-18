@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
+        android:name=".UserInfo.user"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -17,7 +18,10 @@
         android:theme="@style/Theme.GetEatWithMe"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ShowPosting"
+            android:name=".MyPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ShowPostActivity"
             android:exported="false" />
         <activity
             android:name=".PostingActivity"
@@ -36,8 +40,7 @@
             android:exported="false" />
         <activity
             android:name=".SignInActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustNothing"/>
+            android:exported="false" />
     </application>
 
 </manifest>

@@ -14,6 +14,16 @@ public class Post {
     String meeting_time;
     String contents;
     int age;
+    int post_id;
+    double distance;
+
+    public double getDistance(){ return distance;}
+
+    public void setDistance(double distance){this.distance = distance;}
+
+    public int getPostID(){ return post_id;}
+
+    public void setPostID(int post_id){ this.post_id = post_id;}
 
     public int getAge() {
         return age;

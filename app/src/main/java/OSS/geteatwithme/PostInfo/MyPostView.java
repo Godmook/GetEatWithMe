@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import OSS.geteatwithme.R;
 
 public class MyPostView extends ConstraintLayout {
+    int POST_ID;
     TextView textRestaurant;
     TextView textCategory;
     TextView textDate;
@@ -23,6 +24,7 @@ public class MyPostView extends ConstraintLayout {
     TextView textGender;
     TextView textPeople;
     TextView textDistance;
+    ConstraintLayout background;
 
     public MyPostView(@NonNull Context context) {
         super(context);
@@ -61,6 +63,7 @@ public class MyPostView extends ConstraintLayout {
         textGender= (TextView) findViewById(R.id.textGender);
         textPeople= (TextView) findViewById(R.id.textPeople);
         textDistance= (TextView) findViewById(R.id.textDistance);
+        background = (ConstraintLayout) findViewById(R.id.background);
     }
 
     private void getAttrs(AttributeSet attrs){
@@ -88,8 +91,20 @@ public class MyPostView extends ConstraintLayout {
     }
 
     public void set(Post p){
+        POST_ID = p.getPostID();
+
         textRestaurant.setText(p.getRestaurant());
-        textCategory.setText("# "+p.getCategory());
+        String category = null;
+        switch(p.getCategory()){
+            case 0: category = "한식"; break;
+            case 1: category = "중식"; break;
+            case 2: category = "일식"; break;
+            case 3: category = "양식"; break;
+            case 4: category = "분식"; break;
+            case 5: category = "아시안"; break;
+            case 6: category = "패스트푸드"; break;
+        }
+        textCategory.setText("# "+category);
         textDate.setText(p.getMeeting_date());
         textTime.setText(p.getMeeting_time());
         textID.setText("작성자 : "+p.getId());
@@ -99,24 +114,20 @@ public class MyPostView extends ConstraintLayout {
         textGender.setText("성별 : " + gender);    // 성별 to string 변환 필요
         textPeople.setText("인원 : "+p.getCur_people()+"/"+p.getMax_people());
         textDistance.setText("거리 : 100 m"); // 거리 계산 필요
+
+        String bg = null;
+        int age = p.getAge(); //test 값
+        // 나이별 배경 색
+        if (age < 20) bg = "#66FFB2";    // 10대
+        else if (age < 30) bg = "#33FF99";    // 20대
+        else if (age < 40) bg = "#00FF80";    // 30대
+        else if (age < 50) bg = "#00CC66";    // 40대
+        else if (age < 60) bg = "#00994C";    // 50대
+        else bg = "#006633";    // 60대 이상
+        background.setBackgroundColor(Color.parseColor(bg)); // 배경 색 세팅
+
+        textDistance.setText("거리 : 약 "+ (int)p.getDistance() +" m");
     }
 
-    private double degtoRad(double deg){
-        return deg*Math.PI/180.0;
-    }
-    private double radtoDeg(double rad){
-        return rad*180/Math.PI;
-    }
-
-    public void setDistance(Post p, double longitude, double latitude){
-        double theta = longitude - p.longitude;
-        double distance = Math.sin(degtoRad(latitude)) * Math.sin(degtoRad(p.latitude)) + Math.cos(degtoRad(latitude)) * Math.cos(degtoRad(p.latitude)) * Math.cos(degtoRad(theta));
-        distance = Math.acos(distance);
-        distance = radtoDeg(distance);
-        distance = distance*60*1.1515;
-        distance = distance*1609.344;
-
-        textDistance.setText("거리 : 약 "+ (int)distance +" m");
-    }
-
+    public int getPostID(){ return this.POST_ID;}
 }

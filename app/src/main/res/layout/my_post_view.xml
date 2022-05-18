@@ -3,130 +3,141 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="5dp">
 
-    <TextView
-        android:id="@+id/textRestaurant"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="식당명"
-        android:fontFamily="@font/gmarket_sans_ttf_bold"
-        android:textColor="#FFF3D3"
-        android:textSize="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            tools:ignore="MissingConstraints">
 
-    <TextView
-        android:id="@+id/textCategory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:fontFamily="@font/gmarket_sans_ttf_bold"
-        android:text="#카테고리"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textRestaurant"
-        app:layout_constraintVertical_bias="0.0" />
+                <TextView
+                    android:id="@+id/textRestaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_bold"
+                    android:text="식당명"
+                    android:textColor="#FFF3D3"
+                    android:textSize="40dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textID"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="작성자 : 작성자ID"
-        android:fontFamily="@font/gmarket_sans_ttf_medium"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+                <TextView
+                    android:id="@+id/textCategory"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_bold"
+                    android:text="#카테고리"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/textRestaurant"
+                    app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textGender"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="성별 : 여/남"
-        android:fontFamily="@font/gmarket_sans_ttf_medium"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textID"
-        app:layout_constraintVertical_bias="0.0" />
+                <TextView
+                    android:id="@+id/textID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_medium"
+                    android:text="작성자 : 작성자ID"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textPeople"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="인원 : 모인인원/모집인원"
-        android:fontFamily="@font/gmarket_sans_ttf_medium"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textGender"
-        app:layout_constraintVertical_bias="0.0" />
+                <TextView
+                    android:id="@+id/textGender"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_medium"
+                    android:text="성별 : 여/남"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintTop_toBottomOf="@+id/textID"
+                    app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/gmarket_sans_ttf_medium"
-        android:text="YY/MM/DD"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textCategory"
-        app:layout_constraintVertical_bias="0.256" />
+                <TextView
+                    android:id="@+id/textPeople"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_medium"
+                    android:text="인원 : 모인인원/모집인원"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintTop_toBottomOf="@+id/textGender"
+                    app:layout_constraintVertical_bias="0.0" />
 
-    <TextView
-        android:id="@+id/textTime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="15dp"
-        android:text="hh:mm"
-        android:fontFamily="@font/gmarket_sans_ttf_medium"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textDate" />
+                <TextView
+                    android:id="@+id/textDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/gmarket_sans_ttf_medium"
+                    android:text="YY/MM/DD"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/textCategory"
+                    app:layout_constraintVertical_bias="0.256" />
 
-    <TextView
-        android:id="@+id/textDistance"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="거리 : 00 m"
-        android:fontFamily="@font/gmarket_sans_ttf_medium"
-        android:textColor="@color/black"
-        android:textSize="15dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toBottomOf="@+id/textPeople"
-        app:layout_constraintVertical_bias="1.0" />
+                <TextView
+                    android:id="@+id/textTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_medium"
+                    android:text="hh:mm"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/guideline2"
+                    app:layout_constraintTop_toBottomOf="@+id/textDate" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="16dp" />
+                <TextView
+                    android:id="@+id/textDistance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_medium"
+                    android:text="거리 : 00 m"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintTop_toBottomOf="@+id/textPeople"
+                    app:layout_constraintVertical_bias="1.0" />
 
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="405dp" />
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="16dp" />
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_begin="393dp" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,48 +1,41 @@
 package OSS.geteatwithme;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
-
-import com.google.android.material.chip.ChipGroup;
-
-import org.w3c.dom.Text;
 
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Iterator;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.MyPostView;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UserInfo.user;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,12 +48,40 @@ public class MainActivity extends AppCompatActivity {
     double longitude;
     double latitude;
 
+    private double degtoRad(double deg){
+        return deg*Math.PI/180.0;
+    }
+    private double radtoDeg(double rad){
+        return rad*180/Math.PI;
+    }
+
+    // post 식당과 현재 위치 사이 거리
+    public double getDistance(Post p, double longitude, double latitude){
+        double theta = longitude - p.getLongitude();
+        double distance = Math.sin(degtoRad(latitude)) * Math.sin(degtoRad(p.getLatitude())) + Math.cos(degtoRad(latitude)) * Math.cos(degtoRad(p.getLatitude())) * Math.cos(degtoRad(theta));
+        distance = Math.acos(distance);
+        distance = radtoDeg(distance);
+        distance = distance*60*1.1515;
+        distance = distance*1609.344;
+        return distance;
+    }
+
     void setAllRadioButtonOff() {
         for (int i = 0; i < 8; i++)
             radioButtons[i].setChecked(false);
     }
 
     void showPosts() {
+        for(Post p : posts)
+            p.setDistance(getDistance(p, longitude, latitude));
+
+        Collections.sort(posts, new Comparator<Post>() {
+            @Override
+            public int compare(Post o1, Post o2) {
+                return (int)(o1.getDistance() - o2.getDistance());
+            }
+        });
+
         if (linearlayout != null)
             ((ViewGroup) linearlayout.getParent()).removeView(linearlayout);
         linearlayout = new LinearLayout(this);
@@ -71,21 +92,11 @@ public class MainActivity extends AppCompatActivity {
         for (Post p : posts) {
             MyPostView postView = new MyPostView(this);
             postView.set(p);
-            String bg = null;
-            int age = p.getAge(); //test 값
-            // 나이별 배경 색
-            if (age < 20) bg = "#66FFB2";    // 10대
-            else if (age < 30) bg = "#33FF99";    // 20대
-            else if (age < 40) bg = "#00FF80";    // 30대
-            else if (age < 50) bg = "#00CC66";    // 40대
-            else if (age < 60) bg = "#00994C";    // 50대
-            else bg = "#006633";    // 60대 이상
-            postView.setDistance(p, longitude, latitude); // 거리 값 세팅
-            postView.setBackgroundColor(Color.parseColor(bg));  // 배경 색 세팅
             postView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent myIntent = new Intent(getApplicationContext(), ShowPosting.class);
+                    Intent myIntent = new Intent(getApplicationContext(), ShowPostActivity.class);
+                    myIntent.putExtra("postID", postView.getPostID());
                     startActivity(myIntent);
                 }
             });
@@ -104,30 +115,32 @@ public class MainActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         setContentView(R.layout.activity_main);
 
-        // 현재 경도, 위도 가져오기
+        // test-
         LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // gps 권한 요청
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
         }
         Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        longitude = location.getLongitude();
-        latitude = location.getLatitude();
+        ((user)getApplication()).setLatitude(location.getLatitude());
+        ((user)getApplication()).setLogitude(location.getLongitude());
 
+        ((user)getApplication()).setUserID("user id");
+        // -test
+
+
+        // 경도, 위도를 주소로 변환
+        longitude = ((user)getApplication()).getLongitude();
+        latitude = ((user)getApplication()).getLatitude();
         Geocoder g = new Geocoder(this);
         List<Address> address = null;
         try {
             address = g.getFromLocation(latitude, longitude, 10);
-            System.out.println(address.get(0).getAddressLine(0));
             TextView textView = (TextView) findViewById(R.id.textview);
             textView.setText(address.get(2).getAddressLine(0));
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        // test-
-        // -test
 
         radioButtons[0] = (RadioButton) findViewById(R.id.radioButton11);
         radioButtons[1] = (RadioButton) findViewById(R.id.radioButton12);
@@ -141,6 +154,7 @@ public class MainActivity extends AppCompatActivity {
         // 전체 post 보여주기
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+
         // 한식
         radioButtons[0].setOnClickListener(new View.OnClickListener(){
 
@@ -247,6 +261,8 @@ public class MainActivity extends AppCompatActivity {
                         });
             }
         });
+
+        // 첫 화면 - 전체 보여주기
         userProfileAPI.getAllPost()
                 .enqueue(new Callback<LinkedList<Post>>() {
                     @Override
@@ -260,6 +276,21 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 });
+
+        Button search = (Button) findViewById(R.id.searchButton);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText editText = (EditText) findViewById(R.id.editTextRestaurantName);
+                String str = editText.getText().toString(); // 검색 문자열
+
+                // posts 업데이트 필요
+
+                showPosts();
+            }
+        });
+
+        // 모집 글 등록 버튼
         Button registration = (Button) findViewById(R.id.registrationButton);
         registration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,5 +299,36 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+
+        // 채팅 버튼
+        ImageButton chat = (ImageButton) findViewById(R.id.chatButton);
+        chat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);    // test
+                startActivity(myIntent);
+            }
+        });
+
+        // 알람 버튼
+        ImageButton notice = (ImageButton) findViewById(R.id.noticeButton);
+        notice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);    // test
+                startActivity(myIntent);
+            }
+        });
+
+        // 마이 페이지 버튼
+        ImageButton myPage = (ImageButton) findViewById(R.id.MyPageButton);
+        myPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);
+                startActivity(myIntent);
+            }
+        });
     }
+
 }
