@@ -283,10 +283,21 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 EditText editText = (EditText) findViewById(R.id.editTextRestaurantName);
                 String str = editText.getText().toString(); // 검색 문자열
+                userProfileAPI.getSearchingPost(str)
+                        .enqueue(new Callback<LinkedList<Post>>() {
+                            @Override
+                            public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                posts=response.body();
+                                showPosts();
+                            }
 
+                            @Override
+                            public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                            }
+                        });
                 // posts 업데이트 필요
-
-                showPosts();
+                //showPosts();
             }
         });
 

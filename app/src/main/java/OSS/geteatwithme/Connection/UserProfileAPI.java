@@ -59,4 +59,8 @@ public interface UserProfileAPI {
             @Field("Longtitude")Double Longitutde,
             @Field("Latitude")Double Latitude
     );
+    @GET("/post/search/{name}")
+    Call<LinkedList<Post>> getSearchingPost(
+            @Path("name")String name
+    );
 }
