@@ -33,6 +33,10 @@ public interface UserProfileAPI {
             @Field("age") int age,
             @Field("nickname") String nickname
     );
+    @GET("/user/{id}")
+    Call<UserProfile> getUserProfile(
+            @Path("id")String id
+    );
     @GET("/user/login/{id}/{password}")
     Call<Integer> checkLogin(
             @Path("id")String id,
