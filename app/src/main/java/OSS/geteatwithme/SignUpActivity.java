@@ -133,10 +133,7 @@ public class SignUpActivity extends AppCompatActivity {
                 Toast.makeText(this, "You did not enter a nickname", Toast.LENGTH_SHORT).show();
             }
             else {
-                /*
-                 *   user가 입력한 nickname, 서버로 전송
-                 *   database에 nickname중복 확인 후 결과 값 nickname_check_result 받기
-                 */
+
                 RetrofitService retrofitService= new RetrofitService();
                 UserProfileAPI userProfileAPI= retrofitService.getRetrofit().create(UserProfileAPI.class);
                 userProfileAPI.checkNick(nickname_str)

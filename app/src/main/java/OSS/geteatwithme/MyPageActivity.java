@@ -65,8 +65,8 @@ public class MyPageActivity extends AppCompatActivity {
         logout = (Button)findViewById(R.id.btn_logout);
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
-/*
-        Call<UserProfile> calls= userProfileAPI.getUserProfile("yejinbb");
+
+        Call<UserProfile> calls= userProfileAPI.getUserProfile("abcd");
         try {
             user_info=new GetTask().execute(calls).get();
         } catch (ExecutionException e) {
@@ -90,14 +90,20 @@ public class MyPageActivity extends AppCompatActivity {
         tmp_int=user_info.getAge();
         tmp_String=Integer.toString(tmp_int);
         age.setText(tmp_String);
-*/
+
         editInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
             }
         });
-
+        view_myPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), MyPostListActivity.class);
+                startActivity(myIntent);
+            }
+        });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

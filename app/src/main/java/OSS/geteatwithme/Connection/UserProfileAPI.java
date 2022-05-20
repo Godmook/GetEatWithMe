@@ -67,4 +67,8 @@ public interface UserProfileAPI {
     Call<LinkedList<Post>> getSearchingPost(
             @Path("name")String name
     );
+    @GET("/post/{id}/all")
+    Call<LinkedList<Post>> getUserAllPost(
+            @Path("id")String id
+    );
 }

@@ -176,7 +176,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#FFFFFF"
-            android:text="내가 쓴 글 (보기 및 수정)"
+            android:text="내가 작성한 post (수정 및 삭제)"
             android:textAlignment="center"
             android:textAllCaps="false"
             android:textColor="@color/black"

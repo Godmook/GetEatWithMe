@@ -18,6 +18,12 @@
         android:theme="@style/Theme.GetEatWithMe"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".EditPostActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MyPostListActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyPageActivity"
             android:exported="false" />
         <activity
@@ -41,7 +47,10 @@
         <activity
             android:name=".SignInActivity"
             android:exported="false" />
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="03a4403a93a58498c4b299b4ad6f72e3" />
+
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="03a4403a93a58498c4b299b4ad6f72e3" />
     </application>
 
 </manifest>
