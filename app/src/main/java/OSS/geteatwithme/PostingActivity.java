@@ -9,9 +9,12 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -36,7 +39,8 @@ public class PostingActivity extends AppCompatActivity {
     int num_of_people2 = 1;
     EditText editPosting;
     Button cancel, post;
-
+    Switch gender_open;
+    TextView gender_open_text;
     // 라디오 버튼(카테고리 선택)
     RadioButton[] radioButtons = new RadioButton[7];
     void setAllRadioButtonOff(){
@@ -219,7 +223,8 @@ public class PostingActivity extends AppCompatActivity {
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 취소
+                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(myIntent);
             }
         });
         post = (Button)findViewById(R.id.btn_post);
@@ -269,6 +274,17 @@ public class PostingActivity extends AppCompatActivity {
                                 }
                             });
                 }
+            }
+        });
+        gender_open=(Switch) findViewById(R.id.sch_gender_open);
+        gender_open_text=(TextView)findViewById(R.id.text_gender_open);
+        gender_open.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    gender_open_text.setText("성별을 공개합니다");
+                else
+                    gender_open_text.setText("성별을 비공개합니다");
             }
         });
     }
