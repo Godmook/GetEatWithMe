@@ -15,7 +15,6 @@ import java.util.concurrent.ExecutionException;
 
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
-import OSS.geteatwithme.PostInfo.MyPostViewAndEdit;
 import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import lombok.val;
@@ -99,13 +98,6 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
-        view_myPost.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), MyPostViewAndEdit.class);
-                startActivity(myIntent);
-            }
-        });
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

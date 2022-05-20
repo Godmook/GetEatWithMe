@@ -6,11 +6,177 @@
     android:layout_height="match_parent"
     tools:context=".ShowPostActivity">
 
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="게시글 상세 정보"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="296dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="GetEatWithMe"
+            android:textColor="#FFF3D3"
+            android:background="#FFC423"
+            android:textSize="35dp"
+            android:fontFamily="@font/gmarket_sans_ttf_bold"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <OSS.geteatwithme.PostInfo.MyPostView
+            android:id="@+id/postView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            app:textRestaurant="식당 이름"
+            app:textCategory="한식"
+            app:textDate="22/05/20"
+            app:textTime="16:35"
+            app:textID="user id"
+            app:textGender="비공개"
+            app:textPeople="4/8"
+            app:textDistance="100m" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:gravity="center_vertical"
+            android:text="포스팅 텍스트"
+            android:layout_margin="10dp"
+            android:textColor="@color/black"
+            android:fontFamily="@font/gmarket_sans_ttf_medium"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#000000"/>
+
+        <ScrollView
+            android:id="@+id/scrollView3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" ● 음식점 이름 : "
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/gmarket_sans_ttf_bold"/>
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_bold"
+                    android:text="● 만날 장소 : "
+                    android:textColor="@color/black"
+                    android:textSize="20dp" />
+
+                <RelativeLayout
+                    android:id="@+id/map_view"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp" >
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="#FD9F28"
+                    android:fontFamily="@font/gmarket_sans_ttf_medium"
+                    android:text="식당 정보 보기" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="● 거리 :"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/gmarket_sans_ttf_bold"/>
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="● 인원 :"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/gmarket_sans_ttf_bold"/>
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_margin="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="● 만날 날짜 :"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/gmarket_sans_ttf_bold"/>
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="● 만날 시간 :"
+                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/gmarket_sans_ttf_bold"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="#FD9F28"
+                        android:fontFamily="@font/gmarket_sans_ttf_medium"
+                        android:text="취소" />
+
+                    <Button
+                        android:id="@+id/button6"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="#FD9F28"
+                        android:fontFamily="@font/gmarket_sans_ttf_medium"
+                        android:text="신청" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </ScrollView>
+
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

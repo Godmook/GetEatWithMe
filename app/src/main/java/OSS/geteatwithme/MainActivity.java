@@ -6,7 +6,9 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
@@ -14,6 +16,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -26,6 +30,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -48,15 +54,15 @@ public class MainActivity extends AppCompatActivity {
     double longitude;
     double latitude;
 
-    private double degtoRad(double deg){
+    private static double degtoRad(double deg){
         return deg*Math.PI/180.0;
     }
-    private double radtoDeg(double rad){
+    private static double radtoDeg(double rad){
         return rad*180/Math.PI;
     }
 
     // post 식당과 현재 위치 사이 거리
-    public double getDistance(Post p, double longitude, double latitude){
+    public static double getDistance(Post p, double longitude, double latitude){
         double theta = longitude - p.getLongitude();
         double distance = Math.sin(degtoRad(latitude)) * Math.sin(degtoRad(p.getLatitude())) + Math.cos(degtoRad(latitude)) * Math.cos(degtoRad(p.getLatitude())) * Math.cos(degtoRad(theta));
         distance = Math.acos(distance);
@@ -108,7 +114,6 @@ public class MainActivity extends AppCompatActivity {
         view.addView(linearlayout, 0);
 
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
         radioButtons[6] = (RadioButton) findViewById(R.id.radioButton18);
         radioButtons[7] = (RadioButton) findViewById(R.id.radioButton19);
 
-        // 전체 post 보여주기
+
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
 
@@ -277,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
+        // 검색 버튼
         Button search = (Button) findViewById(R.id.searchButton);
         search.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -118,12 +118,12 @@ public class MyPostView extends ConstraintLayout {
         String bg = null;
         int age = p.getAge(); //test 값
         // 나이별 배경 색
-        if (age < 20) bg = "#66FFB2";    // 10대
-        else if (age < 30) bg = "#33FF99";    // 20대
-        else if (age < 40) bg = "#00FF80";    // 30대
-        else if (age < 50) bg = "#00CC66";    // 40대
-        else if (age < 60) bg = "#00994C";    // 50대
-        else bg = "#006633";    // 60대 이상
+        if (age < 20) bg = "#A9E2F3";    // 10대
+        else if (age < 30) bg = "#58D3F7";    // 20대
+        else if (age < 40) bg = "#00BFFF";    // 30대
+        else if (age < 50) bg = "#01A9DB";    // 40대
+        else if (age < 60) bg = "#0489B1";    // 50대
+        else bg = "#086A87";    // 60대 이상
         background.setBackgroundColor(Color.parseColor(bg)); // 배경 색 세팅
 
         textDistance.setText("거리 : 약 "+ (int)p.getDistance() +" m");

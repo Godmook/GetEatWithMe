@@ -75,6 +75,7 @@ public class SignInActivity extends AppCompatActivity {
                                 ((user)getApplication()).setUserID(id);
                                 Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(myIntent);
+                                finish();
                             }
                             // 로그인 실패
                             else {
