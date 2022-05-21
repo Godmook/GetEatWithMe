@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
@@ -35,17 +36,36 @@ import net.daum.mf.map.api.MapView;
 
 import org.w3c.dom.Text;
 
+import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.ExecutionException;
 
+import OSS.geteatwithme.Connection.RetrofitService;
+import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.MyPostView;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UserInfo.UserProfile;
 import OSS.geteatwithme.UserInfo.user;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class ShowPostActivity extends AppCompatActivity {
     int POST_ID;
     Post post;
+    private class PostTask extends AsyncTask<Call,Void,Post> {
+        @Override
+        protected Post doInBackground(Call... calls) {
+            try{
+                Call<Post> call=calls[0];
+                Response<Post> response=call.execute();
+                return response.body();
+            }catch(IOException e){
 
+            }
+            return null;
+        }
+    }
     @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +73,21 @@ public class ShowPostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_post);
 
         Intent myIntent = getIntent();
-        POST_ID = myIntent.getIntExtra("postID", 0);
+        POST_ID = myIntent.getIntExtra("postID", 1);
 
+        RetrofitService retrofitService = new RetrofitService();
+        UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+        Call<Post>call=userProfileAPI.getPostByPost_id(POST_ID);
+        try {
+            post=new PostTask().execute(call).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // 서버에 post 정보 요청
-
         // test-
+        /*
         post = new Post();
         post.setId("MinI0123");
         post.setRestaurant("국빈");
@@ -73,6 +103,7 @@ public class ShowPostActivity extends AppCompatActivity {
         post.setGender(2);
         post.setPostID(1);
         post.setAge(22);
+        */
         // -test
 
 

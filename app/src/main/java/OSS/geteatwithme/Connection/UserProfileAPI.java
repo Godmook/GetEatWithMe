@@ -9,8 +9,10 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface UserProfileAPI {
     @GET("/user/all")
@@ -70,5 +72,13 @@ public interface UserProfileAPI {
     @GET("/post/{id}/all")
     Call<LinkedList<Post>> getUserAllPost(
             @Path("id")String id
+    );
+    @GET("/post/find_by_post_id/{id}")
+    Call<Post>getPostByPost_id(
+            @Path("id")int id
+    );
+    @GET("v2/local/search/keyword.json")
+    Call<ResultSearchKeyword>GetSearchKeyword(
+        @Header("Authorization")String key, @Query("query")String query, @Query("x")String x,@Query("y")String y, @Query("radius")String radius
     );
 }

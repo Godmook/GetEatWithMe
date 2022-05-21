@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,25 +21,41 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class EditPostActivity extends AppCompatActivity {
+    private class GetPostTask extends AsyncTask<Call,Void, Post> {
+        @Override
+        protected Post doInBackground(Call... calls) {
+            try{
+                Call<Post> call=calls[0];
+                Response<Post> response=call.execute();
+                return response.body();
+            }catch(IOException e){
+
+            }
+            return null;
+        }
+    }
     String []number_of_people1 = {"2", "3", "4", "5", "6", "7", "8"};
     String []number_of_people2 = {"1", "2", "3", "4", "5", "6", "7"};
     EditText editPosting;
     Button cancel, delete, edit;
     Switch gender_visible;
     TextView gender_open_text;
-
+    Post EditPost=new Post();
     // 라디오 버튼(카테고리 선택)
     RadioButton[] radioButtons = new RadioButton[7];
     void setAllRadioButtonOff(){
@@ -68,20 +85,26 @@ public class EditPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post);
-        Post EditPost=new Post();
-
-        EditPost.setId("abcd");
-
+        Intent secondIntent=getIntent();
+        int Editpost_id=secondIntent.getExtras().getInt("postID");
+        RetrofitService retrofitService = new RetrofitService();
+        UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+        Call<Post>call=userProfileAPI.getPostByPost_id(Editpost_id);
+        try {
+            EditPost=new GetPostTask().execute(call).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         int tmp_int;
         String tmp_String;
 
         // 모일 인원 및 모인 인원 spinner 설정
         Spinner spinner_1 = findViewById(R.id.edit_max_people_spinner);
         Spinner spinner_2 = findViewById(R.id.edit_cur_people_spinner);
-        tmp_int = EditPost.getMax_people()-1;
-        spinner_1.setSelection(tmp_int);
-        tmp_int = EditPost.getMax_people()-2;
-        spinner_2.setSelection(tmp_int);
+        spinner_1.setSelection(EditPost.getMax_people());
+        spinner_2.setSelection(EditPost.getCur_people());
 
         //모일 인원 spinner 설정
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(
@@ -123,8 +146,7 @@ public class EditPostActivity extends AppCompatActivity {
         radioButtons[5] = (RadioButton) findViewById(R.id.radioButton_5);
         radioButtons[6] = (RadioButton) findViewById(R.id.radioButton_6);
         // posting에서 선택된 category check
-        tmp_int=EditPost.getCur_people();
-        radioButtons[tmp_int].setChecked(true);
+        radioButtons[EditPost.getCategory()].setChecked(true);
 
         // 한식
         radioButtons[0].setOnClickListener(new View.OnClickListener(){
@@ -191,8 +213,7 @@ public class EditPostActivity extends AppCompatActivity {
         });
         // 날짜 설정
         EditText et_Date = (EditText) findViewById(R.id.edit_Date);
-        tmp_String=EditPost.getMeeting_date();
-        et_Date.setText(tmp_String);
+        et_Date.setText(EditPost.getMeeting_date());
         et_Date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,8 +223,7 @@ public class EditPostActivity extends AppCompatActivity {
 
         // 시간 설정
         EditText et_time = (EditText) findViewById(R.id.edit_Time);
-        tmp_String=EditPost.getMeeting_time();
-        et_time.setText(tmp_String);
+        et_time.setText(EditPost.getMeeting_time());
         et_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

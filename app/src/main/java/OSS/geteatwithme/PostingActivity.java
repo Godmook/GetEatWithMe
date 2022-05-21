@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import OSS.geteatwithme.Connection.KaKaofitService;
+import OSS.geteatwithme.Connection.ResultSearchKeyword;
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.Post;
@@ -37,6 +39,7 @@ public class PostingActivity extends AppCompatActivity {
     Button cancel, post;
     Switch gender_visible;
     TextView gender_open_text;
+    Button Restaurant_search;
     // 라디오 버튼(카테고리 선택)
     RadioButton[] radioButtons = new RadioButton[7];
     void setAllRadioButtonOff(){
@@ -220,7 +223,6 @@ public class PostingActivity extends AppCompatActivity {
         // posting text 관리
         editPosting = (EditText)findViewById(R.id.edit_editPostingText);
 
-
         // button 관리
         cancel = (Button)findViewById(R.id.btn_edit_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
@@ -280,6 +282,34 @@ public class PostingActivity extends AppCompatActivity {
                 }
             }
         });
+        Restaurant_search=(Button)findViewById(R.id.meeting_place_find_button);
+        Restaurant_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                KaKaofitService kaKaofitService=new KaKaofitService();
+                UserProfileAPI userProfileAPI= kaKaofitService.getKakaoFit().create(UserProfileAPI.class);
+                userProfileAPI.GetSearchKeyword("KakaoAK f9e3926b054ba1f5d08a2672f49e8869","세종대학교","37.55053128987321","127.07343336371858","1000")
+                        .enqueue(new Callback<ResultSearchKeyword>() {
+                            @Override
+                            public void onResponse(Call<ResultSearchKeyword> call, Response<ResultSearchKeyword> response) {
+                                if(response.isSuccessful()){
+                                    if(response.body()!=null){
+                                        for(int i=0;i<response.body().documentList.size();i++){
+                                            Toast.makeText(PostingActivity.this,response.body().documentList.get(i).getPlace_name(),Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                }
+                            }
+
+                            @Override
+                            public void onFailure(Call<ResultSearchKeyword> call, Throwable t) {
+
+                            }
+                        });
+            }
+        });
+
+
         gender_visible=(Switch) findViewById(R.id.edit_sch_gender_visible);
         gender_open_text=(TextView)findViewById(R.id.edit_text_gender_visible);
         gender_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

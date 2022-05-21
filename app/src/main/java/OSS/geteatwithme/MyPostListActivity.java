@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -44,7 +45,9 @@ public class MyPostListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     Intent myIntent = new Intent(getApplicationContext(), EditPostActivity.class);
                     myIntent.putExtra("postID", postView.getPostID());
+                    //Toast.makeText(MyPostListActivity.this,postView.getPostID(),Toast.LENGTH_SHORT).show();
                     startActivity(myIntent);
+                    finish();
                 }
             });
             linearlayout.addView(postView, idx++);

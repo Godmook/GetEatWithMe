@@ -85,7 +85,6 @@ public class MyPostView extends ConstraintLayout {
         textPeople.setText(people);
         textDistance.setText(distance);
     }
-
     private void getAttrs(AttributeSet attrs, int defStyle){
         getAttrs(attrs);
     }
