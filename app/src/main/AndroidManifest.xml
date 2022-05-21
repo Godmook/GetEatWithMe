@@ -18,6 +18,9 @@
         android:theme="@style/Theme.GetEatWithMe"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".EditUserProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".SearchMeetingPlaceActivity"
             android:exported="false" />
         <activity

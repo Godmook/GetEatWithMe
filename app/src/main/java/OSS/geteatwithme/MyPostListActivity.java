@@ -68,7 +68,7 @@ public class MyPostListActivity extends AppCompatActivity {
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
         // 첫 화면 - 전체 보여주기
-        userProfileAPI.getUserAllPost("abcd")
+        userProfileAPI.getUserAllPost("cmoh4135")
                 .enqueue(new Callback<LinkedList<Post>>() {
                     @Override
                     public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {

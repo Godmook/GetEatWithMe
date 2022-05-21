@@ -77,12 +77,9 @@ public class MyPageActivity extends AppCompatActivity {
         int tmp_int;
         String tmp_String;
 
-        tmp_String = user_info.getNickname();
-        nickname.setText(tmp_String);
-        tmp_String = user_info.getId();
-        id.setText(tmp_String);
-        tmp_String = user_info.getName();
-        name.setText(tmp_String);
+        nickname.setText(user_info.getNickname());
+        id.setText(user_info.getId());
+        name.setText(user_info.getName());
         tmp_int=user_info.getGender();
         if(tmp_int == 0){tmp_String = "남성";}
         else {tmp_String="여성";}
@@ -94,7 +91,8 @@ public class MyPageActivity extends AppCompatActivity {
         editInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent myIntent = new Intent(getApplicationContext(), EditUserProfileActivity.class);
+                startActivity(myIntent);
             }
         });
         view_myPost.setOnClickListener(new View.OnClickListener() {
