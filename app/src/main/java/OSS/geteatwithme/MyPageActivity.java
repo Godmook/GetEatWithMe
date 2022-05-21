@@ -66,7 +66,7 @@ public class MyPageActivity extends AppCompatActivity {
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
 
-        Call<UserProfile> calls= userProfileAPI.getUserProfile("abcd");
+        Call<UserProfile> calls= userProfileAPI.getUserProfile("cmoh4135");
         try {
             user_info=new GetTask().execute(calls).get();
         } catch (ExecutionException e) {

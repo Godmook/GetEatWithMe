@@ -4,17 +4,24 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
+
 import java.io.IOException;
 
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.UserInfo.UserProfile;
+import lombok.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -33,10 +40,23 @@ public class SignUpActivity extends AppCompatActivity {
             return null;
         }
     }
+    private class TokenTask extends AsyncTask<Call,Void,Void>{
+        @Override
+        protected Void doInBackground(Call... calls) {
+            try{
+                Call<Integer> call=calls[0];
+                Response<Integer> response=call.execute();
+            }catch(IOException e){
+
+            }
+            return null;
+        }
+    }
     TextView back;
     EditText name,id,pw,pw2,age,nickname;
     RadioGroup radioGroup;
     Button pwcheck, submit, idcheck, nicknamecheck;
+    String token;
     int gender;
     boolean id_check_result=true;
     boolean nickname_check_result=false;
@@ -45,7 +65,17 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+                        // Get new FCM registration token
+                        token = task.getResult();
+                    }
+                });
         //뒤로 가기 버튼
         back = findViewById(R.id.back);
         back.setOnClickListener(v -> onBackPressed() );
@@ -213,11 +243,20 @@ public class SignUpActivity extends AppCompatActivity {
                                                                 if(nickname_check_result==true){  // 중복아이디 없음
                                                                     // 1), 2), 3) 모두 충족 시 가입 가능.
                                                                     // 서버에 모든 정보 전달.
-                                                                    Call<UserProfile> calls= userProfileAPI.createPost(id_str,name.getText().toString(),gender,PW_str,Integer.parseInt(age.getText().toString()),nickname_str);
-                                                                    new LogincheckTask().execute(calls);
+                                                                    userProfileAPI.createPost(id_str,name.getText().toString(),gender,PW_str,Integer.parseInt(age.getText().toString()),nickname_str,token)
+                                                                            .enqueue(new Callback<UserProfile>() {
+                                                                                @Override
+                                                                                public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                                                                                }
+
+                                                                                @Override
+                                                                                public void onFailure(Call<UserProfile> call, Throwable t) {
+
+                                                                                }
+                                                                            });
+                                                                    Toast.makeText(SignUpActivity.this, "가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
                                                                     Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
                                                                     startActivity(intent);
-                                                                    Toast.makeText(SignUpActivity.this, "가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
                                                                 }
                                                                 else{
                                                                     Toast.makeText(SignUpActivity.this, "이미 존재하는 닉네임 입니다.", Toast.LENGTH_LONG).show();

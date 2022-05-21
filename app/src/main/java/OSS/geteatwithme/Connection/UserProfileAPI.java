@@ -33,7 +33,8 @@ public interface UserProfileAPI {
             @Field("gender") int gender,
             @Field("password") String password,
             @Field("age") int age,
-            @Field("nickname") String nickname
+            @Field("nickname") String nickname,
+            @Field("token_id")String token_id
     );
     @GET("/user/{id}")
     Call<UserProfile> getUserProfile(
@@ -80,5 +81,13 @@ public interface UserProfileAPI {
     @GET("v2/local/search/keyword.json")
     Call<ResultSearchKeyword>GetSearchKeyword(
         @Header("Authorization")String key, @Query("query")String query, @Query("x")String x,@Query("y")String y, @Query("radius")String radius
+    );
+    @PUT("/update/token/{id}/{token}")
+    Call<Integer>UpdateToken(
+      @Path("id")String id,@Path("token")String token
+    );
+    @PUT("/insert/token/{id}/{token}")
+    Call<Integer>InsertToken(
+            @Path("id")String id,@Path("token")String token
     );
 }
