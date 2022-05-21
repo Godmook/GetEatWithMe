@@ -97,4 +97,12 @@ public interface UserProfileAPI {
     Call<NotificationResponse>PutNotification(
             @Body NotificationRequest notificationRequest
     );
+    @FormUrlEncoded
+    @POST("/update/user/{id}")
+    Call<Integer>UpdateUserProfile(
+            @Path("id")String id,
+            @Field("password")String password,
+            @Field("age")int age,
+            @Field("nickname")String nickname
+    );
 }

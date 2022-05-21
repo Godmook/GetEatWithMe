@@ -90,8 +90,7 @@ public class ShowPostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_post);
 
         Intent myIntent = getIntent();
-        POST_ID = myIntent.getIntExtra("postID", 1);
-
+        POST_ID = myIntent.getIntExtra("postID", 0);
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
         Call<Post>call=userProfileAPI.getPostByPost_id(POST_ID);
@@ -212,7 +211,6 @@ public class ShowPostActivity extends AppCompatActivity {
                 return false;
             }
         });
-        Toast.makeText(ShowPostActivity.this,post.getId(),Toast.LENGTH_SHORT).show();
         // 식당 정보 보기 버튼
         int restaurant_id = post.getRestaurant_id();
         Button showRestaurantInfo = (Button) findViewById(R.id.button3);

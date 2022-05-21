@@ -2,7 +2,9 @@ package OSS.geteatwithme;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -65,8 +67,8 @@ public class MyPageActivity extends AppCompatActivity {
         logout = (Button)findViewById(R.id.btn_logout);
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
-
-        Call<UserProfile> calls= userProfileAPI.getUserProfile("cmoh4135");
+        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+        Call<UserProfile> calls= userProfileAPI.getUserProfile(auto.getString("ID",null));
         try {
             user_info=new GetTask().execute(calls).get();
         } catch (ExecutionException e) {
@@ -105,6 +107,10 @@ public class MyPageActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences pref = getSharedPreferences("LoginSource", MODE_PRIVATE);
+                SharedPreferences.Editor editor = pref.edit();
+                editor.clear();
+                editor.commit();
                 logout();
             }
         });

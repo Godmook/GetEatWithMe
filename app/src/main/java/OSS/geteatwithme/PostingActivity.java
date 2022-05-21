@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -88,8 +89,8 @@ public class PostingActivity extends AppCompatActivity {
         test
         //아이디 값을 전역적으로 가지고 오는 변수가 존재하지 않아서 우선은 id 값은 보류
         */
-        InputPost.setId("cmoh4135");
-
+        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+        InputPost.setId(auto.getString("ID",null));
         // 모일 인원 및 모인 인원 spinner 설정
         Spinner spinner_1 = findViewById(R.id.edit_max_people_spinner);
         Spinner spinner_2 = findViewById(R.id.edit_cur_people_spinner);

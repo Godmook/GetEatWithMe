@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +38,8 @@ public class SearchRestaurantActivity extends AppCompatActivity {
             public void onClick(View v) {
                 KaKaofitService kaKaofitService=new KaKaofitService();
                 UserProfileAPI userProfileAPI= kaKaofitService.getKakaoFit().create(UserProfileAPI.class);
-                userProfileAPI.GetSearchKeyword("KakaoAK f9e3926b054ba1f5d08a2672f49e8869","세종대학교","37.55053128987321","127.07343336371858","1000")
+                SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+                userProfileAPI.GetSearchKeyword("KakaoAK f9e3926b054ba1f5d08a2672f49e8869","쿠마카레야",auto.getString("longitude",null),auto.getString("latitude",null),"1000")
                         .enqueue(new Callback<ResultSearchKeyword>() {
                             @Override
                             public void onResponse(Call<ResultSearchKeyword> call, Response<ResultSearchKeyword> response) {

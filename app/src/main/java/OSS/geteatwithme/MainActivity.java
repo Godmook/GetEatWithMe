@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
@@ -28,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -98,9 +101,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void showPosts() {
-        for(Post p : posts)
+        for(Post p : posts) {
             p.setDistance(getDistance(p, longitude, latitude));
-
+        }
         Collections.sort(posts, new Comparator<Post>() {
             @Override
             public int compare(Post o1, Post o2) {
@@ -156,6 +159,11 @@ public class MainActivity extends AppCompatActivity {
         // 경도, 위도를 주소로 변환
         longitude = ((user)getApplication()).getLongitude();
         latitude = ((user)getApplication()).getLatitude();
+        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor autoLoginEdit = auto.edit();
+        autoLoginEdit.putString("longitude", Double.toString(longitude));
+        autoLoginEdit.putString("latitude", Double.toString(latitude));
+        autoLoginEdit.commit();
         Geocoder g = new Geocoder(this);
         List<Address> address = null;
         try {
