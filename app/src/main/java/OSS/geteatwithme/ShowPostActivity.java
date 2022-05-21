@@ -136,8 +136,8 @@ public class ShowPostActivity extends AppCompatActivity {
         mapView.addPOIItem(marker);
         // 만날 장소 마커
         // test-
-        double meet_latitude = 37.692592;
-        double meet_longitude = 126.771080;
+        double meet_latitude = post.getMeet_y();
+        double meet_longitude = post.getMeet_x();
         // -test
         MapPoint myPoint2 = MapPoint.mapPointWithGeoCoord(meet_latitude,meet_longitude );
         MapPOIItem marker1 = new MapPOIItem();

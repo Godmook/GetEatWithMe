@@ -42,6 +42,7 @@ import retrofit2.Response;
 public class PostingActivity extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> resultLauncher;
+    ActivityResultLauncher<Intent> resultLauncher2;
     String []number_of_people1 = {"2", "3", "4", "5", "6", "7", "8"};
     String []number_of_people2 = {"1", "2", "3", "4", "5", "6", "7"};
     TextView restaurant_view, meeting_place_view;
@@ -87,7 +88,7 @@ public class PostingActivity extends AppCompatActivity {
         test
         //아이디 값을 전역적으로 가지고 오는 변수가 존재하지 않아서 우선은 id 값은 보류
         */
-        InputPost.setId("abcd");
+        InputPost.setId("cmoh4135");
 
         // 모일 인원 및 모인 인원 spinner 설정
         Spinner spinner_1 = findViewById(R.id.edit_max_people_spinner);
@@ -249,10 +250,7 @@ public class PostingActivity extends AppCompatActivity {
                 InputPost.setContents(editPosting.getText().toString());
                 InputPost.setMeeting_date(et_Date.getText().toString());
                 InputPost.setMeeting_time(et_time.getText().toString());
-                InputPost.setRestaurant("미식반점");
-                InputPost.setMeeting_place("김예진 집 앞");
-                InputPost.setLongitude(111.7);
-                InputPost.setLatitude(37.6);
+
                 if(InputPost.getMax_people() <= InputPost.getCur_people())
                 {
                     Toast.makeText(getApplicationContext(), "모인인원의 수는 모일 인원의 수보다 작아야 합니다.", Toast.LENGTH_LONG).show();
@@ -304,9 +302,15 @@ public class PostingActivity extends AppCompatActivity {
                         InputPost.setLongitude(data.getDoubleExtra("placeX", 0));
                         InputPost.setLatitude(data.getDoubleExtra("placeY", 0));
                         restaurant_view.setText(data.getStringExtra("place_address"));
-                        InputPost.setRestaurant(data.getStringExtra("place2"));
-                        InputPost.setLongitude(data.getDoubleExtra("placeX2", 0));
-                        InputPost.setLatitude(data.getDoubleExtra("placeY2", 0));
+                    }
+                });
+        resultLauncher2=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        InputPost.setMeeting_place(data.getStringExtra("place2"));
+                        InputPost.setMeet_x(data.getDoubleExtra("placeX2", 0));
+                        InputPost.setMeet_y(data.getDoubleExtra("placeY2", 0));
                         meeting_place_view.setText(data.getStringExtra("place_address2"));
                     }
                 });
@@ -330,7 +334,7 @@ public class PostingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), SearchMeetingPlaceActivity.class);
-                resultLauncher.launch(myIntent);
+                resultLauncher2.launch(myIntent);
             }
         });
 
@@ -339,10 +343,14 @@ public class PostingActivity extends AppCompatActivity {
         gender_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
+                if(isChecked) {
                     gender_open_text.setText("성별을 공개합니다");
-                else
+                    InputPost.setVisible(1);
+                }
+                else {
                     gender_open_text.setText("성별을 비공개합니다");
+                    InputPost.setVisible(0);
+                }
             }
         });
     }
