@@ -105,4 +105,11 @@ public interface UserProfileAPI {
             @Field("age")int age,
             @Field("nickname")String nickname
     );
+    @FormUrlEncoded
+    @POST("/update/user/withoutpw/{id}")
+    Call<Integer>UpdateUserProfileWithoutPw(
+            @Path("id")String id,
+            @Field("age")int age,
+            @Field("nickname")String nickname
+    );
 }

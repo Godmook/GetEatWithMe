@@ -124,44 +124,58 @@ public class EditUserProfileActivity extends AppCompatActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Call<Integer>call=userProfileAPI.checkNick(nickname.getText().toString());
-                try {
-                    if(new NickCheckTask().execute(call).get()<1){
-                        user_info.setNickname(nickname.getText().toString());
+                if(!nickname.getText().toString().matches(user_info.getNickname())) {
+                    Call<Integer> call = userProfileAPI.checkNick(nickname.getText().toString());
+                    try {
+                        if (new NickCheckTask().execute(call).get() < 1) {
+                            user_info.setNickname(nickname.getText().toString());
+                        } else {
+                            Toast.makeText(EditUserProfileActivity.this, "사용 불가능한 닉네임입니다!", Toast.LENGTH_SHORT).show();
+                            check_editing = false;
+                        }
+                    } catch (ExecutionException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
-                    else{
-                        Toast.makeText(EditUserProfileActivity.this,"사용 불가능한 닉네임입니다!",Toast.LENGTH_SHORT).show();
-                        check_editing=false;
-                    }
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
                 }
                 user_info.setAge(Integer.parseInt(age.getText().toString()));
-                if(pw.getText().toString().equals("")||pw2.getText().toString().equals("")){
-
-                }
-                else{
-                    if(pw.getText().toString().equals(pw2.getText().toString())) {
-                        user_info.setPassword(pw.getText().toString());
-                    }
-                }
                 if(check_editing){
-                    userProfileAPI.UpdateUserProfile(user_info.getId(),user_info.getPassword(),user_info.getAge(),user_info.getNickname())
-                            .enqueue(new Callback<Integer>() {
-                                @Override
-                                public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                    Toast.makeText(EditUserProfileActivity.this, "수정 성공!", Toast.LENGTH_SHORT).show();
-                                    Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);
-                                    startActivity(myIntent);
-                                }
+                    if(pw.getText().toString().matches("")||pw2.getText().toString().matches("")){
+                        userProfileAPI.UpdateUserProfileWithoutPw(user_info.getId(),user_info.getAge(),user_info.getNickname())
+                                .enqueue(new Callback<Integer>() {
+                                    @Override
+                                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                        Toast.makeText(EditUserProfileActivity.this, "수정 성공!", Toast.LENGTH_SHORT).show();
+                                        Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);
+                                        startActivity(myIntent);
+                                    }
 
-                                @Override
-                                public void onFailure(Call<Integer> call, Throwable t) {
+                                    @Override
+                                    public void onFailure(Call<Integer> call, Throwable t) {
 
-                                }
-                            });
+                                    }
+                                });
+                    }
+                    else{
+                        if(pw.getText().toString().equals(pw2.getText().toString())) {
+                            user_info.setPassword(pw.getText().toString());
+                            userProfileAPI.UpdateUserProfile(user_info.getId(),user_info.getPassword(),user_info.getAge(),user_info.getNickname())
+                                    .enqueue(new Callback<Integer>() {
+                                        @Override
+                                        public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                            Toast.makeText(EditUserProfileActivity.this, "수정 성공!", Toast.LENGTH_SHORT).show();
+                                            Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);
+                                            startActivity(myIntent);
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<Integer> call, Throwable t) {
+
+                                        }
+                                    });
+                        }
+                    }
                 }
             }
         });
