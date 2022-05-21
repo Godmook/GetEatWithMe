@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.location.Location;
@@ -44,6 +46,13 @@ public class SignInActivity extends AppCompatActivity {
                         token = task.getResult();
                     }
                 });
+        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+        String user_id=auto.getString("ID",null);
+        String user_password=auto.getString("Password",null);
+        if(user_id!=null&&user_password!=null){
+            Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(myIntent);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_main);
         // 현재 경도, 위도 가져오기
@@ -85,6 +94,11 @@ public class SignInActivity extends AppCompatActivity {
                             if (response.body() < 1) login_result = false;
                             //로그인 성공
                             if (login_result == true) {
+                                SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+                                SharedPreferences.Editor autoLoginEdit = auto.edit();
+                                autoLoginEdit.putString("ID", id);
+                                autoLoginEdit.putString("Password", password);
+                                autoLoginEdit.commit();
                                 Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
                                 // id 저장
                                 RetrofitService retrofitService = new RetrofitService();
