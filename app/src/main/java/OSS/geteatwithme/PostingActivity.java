@@ -304,12 +304,16 @@ public class PostingActivity extends AppCompatActivity {
                         InputPost.setLongitude(data.getDoubleExtra("placeX", 0));
                         InputPost.setLatitude(data.getDoubleExtra("placeY", 0));
                         restaurant_view.setText(data.getStringExtra("place_address"));
-                        // RESULT_OK일 때 실행할 코드...
+                        InputPost.setRestaurant(data.getStringExtra("place2"));
+                        InputPost.setLongitude(data.getDoubleExtra("placeX2", 0));
+                        InputPost.setLatitude(data.getDoubleExtra("placeY2", 0));
+                        meeting_place_view.setText(data.getStringExtra("place_address2"));
                     }
                 });
 
         restaurant_view=(TextView)findViewById(R.id.edit_restaurant_view);
         meeting_place_view=(TextView)findViewById(R.id.edit_meeting_place_view);
+
         // 음식점 선택
         Restaurant_search=(Button)findViewById(R.id.restaurant_find_button);
         Restaurant_search.setOnClickListener(new View.OnClickListener() {
@@ -326,7 +330,7 @@ public class PostingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), SearchMeetingPlaceActivity.class);
-                startActivity(myIntent);
+                resultLauncher.launch(myIntent);
             }
         });
 

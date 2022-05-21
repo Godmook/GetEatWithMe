@@ -75,7 +75,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                 myIntent.putExtra("placeX", tmp_post.getLongitude());
                 myIntent.putExtra("placeY", tmp_post.getLatitude());
                 myIntent.putExtra("place_address", tmp_String);
-                setResult(Activity.RESULT_OK);
+                setResult(Activity.RESULT_OK, myIntent);
                 finish();
             }
         });
