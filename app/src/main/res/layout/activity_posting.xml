@@ -61,7 +61,7 @@
                         android:textSize="20sp" />
 
                     <Button
-                        android:id="@+id/meeting_place_find_button"
+                        android:id="@+id/restaurant_find_button"
                         android:layout_width="56dp"
                         android:layout_height="38dp"
                         android:layout_marginLeft="10dp"
@@ -101,7 +101,7 @@
                         android:textSize="20sp" />
 
                     <Button
-                        android:id="@+id/button5"
+                        android:id="@+id/meeting_place_find_button"
                         android:layout_width="56dp"
                         android:layout_height="38dp"
                         android:layout_marginLeft="10dp"

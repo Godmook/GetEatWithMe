@@ -306,7 +306,11 @@ public class EditPostActivity extends AppCompatActivity {
                             EditPost.getMeeting_time(),
                             EditPost.getContents(),
                             EditPost.getLongitude(),
-                            EditPost.getLatitude()
+                            EditPost.getLatitude(),
+                            EditPost.getMeet_x(),
+                            EditPost.getMeet_y(),
+                            EditPost.getRestaurant_id(),
+                            EditPost.getVisible()
                     )
                             .enqueue(new Callback<Integer>() {
                                 @Override

@@ -64,7 +64,11 @@ public interface UserProfileAPI {
             @Field("meeting_time")String meeting_time,
             @Field("contents")String contents,
             @Field("Longtitude")Double Longitutde,
-            @Field("Latitude")Double Latitude
+            @Field("Latitude")Double Latitude,
+            @Field("meet_x")Double meet_x,
+            @Field("meet_y")Double meet_y,
+            @Field("restaurant_id")int restaurant_id,
+            @Field("visible")int visible
     );
     @GET("/post/search/{name}")
     Call<LinkedList<Post>> getSearchingPost(

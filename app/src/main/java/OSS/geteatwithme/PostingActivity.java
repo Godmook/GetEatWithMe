@@ -1,10 +1,19 @@
 package OSS.geteatwithme;
 
+import static android.content.ContentValues.TAG;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,8 +32,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-import OSS.geteatwithme.Connection.KaKaofitService;
-import OSS.geteatwithme.Connection.ResultSearchKeyword;
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.Post;
@@ -33,13 +40,16 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class PostingActivity extends AppCompatActivity {
+
+    ActivityResultLauncher<Intent> resultLauncher;
     String []number_of_people1 = {"2", "3", "4", "5", "6", "7", "8"};
     String []number_of_people2 = {"1", "2", "3", "4", "5", "6", "7"};
+    TextView restaurant_view, meeting_place_view;
     EditText editPosting;
     Button cancel, post;
     Switch gender_visible;
     TextView gender_open_text;
-    Button Restaurant_search;
+    Button Restaurant_search, meeting_place_search;
     // 라디오 버튼(카테고리 선택)
     RadioButton[] radioButtons = new RadioButton[7];
     void setAllRadioButtonOff(){
@@ -263,8 +273,11 @@ public class PostingActivity extends AppCompatActivity {
                             InputPost.getMeeting_time(),
                             InputPost.getContents(),
                             InputPost.getLongitude(),
-                            InputPost.getLatitude()
-
+                            InputPost.getLatitude(),
+                            InputPost.getMeet_x(),
+                            InputPost.getMeet_y(),
+                            InputPost.getRestaurant_id(),
+                            InputPost.getVisible()
                     )
                             .enqueue(new Callback<Integer>() {
                                 @Override
@@ -282,33 +295,40 @@ public class PostingActivity extends AppCompatActivity {
                 }
             }
         });
-        Restaurant_search=(Button)findViewById(R.id.meeting_place_find_button);
+
+        resultLauncher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        InputPost.setRestaurant(data.getStringExtra("place"));
+                        InputPost.setLongitude(data.getDoubleExtra("placeX", 0));
+                        InputPost.setLatitude(data.getDoubleExtra("placeY", 0));
+                        restaurant_view.setText(data.getStringExtra("place_address"));
+                        // RESULT_OK일 때 실행할 코드...
+                    }
+                });
+
+        restaurant_view=(TextView)findViewById(R.id.edit_restaurant_view);
+        meeting_place_view=(TextView)findViewById(R.id.edit_meeting_place_view);
+        // 음식점 선택
+        Restaurant_search=(Button)findViewById(R.id.restaurant_find_button);
         Restaurant_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                KaKaofitService kaKaofitService=new KaKaofitService();
-                UserProfileAPI userProfileAPI= kaKaofitService.getKakaoFit().create(UserProfileAPI.class);
-                userProfileAPI.GetSearchKeyword("KakaoAK f9e3926b054ba1f5d08a2672f49e8869","세종대학교","37.55053128987321","127.07343336371858","1000")
-                        .enqueue(new Callback<ResultSearchKeyword>() {
-                            @Override
-                            public void onResponse(Call<ResultSearchKeyword> call, Response<ResultSearchKeyword> response) {
-                                if(response.isSuccessful()){
-                                    if(response.body()!=null){
-                                        for(int i=0;i<response.body().documentList.size();i++){
-                                            Toast.makeText(PostingActivity.this,response.body().documentList.get(i).getPlace_name(),Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResultSearchKeyword> call, Throwable t) {
-
-                            }
-                        });
+                Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
+                resultLauncher.launch(myIntent);
             }
         });
 
+        // 만날 장소 선택
+        meeting_place_search=(Button)findViewById(R.id.meeting_place_find_button);
+        meeting_place_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), SearchMeetingPlaceActivity.class);
+                startActivity(myIntent);
+            }
+        });
 
         gender_visible=(Switch) findViewById(R.id.edit_sch_gender_visible);
         gender_open_text=(TextView)findViewById(R.id.edit_text_gender_visible);
@@ -322,7 +342,5 @@ public class PostingActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 }
