@@ -302,6 +302,7 @@ public class PostingActivity extends AppCompatActivity {
                         InputPost.setLongitude(data.getDoubleExtra("placeX", 0));
                         InputPost.setLatitude(data.getDoubleExtra("placeY", 0));
                         restaurant_view.setText(data.getStringExtra("place_address"));
+                        InputPost.setRestaurant_id(data.getIntExtra("place_id",0));
                     }
                 });
         resultLauncher2=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),

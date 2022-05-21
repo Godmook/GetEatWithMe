@@ -13,8 +13,15 @@ public class UserProfile {
     private String password; //비밀번호
     private int age; //나이
     private String nickname;//닉네임
+    private String token_id;
 
+    public String getToken_id() {
+        return token_id;
+    }
 
+    public void setToken_id(String token_id) {
+        this.token_id = token_id;
+    }
 
     public String getId() {
         return id;

@@ -47,6 +47,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                                             tmp_post.setRestaurant(response.body().documentList.get(i).getPlace_name());
                                             tmp_post.setLongitude(Double.parseDouble(response.body().documentList.get(i).getX()));
                                             tmp_post.setLatitude(Double.parseDouble(response.body().documentList.get(i).getY()));
+                                            tmp_post.setRestaurant_id(Integer.parseInt(response.body().documentList.get(i).getId()));
                                             tmp_String=response.body().documentList.get(i).getRoad_address_name();
                                             Toast.makeText(SearchRestaurantActivity.this,response.body().documentList.get(i).getPlace_name(),Toast.LENGTH_SHORT).show();
                                         }
@@ -75,6 +76,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                 myIntent.putExtra("placeX", tmp_post.getLongitude());
                 myIntent.putExtra("placeY", tmp_post.getLatitude());
                 myIntent.putExtra("place_address", tmp_String);
+                myIntent.putExtra("place_id",tmp_post.getRestaurant_id());
                 setResult(Activity.RESULT_OK, myIntent);
                 finish();
             }

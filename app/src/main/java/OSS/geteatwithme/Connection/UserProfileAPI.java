@@ -6,10 +6,12 @@ import java.util.List;
 import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -86,12 +88,13 @@ public interface UserProfileAPI {
     Call<ResultSearchKeyword>GetSearchKeyword(
         @Header("Authorization")String key, @Query("query")String query, @Query("x")String x,@Query("y")String y, @Query("radius")String radius
     );
-    @PUT("/update/token/{id}/{token}")
+    @POST("/user/token/{id}/{token}")
     Call<Integer>UpdateToken(
-      @Path("id")String id,@Path("token")String token
+            @Path("id")String id,
+            @Path("token")String token
     );
-    @PUT("/insert/token/{id}/{token}")
-    Call<Integer>InsertToken(
-            @Path("id")String id,@Path("token")String token
+    @POST("/notification/data")
+    Call<NotificationResponse>PutNotification(
+            @Body NotificationRequest notificationRequest
     );
 }

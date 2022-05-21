@@ -26,6 +26,7 @@ import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPOIItem;
@@ -41,6 +42,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.concurrent.ExecutionException;
 
+import OSS.geteatwithme.Connection.NotificationRequest;
+import OSS.geteatwithme.Connection.NotificationResponse;
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.MyPostView;
@@ -48,6 +51,7 @@ import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import OSS.geteatwithme.UserInfo.user;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ShowPostActivity extends AppCompatActivity {
@@ -59,6 +63,19 @@ public class ShowPostActivity extends AppCompatActivity {
             try{
                 Call<Post> call=calls[0];
                 Response<Post> response=call.execute();
+                return response.body();
+            }catch(IOException e){
+
+            }
+            return null;
+        }
+    }
+    private class GetTokenTask extends AsyncTask<Call,Void,UserProfile>{
+        @Override
+        protected UserProfile doInBackground(Call... calls) {
+            try{
+                Call<UserProfile> call=calls[0];
+                Response<UserProfile> response=call.execute();
                 return response.body();
             }catch(IOException e){
 
@@ -195,9 +212,9 @@ public class ShowPostActivity extends AppCompatActivity {
                 return false;
             }
         });
-
+        Toast.makeText(ShowPostActivity.this,post.getId(),Toast.LENGTH_SHORT).show();
         // 식당 정보 보기 버튼
-        int restaurant_id = 981148464;
+        int restaurant_id = post.getRestaurant_id();
         Button showRestaurantInfo = (Button) findViewById(R.id.button3);
         showRestaurantInfo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -241,8 +258,32 @@ public class ShowPostActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UserProfile tokens=new UserProfile();
+                RetrofitService retrofitService = new RetrofitService();
+                UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+                Call<UserProfile> calls= userProfileAPI.getUserProfile(post.getId());
+                try {
+                    tokens=new GetTokenTask().execute(calls).get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                NotificationRequest notificationRequest=new NotificationRequest("나랑 같이 밥 먹을래..?","누군가가 당신과 같이 밥을 먹고 싶어요!",tokens.getToken_id());
+                userProfileAPI.PutNotification(notificationRequest)
+                        .enqueue(new Callback<NotificationResponse>() {
+                            @Override
+                            public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
 
+                            }
+
+                            @Override
+                            public void onFailure(Call<NotificationResponse> call, Throwable t) {
+
+                            }
+                        });
             }
+
         });
     }
 }

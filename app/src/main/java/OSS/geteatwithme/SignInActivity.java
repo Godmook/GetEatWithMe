@@ -31,8 +31,19 @@ import retrofit2.Response;
 public class SignInActivity extends AppCompatActivity {
     boolean login_result = false;
     private static final String TAG="SignInActivity";
-
+    String token;
     protected void onCreate(Bundle savedInstanceState) {
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+                        // Get new FCM registration token
+                        token = task.getResult();
+                    }
+                });
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_in_main);
         // 현재 경도, 위도 가져오기
@@ -75,12 +86,24 @@ public class SignInActivity extends AppCompatActivity {
                             //로그인 성공
                             if (login_result == true) {
                                 Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
-
                                 // id 저장
-                                ((user)getApplication()).setUserID(id);
-                                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(myIntent);
-                                finish();
+                                RetrofitService retrofitService = new RetrofitService();
+                                UserProfileAPI us = retrofitService.getRetrofit().create(UserProfileAPI.class);
+                                us.UpdateToken(id,token)
+                                        .enqueue(new Callback<Integer>() {
+                                            @Override
+                                            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                                ((user)getApplication()).setUserID(id);
+                                                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                                startActivity(myIntent);
+                                                finish();
+                                            }
+
+                                            @Override
+                                            public void onFailure(Call<Integer> call, Throwable t) {
+
+                                            }
+                                        });
                             }
                             // 로그인 실패
                             else {
