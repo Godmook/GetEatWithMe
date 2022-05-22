@@ -98,7 +98,6 @@ public class ShowPostActivity extends AppCompatActivity {
         Intent myIntent = getIntent();
         POST_ID = myIntent.getIntExtra("postID", 0);
 
-        /*
         // post 가져오기
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
@@ -110,28 +109,6 @@ public class ShowPostActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        */
-        // test-
-        post = new Post();
-        post.setId("MinI0123");
-        post.setRestaurant("국빈");
-        post.setLongitude(126.7728);
-        post.setLatitude(37.6926);
-        post.setMeeting_place("현산초등학교");
-        post.setCategory(1);
-        post.setMax_people(4);
-        post.setCur_people(2);
-        post.setMeeting_date("22/05/17");
-        post.setMeeting_time("18:30");
-        post.setContents("짜장면, 짬뽕, 탕수육");
-        post.setGender(1);
-        post.setPostID(1);
-        post.setAge(22);
-        post.setMeet_x(126.771123);
-        post.setMeet_y(37.692669);
-        post.setRestaurant_id(981148464);
-        post.setVisible(0);
-        // -test
 
         // 신청 가능 여부 확인
         int available  = 1; //test
