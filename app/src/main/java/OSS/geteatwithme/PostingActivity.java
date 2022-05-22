@@ -310,10 +310,10 @@ public class PostingActivity extends AppCompatActivity {
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
-                        InputPost.setMeeting_place(data.getStringExtra("place2"));
-                        InputPost.setMeet_x(data.getDoubleExtra("placeX2", 0));
-                        InputPost.setMeet_y(data.getDoubleExtra("placeY2", 0));
-                        meeting_place_view.setText(data.getStringExtra("place_address2"));
+                        InputPost.setMeeting_place(data.getStringExtra("place"));
+                        InputPost.setMeet_x(data.getDoubleExtra("placeX", 0));
+                        InputPost.setMeet_y(data.getDoubleExtra("placeY", 0));
+                        meeting_place_view.setText(data.getStringExtra("place_address"));
                     }
                 });
 
@@ -335,7 +335,7 @@ public class PostingActivity extends AppCompatActivity {
         meeting_place_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), SearchMeetingPlaceActivity.class);
+                Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
                 resultLauncher2.launch(myIntent);
             }
         });
