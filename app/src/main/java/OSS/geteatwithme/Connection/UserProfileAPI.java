@@ -112,4 +112,13 @@ public interface UserProfileAPI {
             @Field("age")int age,
             @Field("nickname")String nickname
     );
+    @FormUrlEncoded
+    @PUT("/alarm/{id}")
+    Call<Integer>InsertAlarm(
+            @Path("id")String id,
+            @Field("request")int request,
+            @Field("opposite_id")String opposite_id,
+            @Field("post_id")int post_id,
+            @Field("view")int view
+    );
 }

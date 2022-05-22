@@ -34,7 +34,11 @@
             android:exported="false" />
         <activity
             android:name=".MyPageActivity"
-            android:exported="false" />
+            android:exported="false">
+            <intent-filter>
+                <action android:name="FCM_EXE_ACTIVITY"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ShowPostActivity"
             android:exported="false" />

@@ -5,14 +5,24 @@ public class NotificationRequest {
     private String message;
     private String topic;
     private String token;
+    private String click_action;
+
+    public String getClick_action() {
+        return click_action;
+    }
+
+    public void setClick_action(String click_action) {
+        this.click_action = click_action;
+    }
 
     public String getTitle() {
         return title;
     }
-    public NotificationRequest(String title, String message, String token){
+    public NotificationRequest(String title, String message, String token,String click_action){
         this.title=title;
         this.message=message;
         this.token=token;
+        this.click_action=click_action;
     }
     public void setTitle(String title) {
         this.title = title;

@@ -3,8 +3,10 @@ package OSS.geteatwithme;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -247,7 +249,7 @@ public class ShowPostActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                NotificationRequest notificationRequest=new NotificationRequest("나랑 같이 밥 먹을래..?","누군가가 당신과 같이 밥을 먹고 싶어요!",tokens.getToken_id());
+                NotificationRequest notificationRequest=new NotificationRequest("나랑 같이 밥 먹을래..?","누군가가 당신과 같이 밥을 먹고 싶어요!",tokens.getToken_id(),"FCM_EXE_ACTIVITY");
                 userProfileAPI.PutNotification(notificationRequest)
                         .enqueue(new Callback<NotificationResponse>() {
                             @Override
@@ -260,6 +262,21 @@ public class ShowPostActivity extends AppCompatActivity {
 
                             }
                         });
+                SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+                String user_id=auto.getString("ID",null);
+                userProfileAPI.InsertAlarm(tokens.getId(),1,user_id,post.getPostID(),0)
+                        .enqueue(new Callback<Integer>() {
+                            @Override
+                            public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                Toast.makeText(ShowPostActivity.this, "신청 완료!", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Integer> call, Throwable t) {
+
+                            }
+                        });
+                finish();
             }
 
         });
