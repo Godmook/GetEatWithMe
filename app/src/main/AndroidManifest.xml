@@ -75,7 +75,7 @@
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
-            android:value="03a4403a93a58498c4b299b4ad6f72e3" />
+            android:value= "${kakaoSdkAppkey}"/>
         <meta-data
             android:name="firebase_messaging_auto_init_enabled"
             android:value="false" />

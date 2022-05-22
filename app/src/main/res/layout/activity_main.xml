@@ -77,7 +77,8 @@
             android:layout_height="0dp"
             android:layout_marginStart="4dp"
             android:layout_marginTop="12dp"
-            android:layout_weight="2"
+            android:layout_weight="2.3"
+            android:minHeight="90dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
@@ -195,20 +196,26 @@
             android:text="모집 글 등록하기"
             app:layout_constraintTop_toBottomOf="@+id/constrainLayoutSelect"
             tools:layout_editor_absoluteX="2dp" />
-
-        <ScrollView
-            android:id="@+id/scrollView2"
-            android:layout_width="match_parent"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
             android:layout_weight="10"
+            android:layout_marginTop="5dp"
+            android:id="@+id/refreshLayout"
             app:layout_constraintBottom_toTopOf="@+id/linearLayout3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/registrationButton"
-            app:layout_constraintVertical_bias="0.0"
-            tools:ignore="MissingConstraints,Suspicious0dp">
-        </ScrollView>
+            app:layout_constraintVertical_bias="0.0">
+
+            <ScrollView
+                android:id="@+id/scrollView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:ignore="MissingConstraints,Suspicious0dp">
+            </ScrollView>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"

@@ -9,5 +9,6 @@
         <attr name="textGender" format="string"/>
         <attr name="textPeople" format="string"/>
         <attr name="textDistance" format="string"/>
+        <attr name = "textAge" format="string"/>
     </declare-styleable>
 </resources>

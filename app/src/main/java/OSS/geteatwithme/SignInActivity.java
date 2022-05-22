@@ -35,6 +35,19 @@ public class SignInActivity extends AppCompatActivity {
     private static final String TAG="SignInActivity";
     String token;
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.sign_in_main);
+        // 현재 경도, 위도 가져오기
+        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // gps 권한 요청
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+        }
+        Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        ((user)getApplication()).setLatitude(location.getLatitude());
+        ((user)getApplication()).setLogitude(location.getLongitude());
+
+        // 자동 로그인
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
@@ -52,18 +65,8 @@ public class SignInActivity extends AppCompatActivity {
         if(user_id!=null&&user_password!=null){
             Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(myIntent);
+            finish();
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_in_main);
-        // 현재 경도, 위도 가져오기
-        LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // gps 권한 요청
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
-        }
-        Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        ((user)getApplication()).setLatitude(location.getLatitude());
-        ((user)getApplication()).setLogitude(location.getLongitude());
     }
 
     // 회원가입 버튼

@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/white"
     android:padding="5dp">
 
@@ -17,6 +17,7 @@
                 <TextView
                     android:id="@+id/textRestaurant"
                     android:layout_width="wrap_content"
+                    android:maxWidth="250dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/gmarket_sans_ttf_bold"
@@ -75,13 +76,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:layout_marginBottom="36dp"
                     android:fontFamily="@font/gmarket_sans_ttf_medium"
                     android:text="인원 : 모인인원/모집인원"
                     android:textColor="@color/black"
                     android:textSize="15dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/guideline3"
-                    app:layout_constraintTop_toBottomOf="@+id/textGender"
+                    app:layout_constraintTop_toBottomOf="@+id/textAge"
                     app:layout_constraintVertical_bias="0.0" />
 
                 <TextView
@@ -139,5 +141,32 @@
                     android:orientation="vertical"
                     app:layout_constraintGuide_begin="393dp" />
 
+                <TextView
+                    android:id="@+id/textAge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="나이 : 00 대"
+                    android:fontFamily="@font/gmarket_sans_ttf_medium"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline3"
+                    app:layout_constraintTop_toBottomOf="@+id/textGender" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+<!-- 사용 예시
+<OSS.geteatwithme.PostInfo.MyPostView
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+app:textRestaurant="식당명"
+app:textCategory="카테고리"
+app:textDate="날짜"
+app:textTime="시간"
+app:textID="아이디"
+app:textGender="성별"
+app:textPeople="사람"
+app:textDistance="거리"
+app:textAge="나이">
+</OSS.geteatwithme.PostInfo.MyPostView>
+-->

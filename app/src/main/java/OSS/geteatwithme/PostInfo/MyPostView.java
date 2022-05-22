@@ -24,6 +24,7 @@ public class MyPostView extends ConstraintLayout {
     TextView textGender;
     TextView textPeople;
     TextView textDistance;
+    TextView textAge;
     ConstraintLayout background;
 
     public MyPostView(@NonNull Context context) {
@@ -64,17 +65,19 @@ public class MyPostView extends ConstraintLayout {
         textPeople= (TextView) findViewById(R.id.textPeople);
         textDistance= (TextView) findViewById(R.id.textDistance);
         background = (ConstraintLayout) findViewById(R.id.background);
+        textAge = (TextView) findViewById(R.id.textAge);
     }
 
     private void getAttrs(AttributeSet attrs){
-        String restaurant = attrs.getAttributeValue(9);
-        String category = attrs.getAttributeValue(3);
-        String date = attrs.getAttributeValue(4);
-        String time = attrs.getAttributeValue(10);
-        String id = attrs.getAttributeValue(7);
-        String gender = attrs.getAttributeValue(6);
-        String people = attrs.getAttributeValue(8);
-        String distance = attrs.getAttributeValue(5);
+        String restaurant = attrs.getAttributeValue(8);
+        String category = attrs.getAttributeValue(2);
+        String date = attrs.getAttributeValue(3);
+        String time = attrs.getAttributeValue(9);
+        String id = attrs.getAttributeValue(6);
+        String gender = attrs.getAttributeValue(5);
+        String age = attrs.getAttributeValue(10);
+        String people = attrs.getAttributeValue(7);
+        String distance = attrs.getAttributeValue(4);
 
         textRestaurant.setText(restaurant);
         textCategory.setText(category);
@@ -84,6 +87,7 @@ public class MyPostView extends ConstraintLayout {
         textGender.setText(gender);
         textPeople.setText(people);
         textDistance.setText(distance);
+        textAge.setText(age);
     }
     private void getAttrs(AttributeSet attrs, int defStyle){
         getAttrs(attrs);
@@ -107,9 +111,11 @@ public class MyPostView extends ConstraintLayout {
         textDate.setText(p.getMeeting_date());
         textTime.setText(p.getMeeting_time());
         textID.setText("작성자 : "+p.getId());
-        String gender = "비공개";
+        String gender = null;
         if(p.getGender() == 0) gender = "남자";
         else if (p.getGender() == 1)  gender = "여자";
+        if(p.getVisible() == 0) gender = "비공개";
+        
         textGender.setText("성별 : " + gender);    // 성별 to string 변환 필요
         textPeople.setText("인원 : "+p.getCur_people()+"/"+p.getMax_people());
         textDistance.setText("거리 : 100 m"); // 거리 계산 필요
@@ -124,6 +130,7 @@ public class MyPostView extends ConstraintLayout {
         else if (age < 60) bg = "#0489B1";    // 50대
         else bg = "#086A87";    // 60대 이상
         background.setBackgroundColor(Color.parseColor(bg)); // 배경 색 세팅
+        textAge.setText("나이 : "+age/10 + "0 대");
 
         textDistance.setText("거리 : 약 "+ (int)p.getDistance() +" m");
     }

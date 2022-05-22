@@ -2,6 +2,10 @@ plugins {
     id 'com.android.application'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file("local.properties").newDataInputStream())
+def kakao_api_key = properties.getProperty('kakao_api_key')
+
 android {
     compileSdk 32
 
@@ -13,6 +17,7 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        manifestPlaceholders = [kakaoSdkAppkey : kakao_api_key]
     }
 
     buildTypes {
@@ -29,6 +34,7 @@ android {
 
 dependencies {
 
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation fileTree(include:['*.jar'],dir:'libs')
     implementation files('libs/libDaumMapAndroid.jar')
     implementation 'androidx.appcompat:appcompat:1.4.1'

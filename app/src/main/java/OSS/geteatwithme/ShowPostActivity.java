@@ -4,7 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
@@ -91,8 +94,12 @@ public class ShowPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_post);
 
+        // post id 가져오기
         Intent myIntent = getIntent();
         POST_ID = myIntent.getIntExtra("postID", 0);
+
+        /*
+        // post 가져오기
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
         Call<Post>call=userProfileAPI.getPostByPost_id(POST_ID);
@@ -103,7 +110,43 @@ public class ShowPostActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        */
+        // test-
+        post = new Post();
+        post.setId("MinI0123");
+        post.setRestaurant("국빈");
+        post.setLongitude(126.7728);
+        post.setLatitude(37.6926);
+        post.setMeeting_place("현산초등학교");
+        post.setCategory(1);
+        post.setMax_people(4);
+        post.setCur_people(2);
+        post.setMeeting_date("22/05/17");
+        post.setMeeting_time("18:30");
+        post.setContents("짜장면, 짬뽕, 탕수육");
+        post.setGender(1);
+        post.setPostID(1);
+        post.setAge(22);
+        post.setMeet_x(126.771123);
+        post.setMeet_y(37.692669);
+        post.setRestaurant_id(981148464);
+        post.setVisible(0);
+        // -test
 
+        // 신청 가능 여부 확인
+        int available  = 1; //test
+        if(available == 0){
+            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+            dlg.setTitle("신청 불가능");
+            dlg.setMessage("선택하신 게시글은 신청이 불가능 합니다.");
+            dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finish();
+                }
+            });
+            dlg.show();
+        }
 
         // post 거리 세팅
         double longitude = ((user)getApplication()).getLongitude();
@@ -133,11 +176,8 @@ public class ShowPostActivity extends AppCompatActivity {
         marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
         mapView.addPOIItem(marker);
         // 만날 장소 마커
-        // test-
-        double meet_latitude = post.getMeet_y();
-        double meet_longitude = post.getMeet_x();
-        // -test
-        MapPoint myPoint2 = MapPoint.mapPointWithGeoCoord(meet_latitude,meet_longitude );
+
+        MapPoint myPoint2 = MapPoint.mapPointWithGeoCoord(post.getMeet_y(),post.getMeet_x() );
         MapPOIItem marker1 = new MapPOIItem();
         marker1.setItemName("만날 장소 : "+ post.getMeeting_place());
         marker1.setTag(0);
@@ -194,12 +234,11 @@ public class ShowPostActivity extends AppCompatActivity {
             }
         });
         // 식당 정보 보기 버튼
-        int restaurant_id = post.getRestaurant_id();
         Button showRestaurantInfo = (Button) findViewById(R.id.button3);
         showRestaurantInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myintent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://place.map.kakao.com/"+restaurant_id));
+                Intent myintent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://place.map.kakao.com/"+post.getRestaurant_id()));
                 startActivity(myintent);
             }
         });
@@ -269,6 +308,7 @@ public class ShowPostActivity extends AppCompatActivity {
                             @Override
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
                                 Toast.makeText(ShowPostActivity.this, "신청 완료!", Toast.LENGTH_SHORT).show();
+                                finish();
                             }
 
                             @Override
@@ -276,7 +316,6 @@ public class ShowPostActivity extends AppCompatActivity {
 
                             }
                         });
-                finish();
             }
 
         });

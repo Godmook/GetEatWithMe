@@ -47,6 +47,8 @@ public class MyPageActivity extends AppCompatActivity {
         Intent i = new Intent(MyPageActivity.this, SignInActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(i);
+        finish();
+        ((MainActivity)MainActivity.activity).finish();
     }
 
     @Override
