@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import net.daum.mf.map.api.BuildConfig;
+
 import OSS.geteatwithme.Connection.KaKaofitService;
 import OSS.geteatwithme.Connection.ResultSearchKeyword;
 import OSS.geteatwithme.Connection.UserProfileAPI;
