@@ -147,7 +147,7 @@ public class SignUpActivity extends AppCompatActivity {
             }
             else {
                 if(pw.getText().toString().equals(pw2.getText().toString())){
-                    pwcheck.setText("일치");
+                    Toast.makeText(SignUpActivity.this, "비밀번호가 일치합니다.", Toast.LENGTH_LONG).show();
                 }
                 else{
                     Toast.makeText(SignUpActivity.this, "비밀번호가 다릅니다.", Toast.LENGTH_LONG).show();

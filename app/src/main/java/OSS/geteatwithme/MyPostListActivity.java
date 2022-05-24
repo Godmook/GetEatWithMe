@@ -3,6 +3,7 @@ package OSS.geteatwithme;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -19,6 +21,7 @@ import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.MyPostView;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,6 +30,21 @@ public class MyPostListActivity extends AppCompatActivity {
 
     LinkedList<Post> my_posts = new LinkedList<Post>();
     LinearLayout linearlayout = null;
+
+    private class GetTask extends AsyncTask<Call,Void, UserProfile> {
+        @Override
+        protected UserProfile doInBackground(Call... calls) {
+            try{
+                Call<UserProfile> call=calls[0];
+                Response<UserProfile> response=call.execute();
+                return response.body();
+            }catch(IOException e){
+
+            }
+            return null;
+        }
+    }
+    UserProfile user_info = new UserProfile();
 
     void showMyPosts() {
 
@@ -68,7 +86,7 @@ public class MyPostListActivity extends AppCompatActivity {
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
         // 첫 화면 - 전체 보여주기
-        userProfileAPI.getUserAllPost("cmoh4135")
+        userProfileAPI.getUserAllPost(user_info.getId())
                 .enqueue(new Callback<LinkedList<Post>>() {
                     @Override
                     public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {

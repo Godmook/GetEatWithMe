@@ -46,12 +46,13 @@ public class PostingActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> resultLauncher2;
     String []number_of_people1 = {"2", "3", "4", "5", "6", "7", "8"};
     String []number_of_people2 = {"1", "2", "3", "4", "5", "6", "7"};
-    TextView restaurant_view, meeting_place_view;
+    TextView restaurant_view, meeting_place_view, restaurant_address_view, meeting_place_address_view;
     EditText editPosting;
     Button cancel, post;
     Switch gender_visible;
     TextView gender_open_text;
     Button Restaurant_search, meeting_place_search;
+    int sec;
     // 라디오 버튼(카테고리 선택)
     RadioButton[] radioButtons = new RadioButton[7];
     void setAllRadioButtonOff(){
@@ -216,14 +217,9 @@ public class PostingActivity extends AppCompatActivity {
                 mTimePicker = new TimePickerDialog(PostingActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String state = "AM";
-                        // 선택한 시간이 12를 넘을경우 "PM"으로 변경 및 -12시간하여 출력 (ex : PM 6시 30분)
-                        if (selectedHour > 12) {
-                            selectedHour -= 12;
-                            state = "PM";
-                        }
                         // EditText에 출력할 형식 지정
-                        String tmp=state + " " + selectedHour + "시 " + selectedMinute + "분";
+                        String tmp= selectedHour + ":" + selectedMinute;
+                        sec=(selectedHour*3600)+(selectedMinute*60);
                         et_time.setText(tmp);
                     }
                 }, hour, minute, true); // true의 경우 24시간 형식의 TimePicker 출현
@@ -300,9 +296,10 @@ public class PostingActivity extends AppCompatActivity {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
                         InputPost.setRestaurant(data.getStringExtra("place"));
+                        restaurant_view.setText(data.getStringExtra("place"));
                         InputPost.setLongitude(data.getDoubleExtra("placeX", 0));
                         InputPost.setLatitude(data.getDoubleExtra("placeY", 0));
-                        restaurant_view.setText(data.getStringExtra("place_address"));
+                        restaurant_address_view.setText(data.getStringExtra("place_address"));
                         InputPost.setRestaurant_id(data.getIntExtra("place_id",0));
                     }
                 });
@@ -313,12 +310,15 @@ public class PostingActivity extends AppCompatActivity {
                         InputPost.setMeeting_place(data.getStringExtra("place"));
                         InputPost.setMeet_x(data.getDoubleExtra("placeX", 0));
                         InputPost.setMeet_y(data.getDoubleExtra("placeY", 0));
-                        meeting_place_view.setText(data.getStringExtra("place_address"));
+                        meeting_place_view.setText(data.getStringExtra("place"));
+                        meeting_place_address_view.setText(data.getStringExtra("place_address"));
                     }
                 });
 
         restaurant_view=(TextView)findViewById(R.id.edit_restaurant_view);
         meeting_place_view=(TextView)findViewById(R.id.edit_meeting_place_view);
+        restaurant_address_view=(TextView)findViewById(R.id.edit_restaurant_address_view);
+        meeting_place_address_view=(TextView)findViewById(R.id.edit_meeting_place_address_view);
 
         // 음식점 선택
         Restaurant_search=(Button)findViewById(R.id.restaurant_find_button);
