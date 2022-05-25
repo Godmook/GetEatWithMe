@@ -2,7 +2,9 @@ package OSS.geteatwithme;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +18,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.concurrent.ExecutionException;
 
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
@@ -86,6 +89,16 @@ public class MyPostListActivity extends AppCompatActivity {
         // 전체 post 보여주기
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+
+        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+        Call<UserProfile> calls= userProfileAPI.getUserProfile(auto.getString("ID",null));
+        try {
+            user_info=new MyPostListActivity.GetTask().execute(calls).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         // 첫 화면 - 전체 보여주기
         userProfileAPI.getUserAllPost(user_info.getId())
                 .enqueue(new Callback<LinkedList<Post>>() {

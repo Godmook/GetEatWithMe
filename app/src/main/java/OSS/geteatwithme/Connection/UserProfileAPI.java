@@ -3,6 +3,7 @@ package OSS.geteatwithme.Connection;
 import java.util.LinkedList;
 import java.util.List;
 
+import OSS.geteatwithme.AlarmInfo.Alarm;
 import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
@@ -119,6 +120,12 @@ public interface UserProfileAPI {
             @Field("request")int request,
             @Field("opposite_id")String opposite_id,
             @Field("post_id")int post_id,
-            @Field("view")int view
+            @Field("view")int view,
+            @Field("nickname")String nickname,
+            @Field("opposite_nickname")String opposite_nickname
+    );
+    @GET("/getalarm/{id}")
+    Call<LinkedList<Alarm>>GetAlarm(
+            @Path("id")String id
     );
 }

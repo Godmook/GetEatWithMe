@@ -254,12 +254,23 @@ public class ShowPostActivity extends AppCompatActivity {
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+                String user_id=auto.getString("ID",null);
                 UserProfile tokens=new UserProfile();
+                UserProfile myProfile=new UserProfile();
                 RetrofitService retrofitService = new RetrofitService();
                 UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
                 Call<UserProfile> calls= userProfileAPI.getUserProfile(post.getId());
                 try {
                     tokens=new GetTokenTask().execute(calls).get();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Call<UserProfile> call= userProfileAPI.getUserProfile(user_id);
+                try {
+                    myProfile=new GetTokenTask().execute(call).get();
                 } catch (ExecutionException e) {
                     e.printStackTrace();
                 } catch (InterruptedException e) {
@@ -278,9 +289,7 @@ public class ShowPostActivity extends AppCompatActivity {
 
                             }
                         });
-                SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
-                String user_id=auto.getString("ID",null);
-                userProfileAPI.InsertAlarm(tokens.getId(),1,user_id,post.getPostID(),0)
+                userProfileAPI.InsertAlarm(tokens.getId(),1,user_id,post.getPostID(),0,myProfile.getNickname(),post.getNickname())
                         .enqueue(new Callback<Integer>() {
                             @Override
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
