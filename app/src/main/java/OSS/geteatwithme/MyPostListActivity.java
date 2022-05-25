@@ -21,6 +21,7 @@ import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.MyPostView;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UIInfo.Utils;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -79,7 +80,7 @@ public class MyPostListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         setContentView(R.layout.activity_my_post_list);
-
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         linearlayout = (LinearLayout)findViewById(R.id.mypost_layout);
 
         // 전체 post 보여주기

@@ -36,6 +36,8 @@
                     android:layout_margin="5dp"
                     android:ems="10"
                     android:hint="만날 장소를 선택하세요"
+                    android:backgroundTint="@color/middle_green"
+                    android:textCursorDrawable="@color/middle_green"
                     android:inputType="textPersonName" />
 
                 <Button

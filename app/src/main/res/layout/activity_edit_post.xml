@@ -22,13 +22,12 @@
                 android:id="@+id/edit_text"
                 android:layout_width="198dp"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="3dp"
-                android:layout_marginTop="3dp"
-                android:layout_marginBottom="3dp"
+                android:layout_margin="5dp"
                 android:layout_weight="2"
+                android:fontFamily="@font/gmarket_sans_ttf_medium"
                 android:text="수정하기"
                 android:textColor="#FFF3D3 "
-                android:textSize="40sp" />
+                android:textSize="30sp" />
 
         </LinearLayout>
 
@@ -58,6 +57,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text=" 음식점 선택"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <Button
@@ -65,27 +66,47 @@
                         android:layout_width="56dp"
                         android:layout_height="38dp"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="#8F6142"
+                        android:backgroundTint="@color/real_orange"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:text="찾기"
                         android:textSize="10sp" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/edit_restaurant_view"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:layout_margin="3dp"
-                    android:background="#FFF3D3 "
-                    android:text=" 음식점" />
+                    android:layout_height="match_parent"
+                    android:background="@color/ivory"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/edit_restaurant_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:background="#FFF3D3 "
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
+                        android:text=" 음식점"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/edit_restaurant_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:backgroundTint="@color/middle_green"
                     android:ems="10"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:hint="음식점 상세 설명"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textCursorDrawable="@color/middle_green" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -98,6 +119,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:text=" 만날 장소 선택"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
+                        android:textColor="@color/black"
                         android:textSize="20sp" />
 
                     <Button
@@ -105,34 +128,58 @@
                         android:layout_width="56dp"
                         android:layout_height="38dp"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="#8F6142"
+                        android:backgroundTint="@color/real_orange"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
+
                         android:text="찾기"
                         android:textSize="10sp" />
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/edit_meeting_place_view"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="36dp"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:background="#FFF3D3"
-                    android:text=" 만날 장소" />
+                    android:layout_height="match_parent"
+                    android:background="@color/ivory"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/edit_meeting_place_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1"
+                        android:background="#FFF3D3"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
+                        android:text=" 만날 장소"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/textView15"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="3dp"
+                        android:layout_weight="1" />
+                </LinearLayout>
 
                 <EditText
                     android:id="@+id/edit_meeting_place_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:backgroundTint="@color/middle_green"
                     android:ems="10"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:hint="만날 장소 상세 설명"
-                    android:inputType="textPersonName" />
+                    android:inputType="textPersonName"
+                    android:textCursorDrawable="@color/middle_green" />
 
                 <TextView
                     android:id="@+id/edit_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=" 음식점 카테고리 선택"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <LinearLayout
@@ -209,8 +256,10 @@
                     android:id="@+id/edit_max_people_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text=" 모일 인원"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
 
@@ -225,7 +274,10 @@
                     android:id="@+id/edit_cur_people_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text=" 모인 인원"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <Spinner
@@ -239,7 +291,10 @@
                     android:id="@+id/edit_date_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text=" 만날 날짜"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <EditText
@@ -255,6 +310,7 @@
                     android:gravity="center"
                     android:text="Date"
                     android:textSize="25sp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -263,6 +319,8 @@
                     android:id="@+id/edit_time_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text=" 만날 시간"
                     android:textSize="20sp" />
 
@@ -280,6 +338,7 @@
                     android:text="Time"
                     android:textSize="25sp"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/edit_Date" />
 
@@ -287,8 +346,10 @@
                     android:id="@+id/edit_post_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="포스팅 텍스트"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <EditText
@@ -298,18 +359,23 @@
                     android:ems="20"
                     android:gravity="top|left"
                     android:hint="포스팅할 글을 입력하세요."
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:inputType="textMultiLine"
                     android:lines="5"
                     android:maxWidth="5.0dip"
                     android:minWidth="10.0dip"
+                    android:backgroundTint="@color/middle_green"
+                    android:textCursorDrawable="@color/middle_green"
                     android:scrollHorizontally="false" />
 
                 <TextView
                     android:id="@+id/edit_gender_visiple_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="성별 공개/비공개"
+                    android:textColor="@color/black"
                     android:textSize="20sp" />
 
                 <Switch
@@ -318,6 +384,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:text="성별 공개"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:textSize="18sp" />
 
                 <TextView
@@ -325,6 +392,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
+                    android:textColor="@color/middle_green"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="성별을 비공개합니다" />
 
                 <LinearLayout
@@ -339,7 +408,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:backgroundTint="@android:color/holo_red_light"
+                        android:backgroundTint="@color/lignt_red"
                         android:text="삭제" />
 
                     <Button
@@ -356,7 +425,7 @@
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#FFC423"
+                        android:backgroundTint="@color/real_orange"
                         android:text="수정" />
 
                 </LinearLayout>

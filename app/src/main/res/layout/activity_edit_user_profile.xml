@@ -20,23 +20,15 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/edit_profile_back"
-                android:layout_width="23dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.7"
-                android:text="  back"
-                android:textColor="#FFF3D3"
-                android:textSize="20dp" />
-
-            <TextView
                 android:id="@+id/edit_profile_edit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="0dp"
                 android:layout_weight="2"
-                android:text="회원 정보 수정"
+                android:fontFamily="@font/gmarket_sans_ttf_medium"
+                android:text=" 회원 정보 수정"
                 android:textColor="#FFF3D3 "
-                android:textSize="40sp" />
+                android:textSize="30sp" />
         </LinearLayout>
 
         <ScrollView
@@ -49,48 +41,58 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
+                android:gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/edit_profile_Nametext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="이름"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/edit_profile_Name"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_height="66dp"
+                    android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/edit_profile_IDtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="아이디"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/edit_profile_ID"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_height="66dp"
+                    android:layout_marginBottom='20dp'
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:textSize="18sp" />
 
                 <TextView
                     android:id="@+id/edit_profile_Birthtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="나이"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -99,19 +101,23 @@
                     android:layout_height="66dp"
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="20dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:backgroundTint="@color/middle_green"
                     android:ems="10"
                     android:hint="나이"
                     android:inputType="textPersonName"
-                    android:text="" />
+                    android:text=""
+                    android:textCursorDrawable="@color/middle_green" />
 
                 <TextView
                     android:id="@+id/edit_profile_PWtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="비밀번호"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
 
@@ -120,19 +126,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="66dp"
                     android:layout_marginBottom="20dp"
+                    android:backgroundTint="@color/middle_green"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:ems="10"
                     android:hint=" 비밀번호"
                     android:inputType="textPassword"
-                    android:text="" />
+                    android:text=""
+                    android:textCursorDrawable="@color/middle_green" />
 
                 <TextView
                     android:id="@+id/edit_profile_PW2text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="비밀번호 확인"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -145,17 +155,21 @@
                         android:layout_width="wrap_content"
                         android:layout_height="66dp"
                         android:layout_marginBottom="20dp"
+                        android:backgroundTint="@color/middle_green"
                         android:ems="10"
                         android:hint=" 비밀번호 다시 입력"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:inputType="textPassword"
-                        android:text="" />
+                        android:text=""
+                        android:textCursorDrawable="@color/middle_green" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/edit_profile_pwcheckbutton"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="#FFC423"
+                        android:backgroundTint="@color/real_orange"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:text="확인"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -167,9 +181,10 @@
                     android:id="@+id/edit_profile_Nicknametext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="닉네임"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -182,9 +197,12 @@
                         android:layout_width="228dp"
                         android:layout_height="66dp"
                         android:layout_marginBottom="20dp"
+                        android:backgroundTint="@color/middle_green"
                         android:ems="10"
                         android:hint="닉네임"
-                        android:inputType="textPersonName" />
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
+                        android:inputType="textPersonName"
+                        android:textCursorDrawable="@color/middle_green" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/edit_profile_nicknamecheck"
@@ -192,7 +210,8 @@
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#FFC423"
+                        android:backgroundTint="@color/real_orange"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:text="중복확인"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -206,7 +225,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="성별"
-                    android:textColor="#8BC34A"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -214,8 +234,11 @@
                 <TextView
                     android:id="@+id/edit_profile_gender_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
+                    android:layout_height="66dp"
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:textSize="18sp" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/edit_profile_button"
@@ -224,7 +247,8 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="30dp"
-                    android:backgroundTint="#FFC423"
+                    android:backgroundTint="@color/middle_green"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="수정"
                     android:textColor="@color/white"
                     android:textSize="16sp"

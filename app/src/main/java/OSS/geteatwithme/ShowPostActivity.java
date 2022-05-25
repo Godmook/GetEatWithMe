@@ -53,6 +53,7 @@ import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.MyPostView;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UIInfo.Utils;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import OSS.geteatwithme.UserInfo.user;
 import retrofit2.Call;
@@ -93,7 +94,7 @@ public class ShowPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_post);
-
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         // post id 가져오기
         Intent myIntent = getIntent();
         POST_ID = myIntent.getIntExtra("postID", 0);

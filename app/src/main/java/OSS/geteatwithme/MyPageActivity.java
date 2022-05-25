@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutionException;
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UIInfo.Utils;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import lombok.val;
 import retrofit2.Call;
@@ -55,7 +56,7 @@ public class MyPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_page);
-
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         TextView nickname, id, name, age, gender;
         Button editInfo, view_myPost, logout;
 

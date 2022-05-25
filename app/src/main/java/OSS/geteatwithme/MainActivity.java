@@ -47,6 +47,7 @@ import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.MyPostView;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UIInfo.Utils;
 import OSS.geteatwithme.UserInfo.user;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -147,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING);
         setContentView(R.layout.activity_main);
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         activity = this;
         getHashKey();
 

@@ -18,6 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
+import OSS.geteatwithme.UIInfo.Utils;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -62,6 +63,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         check_editing=true;
         setContentView(R.layout.activity_edit_user_profile);
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         //뒤로 가기 버튼
         back = findViewById(R.id.back);
         //back.setOnClickListener(v -> onBackPressed() );

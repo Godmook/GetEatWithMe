@@ -35,6 +35,7 @@ import OSS.geteatwithme.Connection.ResultSearchKeyword;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.MapInfo.MapData;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UIInfo.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -62,6 +63,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_restaurant);
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         mapView = new MapView(this);
         ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.map_find);
         mapViewContainer.addView(mapView);
@@ -135,6 +137,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                     public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
                         String res=mapPOIItem.getItemName();
                         TextView text=(TextView)findViewById(R.id.searching_place_name);
+                        TextView text_address=(TextView)findViewById(R.id.textView7);
                         text.setText(mapPOIItem.getItemName());
                         tmp_post.setRestaurant(mapPOIItem.getItemName());
                         MapPoint.GeoCoordinate tmps=mapPOIItem.getMapPoint().getMapPointGeoCoord();
@@ -144,6 +147,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                             if(m.getName().matches(mapPOIItem.getItemName())) {
                                 tmp_post.setRestaurant_id(m.getRestaurant_id());
                                 tmp_String=m.getAddress_name();
+                                text_address.setText(tmp_String);
                             }
                         }
                     }

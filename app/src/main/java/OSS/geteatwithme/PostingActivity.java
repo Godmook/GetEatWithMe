@@ -36,6 +36,7 @@ import java.util.Locale;
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UIInfo.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +45,7 @@ public class PostingActivity extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> resultLauncher;
     ActivityResultLauncher<Intent> resultLauncher2;
+    DatePickerDialog datePickerDialog;
     String []number_of_people1 = {"2", "3", "4", "5", "6", "7", "8"};
     String []number_of_people2 = {"1", "2", "3", "4", "5", "6", "7"};
     TextView restaurant_view, meeting_place_view, restaurant_address_view, meeting_place_address_view;
@@ -64,15 +66,6 @@ public class PostingActivity extends AppCompatActivity {
     Calendar myCalendar = Calendar.getInstance();
     Calendar minDate = Calendar.getInstance();
     Calendar maxDate = Calendar.getInstance();
-    DatePickerDialog.OnDateSetListener myDatePicker = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, month);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
-        }
-    };
 
     private void updateLabel() {
         String myFormat = "yyyy/MM/dd";    // 출력형식   2021/07/26
@@ -85,6 +78,7 @@ public class PostingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posting);
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         Post InputPost=new Post();
             /*
         test
@@ -196,14 +190,39 @@ public class PostingActivity extends AppCompatActivity {
                 InputPost.setCategory(6);
             }
         });
+
         // 날짜 설정
         EditText et_Date = (EditText) findViewById(R.id.edit_Date);
         et_Date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(PostingActivity.this, myDatePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                datePickerDialog=new DatePickerDialog(
+                        PostingActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                myCalendar.set(Calendar.YEAR, year);
+                                myCalendar.set(Calendar.MONTH, month);
+                                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                updateLabel();
+                            }
+                        },
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)
+                );
+                minDate.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR));
+                minDate.set(Calendar.MONTH,  myCalendar.get(Calendar.MONTH));
+                minDate.set(Calendar.DAY_OF_MONTH, myCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(minDate.getTime().getTime());
+                maxDate.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR));
+                maxDate.set(Calendar.MONTH, myCalendar.get(Calendar.MONTH));
+                maxDate.set(Calendar.DAY_OF_MONTH, myCalendar.get(Calendar.DAY_OF_MONTH)+14);
+                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+                datePickerDialog.show();
             }
         });
+
 
         // 시간 설정
         final EditText et_time = (EditText) findViewById(R.id.edit_Time);

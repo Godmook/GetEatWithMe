@@ -11,17 +11,26 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView8"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="GetEatWithMe"
-            android:textColor="#FFF3D3"
-            android:background="#FFC423"
-            android:textSize="35dp"
-            android:fontFamily="@font/gmarket_sans_ttf_bold"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@color/orange"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:background="#FFC423"
+                android:fontFamily="@font/gmarket_sans_ttf_bold"
+                android:text="GetEatWithMe"
+                android:textColor="#FFF3D3"
+                android:textSize="30sp"
+                app:layout_constraintTop_toTopOf="parent" />
+        </LinearLayout>
 
         <OSS.geteatwithme.PostInfo.MyPostView
             android:id="@+id/postView"

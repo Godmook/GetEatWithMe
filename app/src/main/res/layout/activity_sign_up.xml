@@ -33,11 +33,13 @@
                 android:id="@+id/signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:layout_marginBottom="0dp"
                 android:layout_weight="2"
                 android:text="회원 가입"
+                android:fontFamily="@font/gmarket_sans_ttf_medium"
                 android:textColor="#FFF3D3 "
-                android:textSize="40sp" />
+                android:textSize="30sp" />
         </LinearLayout>
 
         <ScrollView
@@ -57,9 +59,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="이름"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -69,6 +72,9 @@
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:hint=" 이름"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:backgroundTint="@color/middle_green"
+                    android:textCursorDrawable="@color/middle_green"
                     android:inputType="textPersonName"
                     android:text="" />
 
@@ -77,9 +83,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="아이디"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -94,6 +101,9 @@
                         android:layout_marginBottom="20dp"
                         android:ems="10"
                         android:hint=" 아이디"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
+                        android:backgroundTint="@color/middle_green"
+                        android:textCursorDrawable="@color/middle_green"
                         android:inputType="textPersonName"
                         android:text="" />
 
@@ -103,7 +113,8 @@
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#FFC423"
+                        android:backgroundTint="@color/real_orange"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:text="중복확인"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -115,10 +126,12 @@
                     android:id="@+id/signBirthtext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="나이"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <EditText
@@ -129,6 +142,9 @@
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:hint="나이"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:backgroundTint="@color/middle_green"
+                    android:textCursorDrawable="@color/middle_green"
                     android:inputType="textPersonName"
                     android:text="" />
 
@@ -137,9 +153,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="비밀번호"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
 
@@ -150,6 +167,9 @@
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:hint=" 비밀번호"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:backgroundTint="@color/middle_green"
+                    android:textCursorDrawable="@color/middle_green"
                     android:inputType="textPassword"
                     android:text="" />
 
@@ -158,9 +178,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="비밀번호 확인"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -175,6 +196,9 @@
                         android:layout_marginBottom="20dp"
                         android:ems="10"
                         android:hint=" 비밀번호 다시 입력"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
+                        android:backgroundTint="@color/middle_green"
+                        android:textCursorDrawable="@color/middle_green"
                         android:inputType="textPassword"
                         android:text="" />
 
@@ -183,7 +207,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="#FFC423"
+                        android:backgroundTint="@color/real_orange"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:text="확인"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -195,9 +220,10 @@
                     android:id="@+id/signNicknametext"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="닉네임"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -212,6 +238,9 @@
                         android:layout_marginBottom="20dp"
                         android:ems="10"
                         android:hint="닉네임"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
+                        android:backgroundTint="@color/middle_green"
+                        android:textCursorDrawable="@color/middle_green"
                         android:inputType="textPersonName" />
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -220,7 +249,8 @@
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:backgroundTint="#FFC423"
+                        android:backgroundTint="@color/real_orange"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:text="중복확인"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -233,9 +263,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="성별"
-                    android:textColor="#8BC34A"
-                    android:textSize="20dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <RadioGroup
@@ -247,12 +278,14 @@
                         android:id="@+id/btn_signup_male"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:text="남자" />
 
                     <RadioButton
                         android:id="@+id/btn_signup_female"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:text="여자" />
                 </RadioGroup>
 
@@ -263,7 +296,8 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="30dp"
-                    android:backgroundTint="#FFC423"
+                    android:backgroundTint="@color/middle_green"
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="회원가입"
                     android:textColor="@color/white"
                     android:textSize="16sp"
