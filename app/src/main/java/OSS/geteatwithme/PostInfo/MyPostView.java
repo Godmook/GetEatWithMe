@@ -1,7 +1,6 @@
 package OSS.geteatwithme.PostInfo;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -110,15 +109,14 @@ public class MyPostView extends ConstraintLayout {
         textCategory.setText("# "+category);
         textDate.setText(p.getMeeting_date());
         textTime.setText(p.getMeeting_time());
-        textID.setText("작성자 : "+p.getId());
+        textID.setText("작성자 : "+p.getNickname());
         String gender = null;
         if(p.getGender() == 0) gender = "남자";
         else if (p.getGender() == 1)  gender = "여자";
         if(p.getVisible() == 0) gender = "비공개";
         
-        textGender.setText("성별 : " + gender);    // 성별 to string 변환 필요
+        textGender.setText("성별 : " + gender);
         textPeople.setText("인원 : "+p.getCur_people()+"/"+p.getMax_people());
-        textDistance.setText("거리 : 100 m"); // 거리 계산 필요
 
         String bg = null;
         int age = p.getAge(); //test 값

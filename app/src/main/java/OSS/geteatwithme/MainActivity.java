@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             address = g.getFromLocation(latitude, longitude, 10);
             TextView textView = (TextView) findViewById(R.id.textview);
-            textView.setText(address.get(2).getAddressLine(0));
+            textView.setText(address.get(0).getAdminArea() + " "+ address.get(0).getLocality()+ " " + address.get(0).getThoroughfare());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -369,7 +369,7 @@ public class MainActivity extends AppCompatActivity {
         notice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);    // test
+                Intent myIntent = new Intent(getApplicationContext(), alarmAcitivity.class);    // test
                 startActivity(myIntent);
             }
         });
@@ -389,6 +389,33 @@ public class MainActivity extends AppCompatActivity {
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                // 현재 경도, 위도 업데이트
+                LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    // gps 권한 요청
+                    ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 0);
+                }
+                Location location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                ((user)getApplication()).setLatitude(location.getLatitude());
+                ((user)getApplication()).setLogitude(location.getLongitude());
+
+                longitude = ((user)getApplication()).getLongitude();
+                latitude = ((user)getApplication()).getLatitude();
+                SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor autoLoginEdit = auto.edit();
+                autoLoginEdit.putString("longitude", Double.toString(longitude));
+                autoLoginEdit.putString("latitude", Double.toString(latitude));
+                autoLoginEdit.commit();
+                Geocoder g = new Geocoder(getApplicationContext());
+                List<Address> address = null;
+                try {
+                    address = g.getFromLocation(latitude, longitude, 10);
+                    TextView textView = (TextView) findViewById(R.id.textview);
+                    textView.setText(address.get(0).getAdminArea() + " "+ address.get(0).getLocality()+ " " + address.get(0).getThoroughfare());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 radioButtons[category].performClick();
                 refreshLayout.setRefreshing(false);
             }

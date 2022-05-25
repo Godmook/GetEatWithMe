@@ -111,8 +111,7 @@ public class ShowPostActivity extends AppCompatActivity {
         }
 
         // 신청 가능 여부 확인
-        int available  = 1; //test
-        if(available == 0){
+        if(post.getPost_visible() == 0){
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
             dlg.setTitle("신청 불가능");
             dlg.setMessage("선택하신 게시글은 신청이 불가능 합니다.");

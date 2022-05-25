@@ -11,10 +11,14 @@
         <entry key="..\:/GetEatWithMe-main/app/src/main/res/layout/activity_main.xml" value="0.22" />
         <entry key="..\:/GetEatWithMe-main/app/src/main/res/layout/activity_sign_up.xml" value="0.3328125" />
         <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/drawable/chat.xml" value="0.1" />
+        <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/layout/activity_alarm_acitivity.xml" value="0.358695652173913" />
+        <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/layout/activity_edit_post.xml" value="0.358695652173913" />
         <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/layout/activity_my_page.xml" value="0.36614583333333334" />
+        <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/layout/activity_my_post_list.xml" value="0.358695652173913" />
         <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/layout/activity_show_post.xml" value="0.25" />
         <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/layout/activity_show_posting.xml" value="0.26222826086956524" />
+        <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/layout/my_alarm_view.xml" value="0.4287690179806362" />
         <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/layout/my_post_view.xml" value="0.5" />
         <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/layout/sign_in_main.xml" value="0.1828125" />
         <entry key="..\:/OSS/GetEatWithMe/app/src/main/res/xml/network_security_config.xml" value="0.1" />
@@ -40,14 +44,6 @@
         <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0521_2106/app/src/main/res/layout/activity_search_restaurant.xml" value="0.25" />
         <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0522_0319/app/src/main/res/layout/activity_edit_user_profile.xml" value="0.358695652173913" />
         <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0522_0319/app/src/main/res/layout/activity_my_page.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0523_2304/app/src/main/res/layout/activity_edit_post.xml" value="0.2989583333333333" />
-        <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0523_2304/app/src/main/res/layout/activity_edit_user_profile.xml" value="0.33489583333333334" />
-        <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0523_2304/app/src/main/res/layout/activity_my_page.xml" value="0.2989583333333333" />
-        <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0523_2304/app/src/main/res/layout/activity_my_post_list.xml" value="0.2989583333333333" />
-        <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0523_2304/app/src/main/res/layout/activity_posting.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0523_2304/app/src/main/res/layout/activity_search_meeting_place.xml" value="0.358695652173913" />
-        <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0523_2304/app/src/main/res/layout/activity_search_restaurant.xml" value="0.2989583333333333" />
-        <entry key="..\:/Users/82102/AndroidStudioProjects/GetEatWithMe_0523_2304/app/src/main/res/layout/activity_sign_up.xml" value="0.358695652173913" />
         <entry key="..\:/Users/cmoh4/StudioProjects/GetEatWithMe_0518(2)/app/src/main/res/layout/activity_posting.xml" value="0.36822916666666666" />
         <entry key="..\:/Users/cmoh4/StudioProjects/GetEatWithMe_0518(2)/app/src/main/res/layout/my_post_view.xml" value="0.36822916666666666" />
         <entry key="..\:/Users/cmoh4/StudioProjects/GetEatWithMe_0521(2)/app/src/main/res/layout/activity_posting.xml" value="0.4265625" />

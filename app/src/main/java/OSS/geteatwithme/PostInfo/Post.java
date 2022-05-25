@@ -20,6 +20,16 @@ public class Post {
     double meet_y;
     int restaurant_id;
     int visible;
+    int post_visible;
+    String nickname;
+
+    public int getPost_visible(){return post_visible;}
+
+    public void setPost_visible(int post_visible){this.post_visible = post_visible;}
+
+    public String getNickname(){return nickname;}
+
+    public void setNickname(String nickname){this.nickname = nickname;}
 
     public double getMeet_x() {
         return meet_x;

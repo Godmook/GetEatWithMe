@@ -11,4 +11,6 @@
         <attr name="textDistance" format="string"/>
         <attr name = "textAge" format="string"/>
     </declare-styleable>
+    <declare-styleable name="MyAlarmView">
+    </declare-styleable>
 </resources>

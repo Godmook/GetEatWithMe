@@ -74,6 +74,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             notificationChannel.enableVibration(true);
             //getSystemService(NotificationManager.class).createNotificationChannel(notificationChannel);
             Intent notificationIntent = new Intent(this,MainActivity.class);
+            notificationIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this,0,notificationIntent,PendingIntent.FLAG_IMMUTABLE);
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
                     .setContentTitle(remoteMessage.getNotification().getTitle())

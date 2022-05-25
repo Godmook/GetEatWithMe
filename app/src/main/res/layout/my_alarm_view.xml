@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/black"
+    android:paddingTop="1dp"
+    android:paddingBottom="1dp">
+    <LinearLayout
+        android:id="@+id/alarmbackground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="120dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/white"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="2"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/application" />
+
+        <TextView
+            android:id="@+id/alarmText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="8"
+            android:text="알람 메시지"
+            android:fontFamily="@font/gmarket_sans_ttf_medium"
+            android:textSize="20dp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
