@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             address = g.getFromLocation(latitude, longitude, 10);
             TextView textView = (TextView) findViewById(R.id.textview);
-            textView.setText(address.get(0).getAdminArea() + " "+ address.get(0).getLocality()+ " " + address.get(0).getThoroughfare());
+            textView.setText(address.get(0).getAdminArea() + " "+ address.get(0).getSubLocality()+ " " + address.get(0).getThoroughfare());
         } catch (IOException e) {
             e.printStackTrace();
         }
