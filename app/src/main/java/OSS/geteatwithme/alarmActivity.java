@@ -28,11 +28,12 @@ import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.MyPostView;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UIInfo.Utils;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.Response;
 
-public class alarmAcitivity extends AppCompatActivity {
+public class alarmActivity extends AppCompatActivity {
     private class GetAlarmTask extends AsyncTask<Call,Void,LinkedList<Alarm>> {
         @Override
         protected LinkedList<Alarm> doInBackground(Call... calls) {
@@ -46,7 +47,7 @@ public class alarmAcitivity extends AppCompatActivity {
             return null;
         }
     }
-    alarmAcitivity activity = null;
+    alarmActivity activity = null;
     LinkedList<Alarm> alarms = new LinkedList<>();
     LinearLayout linearLayout;
     void showAlarms() throws ExecutionException, InterruptedException {
@@ -120,6 +121,7 @@ public class alarmAcitivity extends AppCompatActivity {
         setContentView(R.layout.activity_alarm_acitivity);
         linearLayout = (LinearLayout) findViewById(R.id.alarmLinearLayout);
         activity = this;
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
 
         // alarms 서버에서 가져오기
 

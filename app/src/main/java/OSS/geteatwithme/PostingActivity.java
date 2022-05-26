@@ -217,7 +217,7 @@ public class PostingActivity extends AppCompatActivity {
                 datePickerDialog.getDatePicker().setMinDate(minDate.getTime().getTime());
                 maxDate.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR));
                 maxDate.set(Calendar.MONTH, myCalendar.get(Calendar.MONTH));
-                maxDate.set(Calendar.DAY_OF_MONTH, myCalendar.get(Calendar.DAY_OF_MONTH)+14);
+                maxDate.set(Calendar.DAY_OF_MONTH, myCalendar.get(Calendar.DAY_OF_MONTH)+7);
                 datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
                 datePickerDialog.show();
             }
