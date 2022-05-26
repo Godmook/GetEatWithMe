@@ -8,6 +8,15 @@ public class Alarm {
     String opposite_nickname;
     int post_id;
     int view;
+    int alarm_id;
+
+    public int getAlarm_id() {
+        return alarm_id;
+    }
+
+    public void setAlarm_id(int alarm_id) {
+        this.alarm_id = alarm_id;
+    }
 
     public String getId() {
         return id;

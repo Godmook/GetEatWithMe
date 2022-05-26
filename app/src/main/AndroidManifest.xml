@@ -18,13 +18,10 @@
         android:theme="@style/Theme.GetEatWithMe"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".alarmAcitivity"
+            android:name=".alarmActivity"
             android:exported="false" />
         <activity
             android:name=".EditUserProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SearchMeetingPlaceActivity"
             android:exported="false" />
         <activity
             android:name=".SearchRestaurantActivity"

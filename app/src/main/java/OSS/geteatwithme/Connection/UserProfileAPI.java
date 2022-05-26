@@ -129,4 +129,8 @@ public interface UserProfileAPI {
     Call<LinkedList<Alarm>>GetAlarm(
             @Path("id")String id
     );
+    @POST("/update/alarm/{id}")
+    Call<Integer>UpdateViewAlarm(
+      @Path("id")int id
+    );
 }

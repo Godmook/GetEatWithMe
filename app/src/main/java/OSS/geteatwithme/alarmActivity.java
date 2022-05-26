@@ -31,6 +31,7 @@ import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.UIInfo.Utils;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Response;
 
 public class alarmActivity extends AppCompatActivity {
@@ -50,17 +51,11 @@ public class alarmActivity extends AppCompatActivity {
     alarmActivity activity = null;
     LinkedList<Alarm> alarms = new LinkedList<>();
     LinearLayout linearLayout;
-    void showAlarms() throws ExecutionException, InterruptedException {
+    void showAlarms() {
         if(linearLayout != null)
             ((ViewGroup) linearLayout.getParent()).removeView(linearLayout);
         linearLayout = new LinearLayout(this);
         linearLayout.setOrientation(LinearLayout.VERTICAL);
-        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
-        String user_id=auto.getString("ID",null);
-        RetrofitService retrofitService = new RetrofitService();
-        UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
-        Call<LinkedList<Alarm>> calls= userProfileAPI.GetAlarm(user_id);
-        alarms= new GetAlarmTask().execute(calls).get();
         // 알람 만들기
         int idx = 0;
         for (Alarm a : alarms) {
@@ -70,7 +65,20 @@ public class alarmActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // 해당 알람 view 1로 변경(서버)
+                    RetrofitService retrofitService = new RetrofitService();
+                    UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+                    userProfileAPI.UpdateViewAlarm(a.getAlarm_id())
+                            .enqueue(new Callback<Integer>() {
+                                @Override
+                                public void onResponse(Call<Integer> call, Response<Integer> response) {
 
+                                }
+
+                                @Override
+                                public void onFailure(Call<Integer> call, Throwable t) {
+
+                                }
+                            });
                     if(alarmView.alarm.getRequest() == 1 && alarmView.alarm.getView() == 0){
                         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
                         builder.setTitle("신청 확인");
@@ -92,13 +100,7 @@ public class alarmActivity extends AppCompatActivity {
                         builder.show();
                     }
                     alarmView.alarm.setView(1);
-                    try {
-                        showAlarms();
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    showAlarms();
                 }
             });
             linearLayout.addView(alarmView, idx++);
@@ -122,16 +124,21 @@ public class alarmActivity extends AppCompatActivity {
         linearLayout = (LinearLayout) findViewById(R.id.alarmLinearLayout);
         activity = this;
         Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
-
-        // alarms 서버에서 가져오기
-
+        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+        String user_id=auto.getString("ID",null);
+        RetrofitService retrofitService = new RetrofitService();
+        UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+        Call<LinkedList<Alarm>> calls= userProfileAPI.GetAlarm(user_id);
         try {
-            showAlarms();
+            alarms= new GetAlarmTask().execute(calls).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        // alarms 서버에서 가져오기
+
+        showAlarms();
 
     }
 }
