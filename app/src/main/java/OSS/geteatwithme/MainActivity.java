@@ -371,7 +371,7 @@ public class MainActivity extends AppCompatActivity {
         notice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), alarmAcitivity.class);    // test
+                Intent myIntent = new Intent(getApplicationContext(), alarmActivity.class);    // test
                 startActivity(myIntent);
             }
         });

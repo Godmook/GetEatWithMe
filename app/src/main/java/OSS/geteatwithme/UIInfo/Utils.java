@@ -17,6 +17,7 @@ import OSS.geteatwithme.SearchRestaurantActivity;
 import OSS.geteatwithme.ShowPostActivity;
 import OSS.geteatwithme.SignInActivity;
 import OSS.geteatwithme.SignUpActivity;
+import OSS.geteatwithme.alarmActivity;
 
 public class Utils {
     public enum StatusBarColorType {
@@ -84,6 +85,11 @@ public class Utils {
         }
     }
     public static void setStatusBarColor(SignUpActivity activity, StatusBarColorType colorType) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, colorType.getBackgroundColorId()));
+        }
+    }
+    public static void setStatusBarColor(alarmActivity activity, StatusBarColorType colorType) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, colorType.getBackgroundColorId()));
         }
