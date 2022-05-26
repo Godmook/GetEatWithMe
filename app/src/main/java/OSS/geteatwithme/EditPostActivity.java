@@ -56,6 +56,8 @@ public class EditPostActivity extends AppCompatActivity {
     Button cancel, delete, edit;
     Switch gender_visible;
     TextView gender_open_text;
+    DatePickerDialog datePickerDialog;
+    int POST_ID;
     Post EditPost=new Post();
     // 라디오 버튼(카테고리 선택)
     RadioButton[] radioButtons = new RadioButton[7];
@@ -66,15 +68,8 @@ public class EditPostActivity extends AppCompatActivity {
 
     // 캘린더
     Calendar myCalendar = Calendar.getInstance();
-    DatePickerDialog.OnDateSetListener myDatePicker = new DatePickerDialog.OnDateSetListener() {
-        @Override
-        public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, month);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
-        }
-    };
+    Calendar minDate=Calendar.getInstance();
+    Calendar maxDate=Calendar.getInstance();
 
     private void updateLabel() {
         String myFormat = "yyyy/MM/dd";    // 출력형식   2021/07/26
@@ -87,11 +82,11 @@ public class EditPostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post);
         Intent secondIntent=getIntent();
+        POST_ID = secondIntent.getIntExtra("postID", 0);
         Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
-        int Editpost_id=secondIntent.getExtras().getInt("postID");
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
-        Call<Post>call=userProfileAPI.getPostByPost_id(Editpost_id);
+        Call<Post>call=userProfileAPI.getPostByPost_id(POST_ID);
         try {
             EditPost=new GetPostTask().execute(call).get();
         } catch (ExecutionException e) {
@@ -99,8 +94,10 @@ public class EditPostActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        int tmp_int;
         String tmp_String;
+
+        // 기존 정보 setting
+        radioButtons[EditPost.getCategory()].setChecked(true);
 
         // 모일 인원 및 모인 인원 spinner 설정
         Spinner spinner_1 = findViewById(R.id.edit_max_people_spinner);
@@ -147,9 +144,12 @@ public class EditPostActivity extends AppCompatActivity {
         radioButtons[4] = (RadioButton) findViewById(R.id.radioButton_4);
         radioButtons[5] = (RadioButton) findViewById(R.id.radioButton_5);
         radioButtons[6] = (RadioButton) findViewById(R.id.radioButton_6);
+
         // posting에서 선택된 category check
         radioButtons[EditPost.getCategory()].setChecked(true);
-
+        
+        editPosting.setText(EditPost.getContents());
+        
         // 한식
         radioButtons[0].setOnClickListener(new View.OnClickListener(){
             @Override
@@ -219,7 +219,30 @@ public class EditPostActivity extends AppCompatActivity {
         et_Date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(EditPostActivity.this, myDatePicker, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+                datePickerDialog=new DatePickerDialog(
+                        EditPostActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                myCalendar.set(Calendar.YEAR, year);
+                                myCalendar.set(Calendar.MONTH, month);
+                                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                                updateLabel();
+                            }
+                        },
+                        myCalendar.get(Calendar.YEAR),
+                        myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)
+                );
+                minDate.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR));
+                minDate.set(Calendar.MONTH,  myCalendar.get(Calendar.MONTH));
+                minDate.set(Calendar.DAY_OF_MONTH, myCalendar.get(Calendar.DAY_OF_MONTH));
+                datePickerDialog.getDatePicker().setMinDate(minDate.getTime().getTime());
+                maxDate.set(Calendar.YEAR, myCalendar.get(Calendar.YEAR));
+                maxDate.set(Calendar.MONTH, myCalendar.get(Calendar.MONTH));
+                maxDate.set(Calendar.DAY_OF_MONTH, myCalendar.get(Calendar.DAY_OF_MONTH)+7);
+                datePickerDialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
+                datePickerDialog.show();
             }
         });
 
@@ -250,7 +273,7 @@ public class EditPostActivity extends AppCompatActivity {
                         EditPost.setSec(sec);
                         et_time.setText(tmp);
                     }
-                }, hour, minute, true); // true의 경우 24시간 형식의 TimePicker 출현
+                }, hour, minute, false); // true의 경우 24시간 형식의 TimePicker 출현
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
             }
@@ -258,6 +281,7 @@ public class EditPostActivity extends AppCompatActivity {
 
         // posting text 관리
         editPosting = (EditText)findViewById(R.id.edit_editPostingText);
+        editPosting.setText(EditPost.getContents());
         // 기존 posting 내용 넣기
         tmp_String=EditPost.getContents();
         editPosting.setText(tmp_String);
@@ -336,6 +360,17 @@ public class EditPostActivity extends AppCompatActivity {
         // 성별 공개 비공개 설정
         gender_visible=(Switch) findViewById(R.id.edit_sch_gender_visible);
         gender_open_text=(TextView)findViewById(R.id.edit_text_gender_visible);
+        if(EditPost.getVisible()==1)
+        {
+            gender_visible.setChecked(true);
+            gender_open_text.setText("성별을 공개합니다");
+        }            
+        else
+        {
+            gender_visible.setChecked(false);
+            gender_open_text.setText("성별을 비공개합니다");
+        }
+
         gender_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

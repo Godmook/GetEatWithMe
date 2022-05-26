@@ -99,6 +99,25 @@ public class EditUserProfileActivity extends AppCompatActivity {
         /*
         수정 안한 정보는 그대로 가지고 가는거죠
          */
+        //비밀번호 확인 버튼
+        pwcheck = findViewById(R.id.pwcheckbutton);
+        pwcheck.setOnClickListener(v -> {
+            EditText userPasswordEditText = (EditText) findViewById(R.id.signPW);
+            String PW_str = userPasswordEditText.getText().toString();
+            EditText userPassword2EditText = (EditText) findViewById(R.id.signPW2);
+            String PW2_str = userPassword2EditText.getText().toString();
+            if (PW_str.matches("") || PW2_str.matches("")) {
+                Toast.makeText(this, "You did not enter a password", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                if(pw.getText().toString().equals(pw2.getText().toString())){
+                    Toast.makeText(EditUserProfileActivity.this, "비밀번호가 일치합니다.", Toast.LENGTH_LONG).show();
+                }
+                else{
+                    Toast.makeText(EditUserProfileActivity.this, "비밀번호가 다릅니다.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
         /*
         비번 중복 확인은 당신이 만들고
          */
@@ -112,6 +131,9 @@ public class EditUserProfileActivity extends AppCompatActivity {
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
                                 if(response.body()<1){
                                     Toast.makeText(EditUserProfileActivity.this,"사용 가능한 닉네임입니다.",Toast.LENGTH_SHORT).show();
+                                }
+                                else{
+                                    Toast.makeText(EditUserProfileActivity.this, "사용 불가능한 닉네임입니다!", Toast.LENGTH_SHORT).show();
                                 }
                             }
 

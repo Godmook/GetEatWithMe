@@ -133,4 +133,8 @@ public interface UserProfileAPI {
     Call<Integer>UpdateViewAlarm(
       @Path("id")int id
     );
+    @POST("/update/post/curpeople/{id}")
+    Call<Void>UpdateCurPeople(
+            @Path("id")int id
+    );
 }
