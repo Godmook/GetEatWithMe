@@ -126,6 +126,7 @@ public class MainActivity extends AppCompatActivity {
         int idx = 0;
         for (Post p : posts) {
             MyPostView postView = new MyPostView(this);
+            if(p.getPost_visible()==0)continue;
             postView.set(p);
             postView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -35,16 +35,16 @@
         <OSS.geteatwithme.PostInfo.MyPostView
             android:id="@+id/postView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="3"
-            app:textRestaurant="식당 이름"
             app:textCategory="한식"
             app:textDate="22/05/20"
-            app:textTime="16:35"
-            app:textID="user id"
+            app:textDistance="100m"
             app:textGender="비공개"
+            app:textID="user id"
             app:textPeople="4/8"
-            app:textDistance="100m" />
+            app:textRestaurant="식당 이름"
+            app:textTime="16:35" />
 
         <TextView
             android:id="@+id/textView11"

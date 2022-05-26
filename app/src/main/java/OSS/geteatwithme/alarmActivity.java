@@ -24,6 +24,8 @@ import java.util.concurrent.ExecutionException;
 
 import OSS.geteatwithme.AlarmInfo.Alarm;
 import OSS.geteatwithme.AlarmInfo.MyAlarmView;
+import OSS.geteatwithme.Connection.NotificationRequest;
+import OSS.geteatwithme.Connection.NotificationResponse;
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.MyPostView;
@@ -35,6 +37,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class alarmActivity extends AppCompatActivity {
+    private class GetTokenTask extends AsyncTask<Call,Void,UserProfile>{
+        @Override
+        protected UserProfile doInBackground(Call... calls) {
+            try{
+                Call<UserProfile> call=calls[0];
+                Response<UserProfile> response=call.execute();
+                return response.body();
+            }catch(IOException e){
+
+            }
+            return null;
+        }
+    }
     private class GetAlarmTask extends AsyncTask<Call,Void,LinkedList<Alarm>> {
         @Override
         protected LinkedList<Alarm> doInBackground(Call... calls) {
@@ -88,12 +103,50 @@ public class alarmActivity extends AppCompatActivity {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
                                         // 거절 눌렀을 때
+                                        RetrofitService retrofitService = new RetrofitService();
+                                        UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+                                        Call<UserProfile> calls= userProfileAPI.getUserProfile(a.getOpposite_id());
+                                        UserProfile aa=new UserProfile();
+                                        try {
+                                            aa=new GetTokenTask().execute(calls).get();
+                                        } catch (ExecutionException e) {
+                                            e.printStackTrace();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                        NotificationRequest notificationRequest=new NotificationRequest("나랑 같이 밥 먹을래..?","작성자가 당신의 요청을 거절했어요 ㅠㅠ",aa.getToken_id(),"FCM_EXE_ACTIVITY");
+                                        userProfileAPI.PutNotification(notificationRequest)
+                                                .enqueue(new Callback<NotificationResponse>() {
+                                                    @Override
+                                                    public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<NotificationResponse> call, Throwable t) {
+
+                                                    }
+                                                });
+                                        userProfileAPI.InsertAlarm(a.getOpposite_id(),2,a.getId(),a.getPost_id(),0,a.getOpposite_nickname(),a.getNickname())
+                                                .enqueue(new Callback<Integer>() {
+                                                    @Override
+                                                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<Integer> call, Throwable t) {
+
+                                                    }
+                                                });
                                     }
                                 });
                         builder.setPositiveButton("수락",
                                 new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int which) {
+                                        RetrofitService retrofitService = new RetrofitService();
+                                        UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
                                         userProfileAPI.UpdateCurPeople(a.getPost_id())
                                                 .enqueue(new Callback<Void>() {
                                                     @Override
@@ -106,7 +159,41 @@ public class alarmActivity extends AppCompatActivity {
 
                                                     }
                                                 });
+                                        Call<UserProfile> calls= userProfileAPI.getUserProfile(a.getOpposite_id());
+                                        UserProfile aa=new UserProfile();
+                                        try {
+                                            aa=new GetTokenTask().execute(calls).get();
+                                        } catch (ExecutionException e) {
+                                            e.printStackTrace();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
                                         // 수락 눌렀을 때
+                                        NotificationRequest notificationRequest=new NotificationRequest("나랑 같이 밥 먹을래..?","작성자가 당신의 요청을 수락했어요!",aa.getToken_id(),"FCM_EXE_ACTIVITY");
+                                        userProfileAPI.PutNotification(notificationRequest)
+                                                .enqueue(new Callback<NotificationResponse>() {
+                                                    @Override
+                                                    public void onResponse(Call<NotificationResponse> call, Response<NotificationResponse> response) {
+
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<NotificationResponse> call, Throwable t) {
+
+                                                    }
+                                                });
+                                        userProfileAPI.InsertAlarm(a.getOpposite_id(),0,a.getId(),a.getPost_id(),0,a.getOpposite_nickname(),a.getNickname())
+                                                .enqueue(new Callback<Integer>() {
+                                                    @Override
+                                                    public void onResponse(Call<Integer> call, Response<Integer> response) {
+
+                                                    }
+
+                                                    @Override
+                                                    public void onFailure(Call<Integer> call, Throwable t) {
+
+                                                    }
+                                                });
                                     }
                                 });
                         builder.show();
