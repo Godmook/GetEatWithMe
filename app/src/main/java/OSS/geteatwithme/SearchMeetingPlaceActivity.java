@@ -17,6 +17,7 @@ import OSS.geteatwithme.Connection.KaKaofitService;
 import OSS.geteatwithme.Connection.ResultSearchKeyword;
 import OSS.geteatwithme.Connection.UserProfileAPI;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UIInfo.Utils;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -30,6 +31,7 @@ public class SearchMeetingPlaceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_meeting_place);
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         Post tmp_post = new Post();
         search_word=(EditText) findViewById(R.id.search_meeting_place_text);
         search_start=(Button)findViewById(R.id.btn_search_start2);

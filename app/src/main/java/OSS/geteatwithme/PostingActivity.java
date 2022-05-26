@@ -241,7 +241,7 @@ public class PostingActivity extends AppCompatActivity {
                         sec=(selectedHour*3600)+(selectedMinute*60);
                         et_time.setText(tmp);
                     }
-                }, hour, minute, true); // true의 경우 24시간 형식의 TimePicker 출현
+                }, hour, minute, false); // true의 경우 24시간 형식의 TimePicker 출현
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
             }
