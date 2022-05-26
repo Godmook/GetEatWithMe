@@ -1,12 +1,16 @@
 package OSS.geteatwithme;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +18,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -50,13 +55,17 @@ public class EditPostActivity extends AppCompatActivity {
             return null;
         }
     }
+    ActivityResultLauncher<Intent> resultLauncher;
+    ActivityResultLauncher<Intent> resultLauncher2;
     String []number_of_people1 = {"2", "3", "4", "5", "6", "7", "8"};
     String []number_of_people2 = {"1", "2", "3", "4", "5", "6", "7"};
     EditText editPosting;
+    TextView res, res_add, meet, meet_add;
     Button cancel, delete, edit;
     Switch gender_visible;
     TextView gender_open_text;
     DatePickerDialog datePickerDialog;
+    LinearLayout lay1, lay2;
     int POST_ID;
     Post EditPost=new Post();
     // 라디오 버튼(카테고리 선택)
@@ -81,36 +90,33 @@ public class EditPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post);
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         Intent secondIntent=getIntent();
         POST_ID = secondIntent.getIntExtra("postID", 0);
-        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
+
+        // post 가져오기
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
         Call<Post>call=userProfileAPI.getPostByPost_id(POST_ID);
         try {
-            EditPost=new GetPostTask().execute(call).get();
+            EditPost =new GetPostTask().execute(call).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        //post 가져오기
         String tmp_String;
-
-        // 기존 정보 setting
-        radioButtons[EditPost.getCategory()].setChecked(true);
-
         // 모일 인원 및 모인 인원 spinner 설정
         Spinner spinner_1 = findViewById(R.id.edit_max_people_spinner);
         Spinner spinner_2 = findViewById(R.id.edit_cur_people_spinner);
-        spinner_1.setSelection(EditPost.getMax_people());
-        spinner_2.setSelection(EditPost.getCur_people());
-
         //모일 인원 spinner 설정
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, number_of_people1);
         adapter1.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item);
         spinner_1.setAdapter(adapter1);
+        spinner_1.setSelection(EditPost.getMax_people()-2);
         spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -126,6 +132,7 @@ public class EditPostActivity extends AppCompatActivity {
         adapter2.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item);
         spinner_2.setAdapter(adapter2);
+        spinner_2.setSelection(EditPost.getCur_people()-1);
         spinner_2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -147,9 +154,9 @@ public class EditPostActivity extends AppCompatActivity {
 
         // posting에서 선택된 category check
         radioButtons[EditPost.getCategory()].setChecked(true);
-        
+        editPosting=findViewById(R.id.edit_editPostingText);
         editPosting.setText(EditPost.getContents());
-        
+
         // 한식
         radioButtons[0].setOnClickListener(new View.OnClickListener(){
             @Override
@@ -284,7 +291,7 @@ public class EditPostActivity extends AppCompatActivity {
         editPosting.setText(EditPost.getContents());
         // 기존 posting 내용 넣기
         tmp_String=EditPost.getContents();
-        editPosting.setText(tmp_String);
+        //editPosting.setText(tmp_String);
 
 
         // button 관리
@@ -357,6 +364,57 @@ public class EditPostActivity extends AppCompatActivity {
             }
         });
 
+        res=(TextView)findViewById(R.id.edit_restaurant_view);
+        res_add=(TextView)findViewById(R.id.textView9);
+        meet=(TextView)findViewById(R.id.edit_meeting_place_view);
+        meet_add=(TextView)findViewById(R.id.textView15);
+        res.setText(EditPost.getRestaurant());
+        meet.setText(EditPost.getMeeting_place());
+        // 장소 선택택
+       resultLauncher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        EditPost.setRestaurant(data.getStringExtra("place"));
+                        res.setText(data.getStringExtra("place"));
+                        EditPost.setLongitude(data.getDoubleExtra("placeX", 0));
+                        EditPost.setLatitude(data.getDoubleExtra("placeY", 0));
+                        res_add.setText(data.getStringExtra("place_address"));
+                        EditPost.setRestaurant_id(data.getIntExtra("place_id",0));
+                    }
+                });
+        resultLauncher2=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        EditPost.setMeeting_place(data.getStringExtra("place"));
+                        EditPost.setMeet_x(data.getDoubleExtra("placeX", 0));
+                        EditPost.setMeet_y(data.getDoubleExtra("placeY", 0));
+                        meet.setText(data.getStringExtra("place"));
+                        meet_add.setText(data.getStringExtra("place_address"));
+                    }
+                });
+
+        lay1=(LinearLayout)findViewById(R.id.layout1_1);
+        lay2=(LinearLayout)findViewById(R.id.layout2_2);
+        // 음식점 선택
+        lay1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                resultLauncher.launch(myIntent);
+            }
+        });
+        // 만날 장소 선택
+        lay2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                resultLauncher2.launch(myIntent);
+            }
+        });
         // 성별 공개 비공개 설정
         gender_visible=(Switch) findViewById(R.id.edit_sch_gender_visible);
         gender_open_text=(TextView)findViewById(R.id.edit_text_gender_visible);
@@ -364,7 +422,7 @@ public class EditPostActivity extends AppCompatActivity {
         {
             gender_visible.setChecked(true);
             gender_open_text.setText("성별을 공개합니다");
-        }            
+        }
         else
         {
             gender_visible.setChecked(false);

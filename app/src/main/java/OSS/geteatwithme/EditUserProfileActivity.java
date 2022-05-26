@@ -100,11 +100,11 @@ public class EditUserProfileActivity extends AppCompatActivity {
         수정 안한 정보는 그대로 가지고 가는거죠
          */
         //비밀번호 확인 버튼
-        pwcheck = findViewById(R.id.pwcheckbutton);
+        pwcheck = findViewById(R.id.edit_profile_pwcheckbutton);
         pwcheck.setOnClickListener(v -> {
-            EditText userPasswordEditText = (EditText) findViewById(R.id.signPW);
+            EditText userPasswordEditText = (EditText) findViewById(R.id.edit_profile_PW);
             String PW_str = userPasswordEditText.getText().toString();
-            EditText userPassword2EditText = (EditText) findViewById(R.id.signPW2);
+            EditText userPassword2EditText = (EditText) findViewById(R.id.edit_profile_PW2);
             String PW2_str = userPassword2EditText.getText().toString();
             if (PW_str.matches("") || PW2_str.matches("")) {
                 Toast.makeText(this, "You did not enter a password", Toast.LENGTH_SHORT).show();
@@ -118,9 +118,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                 }
             }
         });
-        /*
-        비번 중복 확인은 당신이 만들고
-         */
+
         nicknamecheck=(Button)findViewById(R.id.edit_profile_nicknamecheck);
         nicknamecheck.setOnClickListener(new View.OnClickListener() {
             @Override

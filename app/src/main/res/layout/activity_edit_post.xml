@@ -61,19 +61,10 @@
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
-                    <Button
-                        android:id="@+id/restaurant_find_button"
-                        android:layout_width="56dp"
-                        android:layout_height="38dp"
-                        android:layout_marginLeft="10dp"
-                        android:backgroundTint="@color/real_orange"
-                        android:fontFamily="@font/gmarket_sans_ttf_light"
-                        android:text="찾기"
-                        android:textSize="10sp" />
-
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout1_1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/ivory"
@@ -112,20 +103,10 @@
                         android:textColor="@color/black"
                         android:textSize="20sp" />
 
-                    <Button
-                        android:id="@+id/meeting_place_find_button"
-                        android:layout_width="56dp"
-                        android:layout_height="38dp"
-                        android:layout_marginLeft="10dp"
-                        android:backgroundTint="@color/real_orange"
-                        android:fontFamily="@font/gmarket_sans_ttf_light"
-
-                        android:text="찾기"
-                        android:textSize="10sp" />
-
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/layout2_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/ivory"
@@ -150,24 +131,13 @@
                         android:layout_weight="1" />
                 </LinearLayout>
 
-                <EditText
-                    android:id="@+id/edit_meeting_place_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/middle_green"
-                    android:ems="10"
-                    android:fontFamily="@font/gmarket_sans_ttf_light"
-                    android:hint="만날 장소 상세 설명"
-                    android:inputType="textPersonName"
-                    android:textCursorDrawable="@color/middle_green" />
-
                 <TextView
                     android:id="@+id/edit_category"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=" 음식점 카테고리 선택"
+                    android:layout_marginTop="20dp"
                     android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:text=" 음식점 카테고리 선택"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 

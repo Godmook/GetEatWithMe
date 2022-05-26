@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -53,7 +54,7 @@ public class PostingActivity extends AppCompatActivity {
     Button cancel, post;
     Switch gender_visible;
     TextView gender_open_text;
-    Button Restaurant_search, meeting_place_search;
+    LinearLayout lay1, lay2;
     int sec;
     // 라디오 버튼(카테고리 선택)
     RadioButton[] radioButtons = new RadioButton[7];
@@ -343,10 +344,10 @@ public class PostingActivity extends AppCompatActivity {
         meeting_place_view=(TextView)findViewById(R.id.edit_meeting_place_view);
         restaurant_address_view=(TextView)findViewById(R.id.edit_restaurant_address_view);
         meeting_place_address_view=(TextView)findViewById(R.id.edit_meeting_place_address_view);
-
+        lay1=(LinearLayout)findViewById(R.id.layout1);
+        lay2=(LinearLayout)findViewById(R.id.layout2);
         // 음식점 선택
-        Restaurant_search=(Button)findViewById(R.id.restaurant_find_button);
-        Restaurant_search.setOnClickListener(new View.OnClickListener() {
+        lay1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
@@ -354,10 +355,8 @@ public class PostingActivity extends AppCompatActivity {
                 resultLauncher.launch(myIntent);
             }
         });
-
         // 만날 장소 선택
-        meeting_place_search=(Button)findViewById(R.id.meeting_place_find_button);
-        meeting_place_search.setOnClickListener(new View.OnClickListener() {
+        lay2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
@@ -365,7 +364,6 @@ public class PostingActivity extends AppCompatActivity {
                 resultLauncher2.launch(myIntent);
             }
         });
-
         gender_visible=(Switch) findViewById(R.id.edit_sch_gender_visible);
         gender_open_text=(TextView)findViewById(R.id.edit_text_gender_visible);
         gender_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
