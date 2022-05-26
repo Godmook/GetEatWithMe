@@ -20,6 +20,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [kakaoSdkAppkey : kakao_api_key]
+        buildConfigField "String", "kakaoRestApiKey", properties['kakao_rest_api_key']
     }
 
     buildTypes {

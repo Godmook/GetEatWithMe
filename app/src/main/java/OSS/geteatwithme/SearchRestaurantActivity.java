@@ -18,7 +18,6 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import net.daum.mf.map.api.BuildConfig;
 import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -87,7 +86,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                     SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
                     MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(auto.getString("latitude", null)), Double.parseDouble(auto.getString("longitude", null)));
                     mapView.setMapCenterPoint(mapPoint, true);
-                    Call<ResultSearchKeyword> call = userProfileAPI.GetSearchKeyword("KakaoAK f9e3926b054ba1f5d08a2672f49e8869", Query, auto.getString("longitude", null), auto.getString("latitude", null), "10000");
+                    Call<ResultSearchKeyword> call = userProfileAPI.GetSearchKeyword(BuildConfig.kakaoRestApiKey, Query, auto.getString("longitude", null), auto.getString("latitude", null), "10000");
                     try {
                         resultSearchKeyword = new GetMarker().execute(call).get();
                     } catch (ExecutionException e) {
