@@ -258,6 +258,7 @@ public class SignUpActivity extends AppCompatActivity {
                                                                             });
                                                                     Toast.makeText(SignUpActivity.this, "가입이 완료되었습니다.", Toast.LENGTH_LONG).show();
                                                                     Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                                                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                                     startActivity(intent);
                                                                 }
                                                                 else{

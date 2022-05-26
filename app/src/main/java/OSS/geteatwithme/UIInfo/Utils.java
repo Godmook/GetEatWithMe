@@ -12,7 +12,6 @@ import OSS.geteatwithme.MyPostListActivity;
 import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.PostingActivity;
 import OSS.geteatwithme.R;
-import OSS.geteatwithme.SearchMeetingPlaceActivity;
 import OSS.geteatwithme.SearchRestaurantActivity;
 import OSS.geteatwithme.ShowPostActivity;
 import OSS.geteatwithme.SignInActivity;
@@ -65,11 +64,6 @@ public class Utils {
         }
     }
     public static void setStatusBarColor(SearchRestaurantActivity activity, StatusBarColorType colorType) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, colorType.getBackgroundColorId()));
-        }
-    }
-    public static void setStatusBarColor(SearchMeetingPlaceActivity activity, StatusBarColorType colorType) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, colorType.getBackgroundColorId()));
         }

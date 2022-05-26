@@ -243,7 +243,11 @@ public class EditPostActivity extends AppCompatActivity {
                             state = "PM";
                         }
                         // EditText에 출력할 형식 지정
-                        String tmp=state + " " + selectedHour + "뿡 " + selectedMinute + "분";
+                        String str="";
+                        if(selectedMinute<10)str="0";
+                        String tmp= selectedHour + ":" + str+selectedMinute;
+                        int sec=(3600*selectedHour)+(60*selectedMinute);
+                        EditPost.setSec(sec);
                         et_time.setText(tmp);
                     }
                 }, hour, minute, true); // true의 경우 24시간 형식의 TimePicker 출현
@@ -284,10 +288,6 @@ public class EditPostActivity extends AppCompatActivity {
                 EditPost.setContents(editPosting.getText().toString());
                 EditPost.setMeeting_date(et_Date.getText().toString());
                 EditPost.setMeeting_time(et_time.getText().toString());
-                EditPost.setRestaurant("미식반점");
-                EditPost.setMeeting_place("김예진 집 앞");
-                EditPost.setLongitude(111.7);
-                EditPost.setLatitude(37.6);
                 if(EditPost.getMax_people() <= EditPost.getCur_people())
                 {
                     Toast.makeText(getApplicationContext(), "모인인원의 수는 모일 인원의 수보다 작아야 합니다.", Toast.LENGTH_LONG).show();
@@ -312,13 +312,15 @@ public class EditPostActivity extends AppCompatActivity {
                             EditPost.getMeet_x(),
                             EditPost.getMeet_y(),
                             EditPost.getRestaurant_id(),
-                            EditPost.getVisible()
+                            EditPost.getVisible(),
+                            EditPost.getSec()
                     )
                             .enqueue(new Callback<Integer>() {
                                 @Override
                                 public void onResponse(Call<Integer> call, Response<Integer> response) {
                                     Toast.makeText(EditPostActivity.this,"성공!",Toast.LENGTH_SHORT).show();
                                     Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(myIntent);
                                 }
 

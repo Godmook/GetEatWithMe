@@ -74,6 +74,7 @@ public class SignInActivity extends AppCompatActivity {
     // 회원가입 버튼
     public void onSignUpClicked(View v){
         Intent myIntent = new Intent(getApplicationContext(), SignUpActivity.class);
+        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(myIntent);
     }
 
@@ -114,6 +115,7 @@ public class SignInActivity extends AppCompatActivity {
                                             public void onResponse(Call<Integer> call, Response<Integer> response) {
                                                 ((user)getApplication()).setUserID(id);
                                                 Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                 startActivity(myIntent);
                                                 finish();
                                             }

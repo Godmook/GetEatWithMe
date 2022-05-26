@@ -150,6 +150,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                                     public void onResponse(Call<Integer> call, Response<Integer> response) {
                                         Toast.makeText(EditUserProfileActivity.this, "수정 성공!", Toast.LENGTH_SHORT).show();
                                         Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);
+                                        myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                         startActivity(myIntent);
                                     }
 
@@ -168,6 +169,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
                                         public void onResponse(Call<Integer> call, Response<Integer> response) {
                                             Toast.makeText(EditUserProfileActivity.this, "수정 성공!", Toast.LENGTH_SHORT).show();
                                             Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);
+                                            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                             startActivity(myIntent);
                                         }
 

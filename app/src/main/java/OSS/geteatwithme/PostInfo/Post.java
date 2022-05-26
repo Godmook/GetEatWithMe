@@ -22,6 +22,23 @@ public class Post {
     int visible;
     int post_visible;
     String nickname;
+    int sec;
+
+    public int getPost_id() {
+        return post_id;
+    }
+
+    public void setPost_id(int post_id) {
+        this.post_id = post_id;
+    }
+
+    public int getSec() {
+        return sec;
+    }
+
+    public void setSec(int sec) {
+        this.sec = sec;
+    }
 
     public int getPost_visible(){return post_visible;}
 

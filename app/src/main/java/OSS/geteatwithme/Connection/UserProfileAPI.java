@@ -71,7 +71,8 @@ public interface UserProfileAPI {
             @Field("meet_x")Double meet_x,
             @Field("meet_y")Double meet_y,
             @Field("restaurant_id")int restaurant_id,
-            @Field("visible")int visible
+            @Field("visible")int visible,
+            @Field("sec")int sec
     );
     @GET("/post/search/{name}")
     Call<LinkedList<Post>> getSearchingPost(

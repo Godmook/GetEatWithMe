@@ -216,6 +216,7 @@ public class ShowPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myintent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://place.map.kakao.com/"+post.getRestaurant_id()));
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(myintent);
             }
         });

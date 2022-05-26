@@ -223,7 +223,6 @@ public class PostingActivity extends AppCompatActivity {
             }
         });
 
-
         // 시간 설정
         final EditText et_time = (EditText) findViewById(R.id.edit_Time);
         et_time.setOnClickListener(new View.OnClickListener() {
@@ -237,8 +236,11 @@ public class PostingActivity extends AppCompatActivity {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                         // EditText에 출력할 형식 지정
-                        String tmp= selectedHour + ":" + selectedMinute;
+                        String str="";
+                        if(selectedMinute<10)str="0";
+                        String tmp= selectedHour + ":" + str+selectedMinute;
                         sec=(selectedHour*3600)+(selectedMinute*60);
+                        InputPost.setSec(sec);
                         et_time.setText(tmp);
                     }
                 }, hour, minute, false); // true의 경우 24시간 형식의 TimePicker 출현
@@ -256,6 +258,7 @@ public class PostingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(myIntent);
             }
         });
@@ -291,13 +294,15 @@ public class PostingActivity extends AppCompatActivity {
                             InputPost.getMeet_x(),
                             InputPost.getMeet_y(),
                             InputPost.getRestaurant_id(),
-                            InputPost.getVisible()
+                            InputPost.getVisible(),
+                            InputPost.getSec()
                     )
                             .enqueue(new Callback<Integer>() {
                                 @Override
                                 public void onResponse(Call<Integer> call, Response<Integer> response) {
                                     Toast.makeText(PostingActivity.this,"성공!",Toast.LENGTH_SHORT).show();
                                     Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
+                                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(myIntent);
                                 }
 
@@ -345,6 +350,7 @@ public class PostingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 resultLauncher.launch(myIntent);
             }
         });
@@ -355,6 +361,7 @@ public class PostingActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 resultLauncher2.launch(myIntent);
             }
         });
