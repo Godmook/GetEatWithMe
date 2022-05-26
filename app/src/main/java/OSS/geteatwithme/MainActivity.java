@@ -191,7 +191,19 @@ public class MainActivity extends AppCompatActivity {
                 setAllRadioButtonOff();
                 radioButtons[0].setChecked(true);
                 category = 0;
+                userProfileAPI.getCategoryPost(0)
+                        .enqueue(new Callback<LinkedList<Post>>() {
+                            @Override
+                            public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                posts=response.body();
+                                showPosts();
+                            }
 
+                            @Override
+                            public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                            }
+                        });
             }
         });
 
@@ -227,6 +239,19 @@ public class MainActivity extends AppCompatActivity {
                 setAllRadioButtonOff();
                 radioButtons[2].setChecked(true);
                 category = 2;
+                userProfileAPI.getCategoryPost(2)
+                        .enqueue(new Callback<LinkedList<Post>>() {
+                            @Override
+                            public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                posts=response.body();
+                                showPosts();
+                            }
+
+                            @Override
+                            public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                            }
+                        });
             }
         });
 
@@ -238,6 +263,19 @@ public class MainActivity extends AppCompatActivity {
                 setAllRadioButtonOff();
                 radioButtons[3].setChecked(true);
                 category = 3;
+                userProfileAPI.getCategoryPost(3)
+                        .enqueue(new Callback<LinkedList<Post>>() {
+                            @Override
+                            public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                posts=response.body();
+                                showPosts();
+                            }
+
+                            @Override
+                            public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                            }
+                        });
             }
         });
 
@@ -249,6 +287,19 @@ public class MainActivity extends AppCompatActivity {
                 setAllRadioButtonOff();
                 radioButtons[4].setChecked(true);
                 category = 4;
+                userProfileAPI.getCategoryPost(4)
+                        .enqueue(new Callback<LinkedList<Post>>() {
+                            @Override
+                            public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                posts=response.body();
+                                showPosts();
+                            }
+
+                            @Override
+                            public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                            }
+                        });
             }
         });
 
@@ -260,6 +311,19 @@ public class MainActivity extends AppCompatActivity {
                 setAllRadioButtonOff();
                 radioButtons[5].setChecked(true);
                 category = 5;
+                userProfileAPI.getCategoryPost(5)
+                        .enqueue(new Callback<LinkedList<Post>>() {
+                            @Override
+                            public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                posts=response.body();
+                                showPosts();
+                            }
+
+                            @Override
+                            public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                            }
+                        });
             }
         });
 
@@ -271,6 +335,19 @@ public class MainActivity extends AppCompatActivity {
                 setAllRadioButtonOff();
                 radioButtons[6].setChecked(true);
                 category = 6;
+                userProfileAPI.getCategoryPost(6)
+                        .enqueue(new Callback<LinkedList<Post>>() {
+                            @Override
+                            public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                posts=response.body();
+                                showPosts();
+                            }
+
+                            @Override
+                            public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                            }
+                        });
             }
         });
 
@@ -373,8 +450,7 @@ public class MainActivity extends AppCompatActivity {
         notice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), alarmActivity.class);    // test
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent myIntent = new Intent(getApplicationContext(), alarmActivity.class);
                 startActivity(myIntent);
             }
         });
@@ -385,7 +461,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(myIntent);
             }
         });
