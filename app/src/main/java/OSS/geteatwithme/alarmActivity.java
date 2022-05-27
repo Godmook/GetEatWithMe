@@ -1,13 +1,12 @@
 package OSS.geteatwithme;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -16,20 +15,25 @@ import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.IOException;
-import java.util.Collections;
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import OSS.geteatwithme.AlarmInfo.Alarm;
 import OSS.geteatwithme.AlarmInfo.MyAlarmView;
+import OSS.geteatwithme.Chatting.ChatModel;
 import OSS.geteatwithme.Connection.NotificationRequest;
 import OSS.geteatwithme.Connection.NotificationResponse;
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
-import OSS.geteatwithme.PostInfo.MyPostView;
-import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.UIInfo.Utils;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
@@ -37,6 +41,30 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class alarmActivity extends AppCompatActivity {
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mReference;
+    public void FirebaseDatabaseHelper(){
+        mDatabase=FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app");
+        mReference=mDatabase.getReference().child("chatrooms");
+    }
+    public void ReadChatRoomData(){
+        mReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<String> keys= new ArrayList<>();
+                List<ChatModel> models=new ArrayList<>();
+                for(DataSnapshot keyNode: snapshot.getChildren()){
+                    keys.add(keyNode.getKey());
+                    models.add(snapshot.getValue(ChatModel.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     private class GetTokenTask extends AsyncTask<Call,Void,UserProfile>{
         @Override
         protected UserProfile doInBackground(Call... calls) {
@@ -159,6 +187,8 @@ public class alarmActivity extends AppCompatActivity {
 
                                                     }
                                                 });
+                                        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+                                        String user_id=auto.getString("ID",null);
                                         Call<UserProfile> calls= userProfileAPI.getUserProfile(a.getOpposite_id());
                                         UserProfile aa=new UserProfile();
                                         try {
@@ -168,6 +198,41 @@ public class alarmActivity extends AppCompatActivity {
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
+                                        Call<UserProfile> call1= userProfileAPI.getUserProfile(user_id);
+                                        UserProfile bb=new UserProfile();
+                                        try {
+                                            bb=new GetTokenTask().execute(call1).get();
+                                        } catch (ExecutionException e) {
+                                            e.printStackTrace();
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                        ChatModel chatModel=new ChatModel();
+                                        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("users").child(user_id).setValue(bb.getToken_id());
+                                        String room_number="Room"+a.getPost_id();
+                                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app");
+                                        DatabaseReference getUser=database.getReference("chatrooms").child(room_number).child("users");
+                                        final List<String> members=new ArrayList<>();
+                                        getUser.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                members.clear();
+                                                for(DataSnapshot snapshot1: snapshot.getChildren()){
+                                                    members.add(snapshot1.getKey().toString());
+                                                }
+                                                ChatModel chatModel=new ChatModel();
+                                                for(String lt:members){
+                                                    chatModel.users.put(lt,true);
+                                                }
+                                                chatModel.users.put(user_id,true);
+                                                FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(room_number).setValue(chatModel);
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
                                         // 수락 눌렀을 때
                                         NotificationRequest notificationRequest=new NotificationRequest("나랑 같이 밥 먹을래..?","작성자가 당신의 요청을 수락했어요!",aa.getToken_id(),"FCM_EXE_ACTIVITY");
                                         userProfileAPI.PutNotification(notificationRequest)
@@ -199,6 +264,9 @@ public class alarmActivity extends AppCompatActivity {
                         builder.show();
                     }
                     alarmView.alarm.setView(1);
+                    /*
+                    showAlarm 을 선택된 것만 가지고 와야 할듯 전체 가지고 오려니깐 시간이 너무 오래 걸리는 것 같음
+                     */
                     showAlarms();
                 }
             });
@@ -225,6 +293,7 @@ public class alarmActivity extends AppCompatActivity {
         Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
         String user_id=auto.getString("ID",null);
+        FirebaseDatabaseHelper();
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
         Call<LinkedList<Alarm>> calls= userProfileAPI.GetAlarm(user_id);

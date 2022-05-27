@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "734023933727",
+    "firebase_url": "https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app",
     "project_id": "geteatwithme",
     "storage_bucket": "geteatwithme.appspot.com"
   },
@@ -13,6 +14,22 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "734023933727-2vjs8digq1fcc01phbm5mkqbghka6osu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "OSS.geteatwithme",
+            "certificate_hash": "3187fe91492e6c1ba54279a89e87ca63042c4832"
+          }
+        },
+        {
+          "client_id": "734023933727-eg118p8nn2ak1l9g7uma9m2fmk0phug5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "OSS.geteatwithme",
+            "certificate_hash": "93a9463c05f7f93ff827f91ae2f46743cbb94d03"
+          }
+        },
         {
           "client_id": "734023933727-rq211vmkum5hdrd814q1an1tqir35a5k.apps.googleusercontent.com",
           "client_type": 1,
