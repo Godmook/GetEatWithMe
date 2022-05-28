@@ -323,8 +323,8 @@
                     android:lines="5"
                     android:maxWidth="5.0dip"
                     android:minWidth="10.0dip"
-                    android:backgroundTint="@color/middle_green"
-                    android:textCursorDrawable="@color/middle_green"
+                    android:backgroundTint="@color/brown"
+                    android:textCursorDrawable="@color/brown"
                     android:scrollHorizontally="false" />
 
                 <TextView
