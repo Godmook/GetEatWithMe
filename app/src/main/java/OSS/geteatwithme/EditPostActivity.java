@@ -110,14 +110,13 @@ public class EditPostActivity extends AppCompatActivity {
         // 모일 인원 및 모인 인원 spinner 설정
         Spinner spinner_1 = findViewById(R.id.edit_max_people_spinner);
         Spinner spinner_2 = findViewById(R.id.edit_cur_people_spinner);
-        spinner_1.setSelection(EditPost.getMax_people()-2);
-        spinner_2.setSelection(EditPost.getCur_people()-1);
         //모일 인원 spinner 설정
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, number_of_people1);
         adapter1.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item);
         spinner_1.setAdapter(adapter1);
+        spinner_1.setSelection(EditPost.getMax_people()-2);
         spinner_1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -133,6 +132,7 @@ public class EditPostActivity extends AppCompatActivity {
         adapter2.setDropDownViewResource(
                 android.R.layout.simple_spinner_dropdown_item);
         spinner_2.setAdapter(adapter2);
+        spinner_2.setSelection(EditPost.getCur_people()-1);
         spinner_2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
