@@ -242,7 +242,7 @@ public class GroupMessageActivity extends AppCompatActivity {
                 //상대방이 보낸 메세지
 
             } else {
-                if(comments.get(position).uid.equals("Admin")){
+                if(comments.get(position).uid.matches("Admin")){
                     messageViewHolder.textview_name.setText("");
                     messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
                     messageViewHolder.textView_message.setBackgroundResource(R.drawable.centerbubble2);
@@ -250,12 +250,14 @@ public class GroupMessageActivity extends AppCompatActivity {
                     messageViewHolder.textView_message.setTextSize(15);
                     messageViewHolder.linearLayout_main.setGravity(Gravity.CENTER);
                 }
-                messageViewHolder.textview_name.setText(comments.get(position).uid);
-                messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
-                messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbubble2);
-                messageViewHolder.textView_message.setText(comments.get(position).message);
-                messageViewHolder.textView_message.setTextSize(15);
-                messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
+                else {
+                    messageViewHolder.textview_name.setText(comments.get(position).uid);
+                    messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
+                    messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbubble2);
+                    messageViewHolder.textView_message.setText(comments.get(position).message);
+                    messageViewHolder.textView_message.setTextSize(15);
+                    messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
+                }
 
 
             }
