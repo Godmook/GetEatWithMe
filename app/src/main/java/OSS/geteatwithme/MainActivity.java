@@ -168,7 +168,17 @@ public class MainActivity extends AppCompatActivity {
         try {
             address = g.getFromLocation(latitude, longitude, 10);
             TextView textView = (TextView) findViewById(R.id.textview);
-            textView.setText(address.get(0).getAdminArea() + " "+ address.get(0).getSubLocality()+ " " + address.get(0).getThoroughfare());
+
+            String sido = address.get(0).getAdminArea();
+            String gu1 = address.get(0).getLocality();
+            String gu2 = address.get(0).getSubLocality();
+            String dong = address.get(0).getThoroughfare();
+            sido = (sido == null)? "" : sido;
+            gu1 = (gu1 == null)? "" : gu1;
+            gu2 = (gu2 == null)? "" : gu2;
+            dong = (dong == null)? "" : dong;
+
+            textView.setText(sido + " " + gu1 + " " + gu2 + " " + dong);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -495,7 +505,16 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     address = g.getFromLocation(latitude, longitude, 10);
                     TextView textView = (TextView) findViewById(R.id.textview);
-                    textView.setText(address.get(0).getAdminArea() + " "+ address.get(0).getLocality()+ " " + address.get(0).getThoroughfare());
+                    String sido = address.get(0).getAdminArea();
+                    String gu1 = address.get(0).getLocality();
+                    String gu2 = address.get(0).getSubLocality();
+                    String dong = address.get(0).getThoroughfare();
+                    sido = (sido == null)? "" : sido;
+                    gu1 = (gu1 == null)? "" : gu1;
+                    gu2 = (gu2 == null)? "" : gu2;
+                    dong = (dong == null)? "" : dong;
+
+                    textView.setText(sido + " " + gu1 + " " + gu2 + " " + dong);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
