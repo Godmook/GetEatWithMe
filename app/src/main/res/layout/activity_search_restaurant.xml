@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchMeetingPlaceActivity">
+    tools:context=".SearchRestaurantActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -44,12 +44,12 @@
                     android:layout_width="310dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
-                    android:backgroundTint="@color/middle_green"
+                    android:backgroundTint="@color/brown"
                     android:ems="10"
                     android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:hint="장소를 검색하세요!"
                     android:inputType="textPersonName"
-                    android:textCursorDrawable="@color/middle_green" />
+                    android:textCursorDrawable="@color/brown" />
 
                 <Button
                     android:id="@+id/btn_search_start"
@@ -71,12 +71,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                <RelativeLayout
-                    android:id="@+id/map_find"
-                    android:layout_margin="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp" >
-                </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/map_find"
+                        android:layout_margin="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp" >
+                    </RelativeLayout>
                 </LinearLayout>
             </ScrollView>
 

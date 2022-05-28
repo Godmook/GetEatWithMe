@@ -73,8 +73,8 @@
                     android:ems="10"
                     android:hint=" 이름"
                     android:fontFamily="@font/gmarket_sans_ttf_light"
-                    android:backgroundTint="@color/middle_green"
-                    android:textCursorDrawable="@color/middle_green"
+                    android:backgroundTint="@color/brown"
+                    android:textCursorDrawable="@color/brown"
                     android:inputType="textPersonName"
                     android:text="" />
 
@@ -102,8 +102,8 @@
                         android:ems="10"
                         android:hint=" 아이디"
                         android:fontFamily="@font/gmarket_sans_ttf_light"
-                        android:backgroundTint="@color/middle_green"
-                        android:textCursorDrawable="@color/middle_green"
+                        android:backgroundTint="@color/brown"
+                        android:textCursorDrawable="@color/brown"
                         android:inputType="textPersonName"
                         android:text="" />
 
@@ -143,8 +143,8 @@
                     android:ems="10"
                     android:hint="나이"
                     android:fontFamily="@font/gmarket_sans_ttf_light"
-                    android:backgroundTint="@color/middle_green"
-                    android:textCursorDrawable="@color/middle_green"
+                    android:backgroundTint="@color/brown"
+                    android:textCursorDrawable="@color/brown"
                     android:inputType="textPersonName"
                     android:text="" />
 
@@ -168,8 +168,8 @@
                     android:ems="10"
                     android:hint=" 비밀번호"
                     android:fontFamily="@font/gmarket_sans_ttf_light"
-                    android:backgroundTint="@color/middle_green"
-                    android:textCursorDrawable="@color/middle_green"
+                    android:backgroundTint="@color/brown"
+                    android:textCursorDrawable="@color/brown"
                     android:inputType="textPassword"
                     android:text="" />
 
@@ -197,8 +197,8 @@
                         android:ems="10"
                         android:hint=" 비밀번호 다시 입력"
                         android:fontFamily="@font/gmarket_sans_ttf_light"
-                        android:backgroundTint="@color/middle_green"
-                        android:textCursorDrawable="@color/middle_green"
+                        android:backgroundTint="@color/brown"
+                        android:textCursorDrawable="@color/brown"
                         android:inputType="textPassword"
                         android:text="" />
 
@@ -239,8 +239,8 @@
                         android:ems="10"
                         android:hint="닉네임"
                         android:fontFamily="@font/gmarket_sans_ttf_light"
-                        android:backgroundTint="@color/middle_green"
-                        android:textCursorDrawable="@color/middle_green"
+                        android:backgroundTint="@color/brown"
+                        android:textCursorDrawable="@color/brown"
                         android:inputType="textPersonName" />
 
                     <androidx.appcompat.widget.AppCompatButton
@@ -296,7 +296,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="30dp"
-                    android:backgroundTint="@color/middle_green"
+                    android:backgroundTint="@color/brown"
                     android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="회원가입"
                     android:textColor="@color/white"
