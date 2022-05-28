@@ -49,6 +49,7 @@ import OSS.geteatwithme.Connection.NotificationRequest;
 import OSS.geteatwithme.Connection.NotificationResponse;
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
+import OSS.geteatwithme.UIInfo.Utils;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -77,6 +78,7 @@ public class GroupMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_message);
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         Intent myIntent=new Intent();
         destinationRoom = getIntent().getStringExtra("chatRoomID");
         SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
