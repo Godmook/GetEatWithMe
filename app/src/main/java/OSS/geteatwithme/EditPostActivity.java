@@ -1,4 +1,4 @@
-//package OSS.geteatwithme;
+package OSS.geteatwithme;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -40,7 +40,7 @@ import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-/*
+
 public class EditPostActivity extends AppCompatActivity {
     private class GetPostTask extends AsyncTask<Call,Void, Post> {
         @Override
@@ -63,6 +63,7 @@ public class EditPostActivity extends AppCompatActivity {
     Button cancel, delete, edit;
     Switch gender_visible;
     TextView gender_open_text;
+    TextView restaurant_view, meetingplace_view;
     DatePickerDialog datePickerDialog;
     LinearLayout lay1, lay2;
     int POST_ID;
@@ -85,6 +86,7 @@ public class EditPostActivity extends AppCompatActivity {
         EditText et_date = (EditText) findViewById(R.id.edit_Date);
         et_date.setText(sdf.format(myCalendar.getTime()));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,6 +153,14 @@ public class EditPostActivity extends AppCompatActivity {
         radioButtons[6] = (RadioButton) findViewById(R.id.radioButton_6);
 
         // posting에서 선택된 category check
+        radioButtons[EditPost.getCategory()].setChecked(true);
+
+        // 장소 setting
+        restaurant_view=(TextView)findViewById(R.id.edit_restaurant_view);
+        meetingplace_view=(TextView)findViewById(R.id.edit_meeting_place_view);
+        restaurant_view.setText(EditPost.getRestaurant());
+        meetingplace_view.setText(EditPost.getMeeting_place());
+
         resultLauncher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == Activity.RESULT_OK) {
@@ -159,7 +169,6 @@ public class EditPostActivity extends AppCompatActivity {
                         restaurant_view.setText(data.getStringExtra("place"));
                         EditPost.setLongitude(data.getDoubleExtra("placeX", 0));
                         EditPost.setLatitude(data.getDoubleExtra("placeY", 0));
-                        restaurant_address_view.setText(data.getStringExtra("place_address"));
                         EditPost.setRestaurant_id(data.getIntExtra("place_id",0));
                     }
                 });
@@ -170,33 +179,30 @@ public class EditPostActivity extends AppCompatActivity {
                         EditPost.setMeeting_place(data.getStringExtra("place"));
                         EditPost.setMeet_x(data.getDoubleExtra("placeX", 0));
                         EditPost.setMeet_y(data.getDoubleExtra("placeY", 0));
-                        meeting_place_view.setText(data.getStringExtra("place"));
-                        meeting_place_address_view.setText(data.getStringExtra("place_address"));
+                        meetingplace_view.setText(data.getStringExtra("place"));
                     }
                 });
-        radioButtons[EditPost.getCategory()].setChecked(true);
+
+
         editPosting=findViewById(R.id.edit_editPostingText);
         editPosting.setText(EditPost.getContents());
+
         lay1=(LinearLayout)findViewById(R.id.layout1_1);
-        lay1=(LinearLayout)findViewById(R.id.layout2_2);
+        lay2=(LinearLayout)findViewById(R.id.layout2_2);
         // 음식점 선택
-        lay1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                resultLauncher.launch(myIntent);
-            }
+        lay1.setOnClickListener(v -> {
+            Intent myIntent = new Intent(EditPostActivity.this, SearchRestaurantActivity.class);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            resultLauncher.launch(myIntent);
         });
         // 만날 장소 선택
-        lay2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                resultLauncher2.launch(myIntent);
-            }
+        lay2.setOnClickListener(v -> {
+            Intent myIntent = new Intent(EditPostActivity.this, SearchRestaurantActivity.class);
+            myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            resultLauncher2.launch(myIntent);
         });
+
+
         // 한식
         radioButtons[0].setOnClickListener(new View.OnClickListener(){
             @Override
@@ -260,6 +266,7 @@ public class EditPostActivity extends AppCompatActivity {
                 EditPost.setCategory(6);
             }
         });
+
         // 날짜 설정
         EditText et_Date = (EditText) findViewById(R.id.edit_Date);
         et_Date.setText(EditPost.getMeeting_date());
@@ -328,11 +335,32 @@ public class EditPostActivity extends AppCompatActivity {
 
         // posting text 관리
         editPosting = (EditText)findViewById(R.id.edit_editPostingText);
-        editPosting.setText(EditPost.getContents());
         // 기존 posting 내용 넣기
-        tmp_String=EditPost.getContents();
-        //editPosting.setText(tmp_String);
+        editPosting.setText(EditPost.getContents());
 
+        // 성별 공개 비공개 설정
+        gender_visible=(Switch) findViewById(R.id.edit_sch_gender_visible);
+        gender_open_text=(TextView)findViewById(R.id.edit_text_gender_visible);
+        if(EditPost.getVisible()==1)
+        {
+            gender_visible.setChecked(true);
+            gender_open_text.setText("성별을 공개합니다");
+        }
+        else
+        {
+            gender_visible.setChecked(false);
+            gender_open_text.setText("성별을 비공개합니다");
+        }
+
+        gender_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked)
+                    gender_open_text.setText("성별을 공개합니다");
+                else
+                    gender_open_text.setText("성별을 비공개합니다");
+            }
+        });
 
         // button 관리
         delete=(Button)findViewById(R.id.btn_delete);
@@ -340,16 +368,14 @@ public class EditPostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 삭제 후
-                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(myIntent);
+                finish();
             }
         });
         cancel = (Button)findViewById(R.id.btn_edit_cancel);
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(myIntent);
+                finish();
             }
         });
         edit = (Button)findViewById(R.id.btn_edit_post);
@@ -404,30 +430,5 @@ public class EditPostActivity extends AppCompatActivity {
             }
         });
 
-        // 성별 공개 비공개 설정
-        gender_visible=(Switch) findViewById(R.id.edit_sch_gender_visible);
-        gender_open_text=(TextView)findViewById(R.id.edit_text_gender_visible);
-        if(EditPost.getVisible()==1)
-        {
-            gender_visible.setChecked(true);
-            gender_open_text.setText("성별을 공개합니다");
-        }
-        else
-        {
-            gender_visible.setChecked(false);
-            gender_open_text.setText("성별을 비공개합니다");
-        }
-
-        gender_visible.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked)
-                    gender_open_text.setText("성별을 공개합니다");
-                else
-                    gender_open_text.setText("성별을 비공개합니다");
-            }
-        });
     }
 }
-
- */

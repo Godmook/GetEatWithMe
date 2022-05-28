@@ -65,10 +65,9 @@ public class MyPostListActivity extends AppCompatActivity {
             postView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Intent myIntent = new Intent(getApplicationContext(), EditPostActivity.class);
-                    //myIntent.putExtra("postID", postView.getPostID());
-                    //Toast.makeText(MyPostListActivity.this,postView.getPostID(),Toast.LENGTH_SHORT).show();
-                    //startActivity(myIntent);
+                    Intent myIntent = new Intent(getApplicationContext(), EditPostActivity.class);
+                    myIntent.putExtra("postID", postView.getPostID());
+                    startActivity(myIntent);
                     finish();
                 }
             });

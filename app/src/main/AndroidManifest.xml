@@ -33,11 +33,9 @@
         <activity
             android:name=".SearchRestaurantActivity"
             android:exported="false" />
-<!--
         <activity
             android:name=".EditPostActivity"
             android:exported="false" />
--->
         <activity
             android:name=".MyPostListActivity"
             android:exported="false" />
