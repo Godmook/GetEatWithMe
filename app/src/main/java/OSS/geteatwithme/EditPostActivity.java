@@ -1,12 +1,16 @@
-package OSS.geteatwithme;
+//package OSS.geteatwithme;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,6 +18,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -35,7 +40,7 @@ import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-
+/*
 public class EditPostActivity extends AppCompatActivity {
     private class GetPostTask extends AsyncTask<Call,Void, Post> {
         @Override
@@ -50,6 +55,8 @@ public class EditPostActivity extends AppCompatActivity {
             return null;
         }
     }
+    ActivityResultLauncher<Intent> resultLauncher;
+    ActivityResultLauncher<Intent> resultLauncher2;
     String []number_of_people1 = {"2", "3", "4", "5", "6", "7", "8"};
     String []number_of_people2 = {"1", "2", "3", "4", "5", "6", "7"};
     EditText editPosting;
@@ -57,6 +64,7 @@ public class EditPostActivity extends AppCompatActivity {
     Switch gender_visible;
     TextView gender_open_text;
     DatePickerDialog datePickerDialog;
+    LinearLayout lay1, lay2;
     int POST_ID;
     Post EditPost=new Post();
     // 라디오 버튼(카테고리 선택)
@@ -83,28 +91,25 @@ public class EditPostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit_post);
         Intent secondIntent=getIntent();
         POST_ID = secondIntent.getIntExtra("postID", 0);
-        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
+
+        // post 가져오기
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
         Call<Post>call=userProfileAPI.getPostByPost_id(POST_ID);
         try {
-            EditPost=new GetPostTask().execute(call).get();
+            EditPost =new GetPostTask().execute(call).get();
         } catch (ExecutionException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        //post 가져오기
         String tmp_String;
-
-        // 기존 정보 setting
-        radioButtons[EditPost.getCategory()].setChecked(true);
-
         // 모일 인원 및 모인 인원 spinner 설정
         Spinner spinner_1 = findViewById(R.id.edit_max_people_spinner);
         Spinner spinner_2 = findViewById(R.id.edit_cur_people_spinner);
-        spinner_1.setSelection(EditPost.getMax_people());
-        spinner_2.setSelection(EditPost.getCur_people());
-
+        spinner_1.setSelection(EditPost.getMax_people()-2);
+        spinner_2.setSelection(EditPost.getCur_people()-1);
         //모일 인원 spinner 설정
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, number_of_people1);
@@ -146,10 +151,52 @@ public class EditPostActivity extends AppCompatActivity {
         radioButtons[6] = (RadioButton) findViewById(R.id.radioButton_6);
 
         // posting에서 선택된 category check
+        resultLauncher=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        EditPost.setRestaurant(data.getStringExtra("place"));
+                        restaurant_view.setText(data.getStringExtra("place"));
+                        EditPost.setLongitude(data.getDoubleExtra("placeX", 0));
+                        EditPost.setLatitude(data.getDoubleExtra("placeY", 0));
+                        restaurant_address_view.setText(data.getStringExtra("place_address"));
+                        EditPost.setRestaurant_id(data.getIntExtra("place_id",0));
+                    }
+                });
+        resultLauncher2=registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        Intent data = result.getData();
+                        EditPost.setMeeting_place(data.getStringExtra("place"));
+                        EditPost.setMeet_x(data.getDoubleExtra("placeX", 0));
+                        EditPost.setMeet_y(data.getDoubleExtra("placeY", 0));
+                        meeting_place_view.setText(data.getStringExtra("place"));
+                        meeting_place_address_view.setText(data.getStringExtra("place_address"));
+                    }
+                });
         radioButtons[EditPost.getCategory()].setChecked(true);
-        
+        editPosting=findViewById(R.id.edit_editPostingText);
         editPosting.setText(EditPost.getContents());
-        
+        lay1=(LinearLayout)findViewById(R.id.layout1_1);
+        lay1=(LinearLayout)findViewById(R.id.layout2_2);
+        // 음식점 선택
+        lay1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                resultLauncher.launch(myIntent);
+            }
+        });
+        // 만날 장소 선택
+        lay2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myIntent = new Intent(getApplicationContext(), SearchRestaurantActivity.class);
+                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                resultLauncher2.launch(myIntent);
+            }
+        });
         // 한식
         radioButtons[0].setOnClickListener(new View.OnClickListener(){
             @Override
@@ -284,7 +331,7 @@ public class EditPostActivity extends AppCompatActivity {
         editPosting.setText(EditPost.getContents());
         // 기존 posting 내용 넣기
         tmp_String=EditPost.getContents();
-        editPosting.setText(tmp_String);
+        //editPosting.setText(tmp_String);
 
 
         // button 관리
@@ -364,7 +411,7 @@ public class EditPostActivity extends AppCompatActivity {
         {
             gender_visible.setChecked(true);
             gender_open_text.setText("성별을 공개합니다");
-        }            
+        }
         else
         {
             gender_visible.setChecked(false);
@@ -382,3 +429,5 @@ public class EditPostActivity extends AppCompatActivity {
         });
     }
 }
+
+ */

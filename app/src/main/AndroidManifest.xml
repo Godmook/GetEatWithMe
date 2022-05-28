@@ -18,8 +18,12 @@
         android:theme="@style/Theme.GetEatWithMe"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".ChattingRoomActivity"
+            android:name=".ChattingRoomActivity" />
+
+        <activity
+            android:name=".MainActivity"
             android:exported="false" />
+
         <activity
             android:name=".alarmActivity"
             android:exported="false" />
@@ -29,9 +33,11 @@
         <activity
             android:name=".SearchRestaurantActivity"
             android:exported="false" />
+<!--
         <activity
             android:name=".EditPostActivity"
             android:exported="false" />
+-->
         <activity
             android:name=".MyPostListActivity"
             android:exported="false" />
@@ -73,7 +79,7 @@
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".GroupMessageActivity"
             android:exported="false" />
 
         <meta-data
