@@ -19,6 +19,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -411,6 +413,56 @@ public class MainActivity extends AppCompatActivity {
 
         // 검색 버튼
         Button search = (Button) findViewById(R.id.searchButton);
+        EditText editText = (EditText) findViewById(R.id.editTextRestaurantName);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                EditText editText = (EditText) findViewById(R.id.editTextRestaurantName);
+                String str = editText.getText().toString(); // 검색 문자열
+                if(str.equals("")||str==null){
+                    userProfileAPI.getAllPost()
+                            .enqueue(new Callback<LinkedList<Post>>() {
+                                @Override
+                                public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                    posts=response.body();
+                                    showPosts();
+                                }
+
+                                @Override
+                                public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                                }
+                            });
+                }
+                else {
+                    userProfileAPI.getSearchingPost(str)
+                            .enqueue(new Callback<LinkedList<Post>>() {
+                                @Override
+                                public void onResponse(Call<LinkedList<Post>> call, Response<LinkedList<Post>> response) {
+                                    posts = response.body();
+                                    showPosts();
+                                }
+
+                                @Override
+                                public void onFailure(Call<LinkedList<Post>> call, Throwable t) {
+
+                                }
+                            });
+                    // posts 업데이트 필요
+                    //showPosts();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
