@@ -18,6 +18,9 @@
         android:theme="@style/Theme.GetEatWithMe"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ChattingRoomActivity"
+            android:exported="false" />
+        <activity
             android:name=".alarmActivity"
             android:exported="false" />
         <activity

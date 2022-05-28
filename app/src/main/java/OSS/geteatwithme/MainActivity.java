@@ -169,16 +169,19 @@ public class MainActivity extends AppCompatActivity {
             address = g.getFromLocation(latitude, longitude, 10);
             TextView textView = (TextView) findViewById(R.id.textview);
 
-            String sido = address.get(0).getAdminArea();
-            String gu1 = address.get(0).getLocality();
-            String gu2 = address.get(0).getSubLocality();
-            String dong = address.get(0).getThoroughfare();
-            sido = (sido == null)? "" : sido;
-            gu1 = (gu1 == null)? "" : gu1;
-            gu2 = (gu2 == null)? "" : gu2;
-            dong = (dong == null)? "" : dong;
+            if(address != null){
+                String sido = address.get(0).getAdminArea();
+                String gu1 = address.get(0).getLocality();
+                String gu2 = address.get(0).getSubLocality();
+                String dong = address.get(0).getThoroughfare();
+                sido = (sido == null)? "" : sido;
+                gu1 = (gu1 == null)? "" : gu1;
+                gu2 = (gu2 == null)? "" : gu2;
+                dong = (dong == null)? "" : dong;
 
-            textView.setText(sido + " " + gu1 + " " + gu2 + " " + dong);
+                textView.setText(sido + " " + gu1 + " " + gu2 + " " + dong);
+            }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -442,7 +445,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent myIntent = new Intent(getApplicationContext(), PostingActivity.class);
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(myIntent);
             }
         });
@@ -452,8 +454,7 @@ public class MainActivity extends AppCompatActivity {
         chat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent myIntent = new Intent(getApplicationContext(), MyPageActivity.class);    // test
-                myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                Intent myIntent = new Intent(getApplicationContext(), ChattingRoomActivity.class);    // test
                 startActivity(myIntent);
             }
         });
