@@ -66,6 +66,7 @@ dependencies {
 // https://mvnrepository.com/artifact/com.google.firebase/firebase-database
     implementation group: 'com.google.firebase', name: 'firebase-database', version: '20.0.5'
 
+
 }
 
 apply plugin: 'com.google.gms.google-services'

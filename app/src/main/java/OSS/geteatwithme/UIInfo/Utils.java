@@ -4,7 +4,7 @@ import android.os.Build;
 
 import androidx.core.content.ContextCompat;
 
-import OSS.geteatwithme.EditPostActivity;
+//import OSS.geteatwithme.EditPostActivity;
 import OSS.geteatwithme.EditUserProfileActivity;
 import OSS.geteatwithme.MainActivity;
 import OSS.geteatwithme.MyPageActivity;
@@ -32,12 +32,13 @@ public class Utils {
             return backgroundColorId;
         }
     }
-
+/*
     public static void setStatusBarColor(EditPostActivity activity, StatusBarColorType colorType) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, colorType.getBackgroundColorId()));
         }
     }
+    */
     public static void setStatusBarColor(EditUserProfileActivity activity, StatusBarColorType colorType) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.getWindow().setStatusBarColor(ContextCompat.getColor(activity, colorType.getBackgroundColorId()));

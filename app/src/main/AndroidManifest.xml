@@ -18,6 +18,9 @@
         android:theme="@style/Theme.GetEatWithMe"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".SignInActivity"
+            android:exported="false" />
+        <activity
             android:name=".alarmActivity"
             android:exported="false" />
         <activity
@@ -26,9 +29,11 @@
         <activity
             android:name=".SearchRestaurantActivity"
             android:exported="false" />
+<!--
         <activity
             android:name=".EditPostActivity"
             android:exported="false" />
+-->
         <activity
             android:name=".MyPostListActivity"
             android:exported="false" />
@@ -46,7 +51,7 @@
             android:name=".PostingActivity"
             android:exported="false" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".GroupMessageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
