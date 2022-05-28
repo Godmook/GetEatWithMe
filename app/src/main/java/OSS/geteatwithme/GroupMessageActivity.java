@@ -1,6 +1,7 @@
 package OSS.geteatwithme;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
@@ -19,7 +20,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -76,6 +76,7 @@ public class GroupMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_message);
+        Intent myIntent=new Intent();
         destinationRoom = getIntent().getStringExtra("chatRoomID");
         SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
         uid=auto.getString("Nickname",null);
@@ -164,7 +165,6 @@ public class GroupMessageActivity extends AppCompatActivity {
                                     // push message
                                     RetrofitService retrofitService = new RetrofitService();
                                     UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
-                                    Toast.makeText(GroupMessageActivity.this, user_token.get(item.getValue(String.class)), Toast.LENGTH_SHORT).show();
                                     String tmp=comment.uid+":"+comment.message;
                                     NotificationRequest notificationRequest=new NotificationRequest("나랑 같이 밥 먹을래..?",tmp,user_token.get(item.getValue(String.class)),"FCM_EXE_ACTIVITY");
                                     userProfileAPI.PutNotification(notificationRequest)
@@ -200,7 +200,7 @@ public class GroupMessageActivity extends AppCompatActivity {
             getMessageList();
         }
         void getMessageList() {
-            databaseReference = FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child("Room13").child("comment");
+            databaseReference = FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(destinationRoom).child("comment");
             valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

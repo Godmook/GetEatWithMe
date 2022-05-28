@@ -37,6 +37,7 @@ import OSS.geteatwithme.Chatting.ChatRoom;
 import OSS.geteatwithme.Chatting.MyChatRoomView;
 import OSS.geteatwithme.PostInfo.MyPostView;
 import OSS.geteatwithme.PostInfo.Post;
+import OSS.geteatwithme.UIInfo.Utils;
 
 
 public class ChattingRoomActivity extends AppCompatActivity {
@@ -78,6 +79,7 @@ public class ChattingRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting_room);
         linear = findViewById(R.id.chatLinear);
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
         String user_nickname=auto.getString("Nickname",null);
         // 채팅방 정보 가져오기
@@ -104,7 +106,6 @@ public class ChattingRoomActivity extends AppCompatActivity {
                                 break;
                             }
                         }
-
                         // 자신이 사용가능한 채팅방인 경우 추가
                         if(include == true){
                             chatrooms_id.add(chatroom_id);
