@@ -109,4 +109,11 @@ public class MyAlarmView extends ConstraintLayout {
             background.setBackgroundColor(Color.parseColor("#F7F8E0"));
 
     }
+
+    public void updateBackground(){
+        if(alarm.getView() == 0)
+            background.setBackgroundColor(Color.parseColor("#F5A9A9"));
+        else
+            background.setBackgroundColor(Color.parseColor("#F7F8E0"));
+    }
 }

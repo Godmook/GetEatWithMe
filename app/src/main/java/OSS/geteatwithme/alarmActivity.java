@@ -196,6 +196,7 @@ public class alarmActivity extends AppCompatActivity {
                                                 for(String lt:members){
                                                     chatModel.users.put(lt,true);
                                                 }
+                                                chatModel.users.put(a.getOpposite_id(),true);
                                                 chatModel.users.put(user_id,true);
                                                 FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(room_number).child("userInfo").setValue(chatModel);
                                             }
@@ -241,10 +242,7 @@ public class alarmActivity extends AppCompatActivity {
                         builder.show();
                     }
                     alarmView.alarm.setView(1);
-                    /*
-                    showAlarm 을 선택된 것만 가지고 와야 할듯 전체 가지고 오려니깐 시간이 너무 오래 걸리는 것 같음
-                     */
-                    showAlarms();
+                    alarmView.updateBackground();
                 }
             });
             linearLayout.addView(alarmView, idx++);
