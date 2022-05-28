@@ -102,12 +102,12 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginBottom="20dp"
                     android:fontFamily="@font/gmarket_sans_ttf_light"
-                    android:backgroundTint="@color/middle_green"
+                    android:backgroundTint="@color/brown"
                     android:ems="10"
                     android:hint="나이"
                     android:inputType="textPersonName"
                     android:text=""
-                    android:textCursorDrawable="@color/middle_green" />
+                    android:textCursorDrawable="@color/brown" />
 
                 <TextView
                     android:id="@+id/edit_profile_PWtext"
@@ -126,13 +126,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="66dp"
                     android:layout_marginBottom="20dp"
-                    android:backgroundTint="@color/middle_green"
+                    android:backgroundTint="@color/brown"
                     android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:ems="10"
                     android:hint=" 비밀번호"
                     android:inputType="textPassword"
                     android:text=""
-                    android:textCursorDrawable="@color/middle_green" />
+                    android:textCursorDrawable="@color/brown" />
 
                 <TextView
                     android:id="@+id/edit_profile_PW2text"
@@ -155,13 +155,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="66dp"
                         android:layout_marginBottom="20dp"
-                        android:backgroundTint="@color/middle_green"
                         android:ems="10"
                         android:hint=" 비밀번호 다시 입력"
                         android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:inputType="textPassword"
                         android:text=""
-                        android:textCursorDrawable="@color/middle_green" />
+                        android:backgroundTint="@color/brown"
+                        android:textCursorDrawable="@color/brown" />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/edit_profile_pwcheckbutton"
@@ -197,12 +197,13 @@
                         android:layout_width="228dp"
                         android:layout_height="66dp"
                         android:layout_marginBottom="20dp"
-                        android:backgroundTint="@color/middle_green"
+                        android:backgroundTint="@color/brown"
+                        android:textCursorDrawable="@color/brown"
                         android:ems="10"
                         android:hint="닉네임"
                         android:fontFamily="@font/gmarket_sans_ttf_light"
                         android:inputType="textPersonName"
-                        android:textCursorDrawable="@color/middle_green" />
+                        />
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/edit_profile_nicknamecheck"
@@ -247,7 +248,7 @@
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="30dp"
-                    android:backgroundTint="@color/middle_green"
+                    android:backgroundTint="@color/brown"
                     android:fontFamily="@font/gmarket_sans_ttf_light"
                     android:text="수정"
                     android:textColor="@color/white"
