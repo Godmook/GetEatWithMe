@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -81,8 +82,8 @@ public class GroupMessageActivity extends AppCompatActivity {
         SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
         uid=auto.getString("Nickname",null);
         editText = (EditText)findViewById(R.id.groupMessageActivity_editText);
+        names=new ArrayList<>();
         FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(destinationRoom).child("userInfo").addListenerForSingleValueEvent(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
@@ -95,7 +96,7 @@ public class GroupMessageActivity extends AppCompatActivity {
                 FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        for(DataSnapshot item : dataSnapshot.getChildren()){
+                        for(DataSnapshot item : snapshot.getChildren()){
                             if(names.contains(item.getKey())) {
                                 user_token.put(item.getKey(), item.getValue(String.class));
                             }
