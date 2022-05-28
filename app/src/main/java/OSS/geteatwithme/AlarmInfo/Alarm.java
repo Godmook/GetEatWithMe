@@ -9,6 +9,24 @@ public class Alarm {
     int post_id;
     int view;
     int alarm_id;
+    String id_token_id;
+    String opposite_token_id;
+
+    public String getId_token_id() {
+        return id_token_id;
+    }
+
+    public void setId_token_id(String id_token_id) {
+        this.id_token_id = id_token_id;
+    }
+
+    public String getOpposite_token_id() {
+        return opposite_token_id;
+    }
+
+    public void setOpposite_token_id(String opposite_token_id) {
+        this.opposite_token_id = opposite_token_id;
+    }
 
     public int getAlarm_id() {
         return alarm_id;

@@ -108,6 +108,7 @@ public class SignInActivity extends AppCompatActivity {
                                 SharedPreferences.Editor autoLoginEdit = auto.edit();
                                 autoLoginEdit.putString("ID", id);
                                 autoLoginEdit.putString("Password", password);
+                                autoLoginEdit.putString("Token_id",token);
                                 autoLoginEdit.commit();
                                 Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
                                 // id 저장

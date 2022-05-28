@@ -123,7 +123,9 @@ public interface UserProfileAPI {
             @Field("post_id")int post_id,
             @Field("view")int view,
             @Field("nickname")String nickname,
-            @Field("opposite_nickname")String opposite_nickname
+            @Field("opposite_nickname")String opposite_nickname,
+            @Field("id_token_id")String id_token_id,
+            @Field("opposite_token_id")String opposite_token_id
     );
     @GET("/getalarm/{id}")
     Call<LinkedList<Alarm>>GetAlarm(

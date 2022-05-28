@@ -63,6 +63,7 @@ import retrofit2.Response;
 public class ShowPostActivity extends AppCompatActivity {
     int POST_ID;
     Post post;
+    UserProfile myUp;
     private class PostTask extends AsyncTask<Call,Void,Post> {
         @Override
         protected Post doInBackground(Call... calls) {
@@ -98,7 +99,7 @@ public class ShowPostActivity extends AppCompatActivity {
         // post id 가져오기
         Intent myIntent = getIntent();
         POST_ID = myIntent.getIntExtra("postID", 0);
-
+        myUp=new UserProfile();
         // post 가져오기
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
@@ -110,7 +111,18 @@ public class ShowPostActivity extends AppCompatActivity {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        userProfileAPI.getUserProfile(post.getId())
+                .enqueue(new Callback<UserProfile>() {
+                    @Override
+                    public void onResponse(Call<UserProfile> call, Response<UserProfile> response) {
+                        myUp=response.body();
+                    }
 
+                    @Override
+                    public void onFailure(Call<UserProfile> call, Throwable t) {
+
+                    }
+                });
         // 신청 가능 여부 확인
         if(post.getPost_visible() == 0){
             AlertDialog.Builder dlg = new AlertDialog.Builder(this);
@@ -257,6 +269,7 @@ public class ShowPostActivity extends AppCompatActivity {
             public void onClick(View v) {
                 SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
                 String user_id=auto.getString("ID",null);
+                String token_id=auto.getString("Token_id",null);
                 UserProfile tokens=new UserProfile();
                 UserProfile myProfile=new UserProfile();
                 RetrofitService retrofitService = new RetrofitService();
@@ -290,7 +303,8 @@ public class ShowPostActivity extends AppCompatActivity {
 
                             }
                         });
-                userProfileAPI.InsertAlarm(tokens.getId(),1,user_id,post.getPostID(),0,myProfile.getNickname(),post.getNickname())
+
+                userProfileAPI.InsertAlarm(tokens.getId(),1,user_id,post.getPostID(),0,myProfile.getNickname(),post.getNickname(),token_id,myUp.getToken_id())
                         .enqueue(new Callback<Integer>() {
                             @Override
                             public void onResponse(Call<Integer> call, Response<Integer> response) {
