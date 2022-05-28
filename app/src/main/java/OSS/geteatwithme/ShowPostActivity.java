@@ -304,7 +304,7 @@ public class ShowPostActivity extends AppCompatActivity {
                             }
                         });
 
-                userProfileAPI.InsertAlarm(tokens.getId(),1,user_id,post.getPostID(),0,myProfile.getNickname(),post.getNickname(),token_id,myUp.getToken_id())
+                userProfileAPI.InsertAlarm(tokens.getId(),1,user_id,post.getPostID(),0,myProfile.getNickname(),post.getNickname(),token_id,myUp.getToken_id(),post.getRestaurant(),post.getMeeting_date())
                         .enqueue(new Callback<Integer>() {
                             @Override
                             public void onResponse(Call<Integer> call, Response<Integer> response) {

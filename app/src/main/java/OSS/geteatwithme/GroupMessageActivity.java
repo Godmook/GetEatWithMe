@@ -1,5 +1,7 @@
 package OSS.geteatwithme;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -74,10 +76,11 @@ public class GroupMessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_message);
-        destinationRoom = getIntent().getStringExtra("destinationRoom");
-        uid = "뿌구";
+        destinationRoom = getIntent().getStringExtra("chatRoomID");
+        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+        uid=auto.getString("Nickname",null);
         editText = (EditText)findViewById(R.id.groupMessageActivity_editText);
-        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child("Room13").child("userInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(destinationRoom).child("userInfo").addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -142,15 +145,15 @@ public class GroupMessageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ChatModel.Comment comment = new ChatModel.Comment();
-                comment.uid = "뿌구";
+                comment.uid = uid;
                 comment.message = editText.getText().toString();
                 comment.timestamp = ServerValue.TIMESTAMP;
-                FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child("Room13").child("comment").push().setValue(comment).addOnCompleteListener(new OnCompleteListener<Void>() {
+                FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(destinationRoom).child("comment").push().setValue(comment).addOnCompleteListener(new OnCompleteListener<Void>() {
 
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
 
-                        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child("Room13").child("userInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+                        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(destinationRoom).child("userInfo").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
 

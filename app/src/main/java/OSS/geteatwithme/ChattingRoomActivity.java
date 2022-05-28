@@ -3,13 +3,16 @@ package OSS.geteatwithme;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -57,7 +60,7 @@ public class ChattingRoomActivity extends AppCompatActivity {
             chatRoomView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent myIntent = new Intent(getApplicationContext(), MainActivity.class); // test - Activity 변경 필요
+                    Intent myIntent = new Intent(getApplicationContext(), GroupMessageActivity.class); // test - Activity 변경 필요
                     myIntent.putExtra("chatRoomID", c.chatRoomId);
                     startActivity(myIntent);
                 }
@@ -75,7 +78,8 @@ public class ChattingRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chatting_room);
         linear = findViewById(R.id.chatLinear);
-
+        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+        String user_nickname=auto.getString("Nickname",null);
         // 채팅방 정보 가져오기
         DatabaseReference getChatrooms_id=database.getReference("chatrooms");
         getChatrooms_id.addValueEventListener(new ValueEventListener() {
@@ -87,15 +91,15 @@ public class ChattingRoomActivity extends AppCompatActivity {
                 for(DataSnapshot snapshot1 : snapshot.getChildren()){
                     String chatroom_id = snapshot1.getKey();
                     // 채팅방 사용 가능 여부 가져오기
-                    boolean available = snapshot.child(chatroom_id).child("Chatting").child("Can Use Chat").getValue(boolean.class);
+                    String available = snapshot.child(chatroom_id).child("Chatting").child("Can Use Chat").getValue(String.class);
 
-                    if( available == true){
+                    if(available.equals("true")){
                         // 내 닉네임이 포함되는지 검사
                         boolean include = false;
 
                         for(DataSnapshot snapshot2 :snapshot1.child("userInfo").getChildren()){
                             String nicknameId = snapshot2.getKey();
-                            if(snapshot1.child("userInfo").child(nicknameId).getValue().equals("MinI0123")){    // test nickname
+                            if(snapshot1.child("userInfo").child(nicknameId).getValue().equals(user_nickname)){    // test nickname
                                 include = true;
                                 break;
                             }
@@ -121,8 +125,8 @@ public class ChattingRoomActivity extends AppCompatActivity {
                             String str_date = sdf.format(date); // 마지막 메시지 시간
 
                             // 채팅방 이름 (식당명 + 날짜)
-                            String restaurant = snapshot1.child("Chatting").child("restaurant_name").getValue(String.class);
-                            String d = snapshot1.child("Chatting").child("date").getValue(String.class);
+                            String restaurant = snapshot1.child("Chatting").child("Restaurant_name").getValue(String.class);
+                            String d = snapshot1.child("Chatting").child("Meeting_date").getValue(String.class);
 
                             ChatRoom cr = new ChatRoom();
                             cr.chatRoomId = chatroom_id;

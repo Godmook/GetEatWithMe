@@ -62,45 +62,20 @@ public class MyAlarmView extends ConstraintLayout {
         background = (LinearLayout) findViewById(R.id.alarmbackground);
     }
 
-    private class PostTask extends AsyncTask<Call,Void,Post> {
-        @Override
-        protected Post doInBackground(Call... calls) {
-            try{
-                Call<Post> call=calls[0];
-                Response<Post> response=call.execute();
-                return response.body();
-            }catch(IOException e){
-
-            }
-            return null;
-        }
-    }
-
     public void set(Alarm alarm){
-        Post post = null;
-        RetrofitService retrofitService = new RetrofitService();
-        UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
-        Call<Post> call=userProfileAPI.getPostByPost_id(alarm.getPost_id());
-        try {
-            post= new PostTask().execute(call).get();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         this.alarm = alarm;
         if(alarm.getRequest() == 0){
             image.setImageResource(R.drawable.accept);
-            text.setText(alarm.getNickname() + "님이 당신의 <"+post.getRestaurant()+"> 같이 먹기 신청을 수락하였습니다.");
+            text.setText(alarm.getNickname() + "님이 당신의 <"+alarm.getRestaurant()+"> 같이 먹기 신청을 수락하였습니다.");
         }
         else if (alarm.getRequest() == 1){
             image.setImageResource(R.drawable.application);
-            text.setText(alarm.getNickname() + "님이 당신의 <"+post.getRestaurant()+"> 게시글에 같이 먹기를 신청하였습니다.");
+            text.setText(alarm.getNickname() + "님이 당신의 <"+alarm.getRestaurant()+"> 게시글에 같이 먹기를 신청하였습니다.");
         }
         else if(alarm.getRequest() == 2){
             image.setImageResource(R.drawable.reject);
-            text.setText(alarm.getNickname() + "님이 당신의 <"+post.getRestaurant()+"> 같이 먹기 신청을 거절하였습니다.");
+            text.setText(alarm.getNickname() + "님이 당신의 <"+alarm.getRestaurant()+"> 같이 먹기 신청을 거절하였습니다.");
         }
 
         if(alarm.getView() == 0)

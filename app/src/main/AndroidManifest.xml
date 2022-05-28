@@ -55,7 +55,7 @@
             android:name=".PostingActivity"
             android:exported="false" />
         <activity
-            android:name=".GroupMessageActivity"
+            android:name=".SignInActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -79,7 +79,7 @@
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".SignInActivity"
+            android:name=".GroupMessageActivity"
             android:exported="false" />
 
         <meta-data

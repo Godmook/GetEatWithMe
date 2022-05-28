@@ -52,7 +52,7 @@ public interface UserProfileAPI {
     Call<LinkedList<Post>> getAllPost();
     @GET("/post/{category}/alllist")
     Call<LinkedList<Post>> getCategoryPost(
-      @Path("category")int category
+            @Path("category")int category
     );
     @FormUrlEncoded
     @PUT("/post/{id}")
@@ -88,7 +88,7 @@ public interface UserProfileAPI {
     );
     @GET("v2/local/search/keyword.json")
     Call<ResultSearchKeyword>GetSearchKeyword(
-        @Header("Authorization")String key, @Query("query")String query, @Query("x")String x,@Query("y")String y, @Query("radius")String radius
+            @Header("Authorization")String key, @Query("query")String query, @Query("x")String x,@Query("y")String y, @Query("radius")String radius
     );
     @POST("/user/token/{id}/{token}")
     Call<Integer>UpdateToken(
@@ -125,7 +125,9 @@ public interface UserProfileAPI {
             @Field("nickname")String nickname,
             @Field("opposite_nickname")String opposite_nickname,
             @Field("id_token_id")String id_token_id,
-            @Field("opposite_token_id")String opposite_token_id
+            @Field("opposite_token_id")String opposite_token_id,
+            @Field("restaurant")String restaurant,
+            @Field("date")String date
     );
     @GET("/getalarm/{id}")
     Call<LinkedList<Alarm>>GetAlarm(
@@ -133,7 +135,7 @@ public interface UserProfileAPI {
     );
     @POST("/update/alarm/{id}")
     Call<Integer>UpdateViewAlarm(
-      @Path("id")int id
+            @Path("id")int id
     );
     @POST("/update/post/curpeople/{id}")
     Call<Void>UpdateCurPeople(

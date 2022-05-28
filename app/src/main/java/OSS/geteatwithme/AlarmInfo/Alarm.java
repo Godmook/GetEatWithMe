@@ -11,6 +11,24 @@ public class Alarm {
     int alarm_id;
     String id_token_id;
     String opposite_token_id;
+    String restaurant;
+    String date;
+
+    public String getRestaurant() {
+        return restaurant;
+    }
+
+    public void setRestaurant(String restaurant) {
+        this.restaurant = restaurant;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
 
     public String getId_token_id() {
         return id_token_id;

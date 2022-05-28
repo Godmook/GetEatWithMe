@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -24,8 +25,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import OSS.geteatwithme.AlarmInfo.Alarm;
@@ -35,6 +38,7 @@ import OSS.geteatwithme.Connection.NotificationRequest;
 import OSS.geteatwithme.Connection.NotificationResponse;
 import OSS.geteatwithme.Connection.RetrofitService;
 import OSS.geteatwithme.Connection.UserProfileAPI;
+import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.UIInfo.Utils;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
@@ -44,6 +48,7 @@ import retrofit2.Response;
 public class alarmActivity extends AppCompatActivity {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReference;
+    Post post;
     public void FirebaseDatabaseHelper(){
         mDatabase=FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app");
         mReference=mDatabase.getReference().child("chatrooms");
@@ -65,6 +70,19 @@ public class alarmActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private class GetInformation extends AsyncTask<Call,Void, Post>{
+        @Override
+        protected Post doInBackground(Call... calls) {
+            try{
+                Call<Post> call=calls[0];
+                Response<Post> response=call.execute();
+                return response.body();
+            }catch(IOException e){
+
+            }
+            return null;
+        }
     }
     private class GetTokenTask extends AsyncTask<Call,Void,UserProfile>{
         @Override
@@ -145,7 +163,7 @@ public class alarmActivity extends AppCompatActivity {
 
                                                     }
                                                 });
-                                        userProfileAPI.InsertAlarm(a.getOpposite_id(),2,a.getId(),a.getPost_id(),0,a.getOpposite_nickname(),a.getNickname(),a.getOpposite_token_id(),a.getId_token_id())
+                                        userProfileAPI.InsertAlarm(a.getOpposite_id(),2,a.getId(),a.getPost_id(),0,a.getOpposite_nickname(),a.getNickname(),a.getOpposite_token_id(),a.getId_token_id(),a.getRestaurant(),a.getDate())
                                                 .enqueue(new Callback<Integer>() {
                                                     @Override
                                                     public void onResponse(Call<Integer> call, Response<Integer> response) {
@@ -180,38 +198,22 @@ public class alarmActivity extends AppCompatActivity {
                                         SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
                                         String user_id=auto.getString("ID",null);
                                         ChatModel chatModel=new ChatModel();
-                                        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("users").child(user_id).setValue(a.getOpposite_token_id());
+                                        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("users").child(a.getOpposite_nickname()).setValue(a.getOpposite_token_id());
                                         String room_number="Room"+a.getPost_id();
-                                        FirebaseDatabase database = FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app");
-                                        DatabaseReference getUser=database.getReference("chatrooms").child(room_number).child("users");
-                                        final List<String> members=new ArrayList<>();
-                                        getUser.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                members.clear();
-                                                for(DataSnapshot snapshot1: snapshot.getChildren()){
-                                                    members.add(snapshot1.getKey().toString());
-                                                }
-                                                ChatModel chatModel=new ChatModel();
-                                                for(String lt:members){
-                                                    chatModel.users.put(lt,true);
-                                                }
-                                                chatModel.users.put(a.getOpposite_id(),true);
-                                                chatModel.users.put(user_id,true);
-                                                FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(room_number).child("userInfo").setValue(chatModel);
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
                                         // 수락 눌렀을 때
+                                        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(room_number).child("userInfo").push().setValue(a.getNickname());
                                         ChatModel.Comment comment=new ChatModel.Comment();
                                         comment.uid="Admin";
-                                        comment.message=user_id+"님이 입장하셨습니다.";
+                                        //닉네임 위치 잘 기억 안남 나인지 쟤인지 모르겠음
+                                        comment.message=a.getNickname()+"님이 입장하셨습니다.";
+                                        //나도 잘 모르겠음 어떻게 해야 할지
                                         comment.timestamp= ServerValue.TIMESTAMP;
                                         FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(room_number).child("comment").push().setValue(comment);
+                                        Map<String,String> map= new HashMap<>();
+                                        map.put("Can Use Chat","true");
+                                        map.put("Restaurant_name",a.getRestaurant());
+                                        map.put("Meeting_date",a.getDate());
+                                        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(room_number).child("Chatting").setValue(map);
                                         NotificationRequest notificationRequest=new NotificationRequest("나랑 같이 밥 먹을래..?","작성자가 당신의 요청을 수락했어요!",a.getId_token_id(),"FCM_EXE_ACTIVITY");
                                         userProfileAPI.PutNotification(notificationRequest)
                                                 .enqueue(new Callback<NotificationResponse>() {
@@ -225,7 +227,7 @@ public class alarmActivity extends AppCompatActivity {
 
                                                     }
                                                 });
-                                        userProfileAPI.InsertAlarm(a.getOpposite_id(),0,a.getId(),a.getPost_id(),0,a.getOpposite_nickname(),a.getNickname(),a.getOpposite_token_id(),a.getId_token_id())
+                                        userProfileAPI.InsertAlarm(a.getOpposite_id(),0,a.getId(),a.getPost_id(),0,a.getOpposite_nickname(),a.getNickname(),a.getOpposite_token_id(),a.getId_token_id(),a.getRestaurant(),a.getDate())
                                                 .enqueue(new Callback<Integer>() {
                                                     @Override
                                                     public void onResponse(Call<Integer> call, Response<Integer> response) {
