@@ -5,30 +5,54 @@
     android:layout_height="match_parent"
     tools:context=".GroupMessageActivity">
 
+    <LinearLayout
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/main_orange"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/textView18"
+            android:fontFamily="@font/gmarket_sans_ttf_medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textColor="@color/ivory"
+            android:textSize="30sp" />
+    </LinearLayout>
+
     <EditText
         android:id="@+id/groupMessageActivity_editText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/groupMessageActivity_button"
         android:layout_toLeftOf="@+id/groupMessageActivity_button"
-        android:layout_toStartOf="@+id/groupMessageActivity_button" />
+        android:fontFamily="@font/gmarket_sans_ttf_light" />
 
     <Button
         android:id="@+id/groupMessageActivity_button"
+        android:fontFamily="@font/gmarket_sans_ttf_light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/brown"
         android:text="보내기" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groupMessageActivity_recyclerview"
+        android:fontFamily="@font/gmarket_sans_ttf_light"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/groupMessageActivity_button"
+        android:layout_below="@id/top_layout"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true" />
 </RelativeLayout>

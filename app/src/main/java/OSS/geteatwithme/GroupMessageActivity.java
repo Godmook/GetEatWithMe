@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -116,6 +118,26 @@ public class GroupMessageActivity extends AppCompatActivity {
     }
     void init(){
         Button button = (Button) findViewById(R.id.groupMessageActivity_button);
+        button.setEnabled(false);
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if(editText.getText().toString().equals(""))
+                        button.setEnabled(false);
+                    else
+                        button.setEnabled(true);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -212,20 +234,27 @@ public class GroupMessageActivity extends AppCompatActivity {
             //내가보낸 메세지
             if (comments.get(position).uid.equals(uid)) {
                 messageViewHolder.textView_message.setText(comments.get(position).message);
-                //messageViewHolder.textView_message.setBackgroundResource(R.drawable.rightbubble);
+                messageViewHolder.textView_message.setBackgroundResource(R.drawable.rightbubble2);
                 messageViewHolder.linearLayout_destination.setVisibility(View.INVISIBLE);
-                messageViewHolder.textView_message.setTextSize(25);
+                messageViewHolder.textView_message.setTextSize(15);
                 messageViewHolder.linearLayout_main.setGravity(Gravity.RIGHT);
 
                 //상대방이 보낸 메세지
 
             } else {
-
+                if(comments.get(position).uid.equals("Admin")){
+                    messageViewHolder.textview_name.setText("");
+                    messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
+                    messageViewHolder.textView_message.setBackgroundResource(R.drawable.centerbubble2);
+                    messageViewHolder.textView_message.setText(comments.get(position).message);
+                    messageViewHolder.textView_message.setTextSize(15);
+                    messageViewHolder.linearLayout_main.setGravity(Gravity.CENTER);
+                }
                 messageViewHolder.textview_name.setText(comments.get(position).uid);
                 messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
-                //messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbubble);
+                messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbubble2);
                 messageViewHolder.textView_message.setText(comments.get(position).message);
-                messageViewHolder.textView_message.setTextSize(25);
+                messageViewHolder.textView_message.setTextSize(15);
                 messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
 
 
