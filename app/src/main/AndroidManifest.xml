@@ -78,6 +78,7 @@
             android:exported="false" />
         <activity
             android:name=".GroupMessageActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="false" />
 
         <meta-data
