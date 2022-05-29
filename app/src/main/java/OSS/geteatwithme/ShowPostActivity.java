@@ -1,5 +1,6 @@
 package OSS.geteatwithme;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -33,6 +34,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -45,8 +52,14 @@ import org.w3c.dom.Text;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import OSS.geteatwithme.Chatting.ChatRoom;
 import OSS.geteatwithme.Connection.NotificationRequest;
 import OSS.geteatwithme.Connection.NotificationResponse;
 import OSS.geteatwithme.Connection.RetrofitService;
@@ -56,6 +69,8 @@ import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.UIInfo.Utils;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import OSS.geteatwithme.UserInfo.user;
+import lombok.var;
+import okhttp3.internal.cache.DiskLruCache;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -99,7 +114,33 @@ public class ShowPostActivity extends AppCompatActivity {
         // post id 가져오기
         Intent myIntent = getIntent();
         POST_ID = myIntent.getIntExtra("postID", 0);
+        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+        String user_nickname=auto.getString("Nickname",null);
         myUp=new UserProfile();
+
+        // 이미 신청한 게시글 확인
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference userinfo = database.getReference().child("chatrooms").child("Room"+POST_ID).child("userInfo");
+        userinfo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot user : snapshot.getChildren()){
+                    String nickname = user.getValue(String.class);
+                    if(user_nickname.equals(nickname)){
+                        Toast.makeText(ShowPostActivity.this, "이미 신청한 게시글 입니다.", Toast.LENGTH_SHORT).show();
+                        finish();
+                        break;
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         // post 가져오기
         RetrofitService retrofitService = new RetrofitService();
         UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
@@ -123,19 +164,6 @@ public class ShowPostActivity extends AppCompatActivity {
 
                     }
                 });
-        // 신청 가능 여부 확인
-        if(post.getPost_visible() == 0){
-            AlertDialog.Builder dlg = new AlertDialog.Builder(this);
-            dlg.setTitle("신청 불가능");
-            dlg.setMessage("선택하신 게시글은 신청이 불가능 합니다.");
-            dlg.setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    finish();
-                }
-            });
-            dlg.show();
-        }
 
         // post 거리 세팅
         double longitude = ((user)getApplication()).getLongitude();

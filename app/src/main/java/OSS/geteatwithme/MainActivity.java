@@ -171,7 +171,7 @@ public class MainActivity extends AppCompatActivity {
             address = g.getFromLocation(latitude, longitude, 10);
             TextView textView = (TextView) findViewById(R.id.textview);
 
-            if(address != null){
+            if(address.size() > 0){
                 String sido = address.get(0).getAdminArea();
                 String gu1 = address.get(0).getLocality();
                 String gu2 = address.get(0).getSubLocality();

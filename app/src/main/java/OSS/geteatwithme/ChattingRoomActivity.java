@@ -95,11 +95,10 @@ public class ChattingRoomActivity extends AppCompatActivity {
                     String chatroom_id = snapshot1.getKey();
                     // 채팅방 사용 가능 여부 가져오기
                     String available = snapshot.child(chatroom_id).child("Chatting").child("Can Use Chat").getValue(String.class);
-
+                    if(available == null ) continue;
                     if(available.equals("true")){
                         // 내 닉네임이 포함되는지 검사
                         boolean include = false;
-
                         for(DataSnapshot snapshot2 :snapshot1.child("userInfo").getChildren()){
                             String nicknameId = snapshot2.getKey();
                             if(snapshot1.child("userInfo").child(nicknameId).getValue().equals(user_nickname)){

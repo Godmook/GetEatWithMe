@@ -202,6 +202,7 @@ public class alarmActivity extends AppCompatActivity {
                                         String room_number="Room"+a.getPost_id();
                                         // 수락 눌렀을 때
                                         FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(room_number).child("userInfo").push().setValue(a.getNickname());
+                                        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(room_number).child("userInfo").push().setValue(a.getOpposite_nickname());
                                         ChatModel.Comment comment=new ChatModel.Comment();
                                         comment.uid="Admin";
                                         //닉네임 위치 잘 기억 안남 나인지 쟤인지 모르겠음

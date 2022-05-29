@@ -85,7 +85,7 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                     UserProfileAPI userProfileAPI = kaKaofitService.getKakaoFit().create(UserProfileAPI.class);
                     SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
                     MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(auto.getString("latitude", null)), Double.parseDouble(auto.getString("longitude", null)));
-                    mapView.setMapCenterPoint(mapPoint, true);
+                    mapView.setMapCenterPointAndZoomLevel(mapPoint, 5,true);
                     Call<ResultSearchKeyword> call = userProfileAPI.GetSearchKeyword(BuildConfig.kakaoRestApiKey, Query, auto.getString("longitude", null), auto.getString("latitude", null), "10000");
                     try {
                         resultSearchKeyword = new GetMarker().execute(call).get();
