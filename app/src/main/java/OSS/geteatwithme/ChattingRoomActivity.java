@@ -102,7 +102,7 @@ public class ChattingRoomActivity extends AppCompatActivity {
 
                         for(DataSnapshot snapshot2 :snapshot1.child("userInfo").getChildren()){
                             String nicknameId = snapshot2.getKey();
-                            if(snapshot1.child("userInfo").child(nicknameId).getValue().equals(user_nickname)){    // test nickname
+                            if(snapshot1.child("userInfo").child(nicknameId).getValue().equals(user_nickname)){
                                 include = true;
                                 break;
                             }
@@ -139,7 +139,6 @@ public class ChattingRoomActivity extends AppCompatActivity {
                             chatRooms.add(cr);
                         }
                     }
-                    break; //test
                 }
                 showChatRooms(); // 사용가능한 채팅방 사용자에게 보여주기
             }
