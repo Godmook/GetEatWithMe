@@ -92,7 +92,7 @@ public class GroupMessageActivity extends AppCompatActivity {
         FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(destinationRoom).child("userInfo").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                if(dataSnapshot.exists() == false) finish();
                 for(DataSnapshot item : dataSnapshot.getChildren()){
                     if(!names.contains(item.getValue(String.class))) {
                         names.add(item.getValue(String.class));
@@ -299,6 +299,9 @@ public class GroupMessageActivity extends AppCompatActivity {
                     for (DataSnapshot item : dataSnapshot.getChildren()) {
                         ChatModel.Comment comment_origin = item.getValue(ChatModel.Comment.class);
                         comments.add(comment_origin);
+                    }
+                    if(comments.size()==0){
+                        finish();
                     }
                     notifyDataSetChanged();
                     recyclerView
