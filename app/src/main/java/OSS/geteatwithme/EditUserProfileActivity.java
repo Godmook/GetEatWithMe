@@ -26,11 +26,10 @@ import retrofit2.Response;
 
 public class EditUserProfileActivity extends AppCompatActivity {
     Boolean check_editing=true;
-    TextView back, name, id, gender;
-    EditText pw,pw2,age,nickname;
-    Button pwcheck, submit, idcheck, nicknamecheck;
+    TextView back, name, id, gender, nickname;
+    EditText pw,pw2,age;
+    Button pwcheck, submit;
     String token;
-    boolean nickname_check_result=false;
     UserProfile user_info = new UserProfile();
     private class GetTask extends AsyncTask<Call,Void,UserProfile> {
         @Override
@@ -119,48 +118,10 @@ public class EditUserProfileActivity extends AppCompatActivity {
             }
         });
 
-        nicknamecheck=(Button)findViewById(R.id.edit_profile_nicknamecheck);
-        nicknamecheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                userProfileAPI.checkNick(nickname.getText().toString())
-                        .enqueue(new Callback<Integer>() {
-                            @Override
-                            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                if(response.body()<1){
-                                    Toast.makeText(EditUserProfileActivity.this,"사용 가능한 닉네임입니다.",Toast.LENGTH_SHORT).show();
-                                }
-                                else{
-                                    Toast.makeText(EditUserProfileActivity.this, "사용 불가능한 닉네임입니다!", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<Integer> call, Throwable t) {
-
-                            }
-                        });
-            }
-        });
         submit=(Button) findViewById(R.id.edit_profile_button);
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!nickname.getText().toString().matches(user_info.getNickname())) {
-                    Call<Integer> call = userProfileAPI.checkNick(nickname.getText().toString());
-                    try {
-                        if (new NickCheckTask().execute(call).get() < 1) {
-                            user_info.setNickname(nickname.getText().toString());
-                        } else {
-                            Toast.makeText(EditUserProfileActivity.this, "사용 불가능한 닉네임입니다!", Toast.LENGTH_SHORT).show();
-                            check_editing = false;
-                        }
-                    } catch (ExecutionException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
                 user_info.setAge(Integer.parseInt(age.getText().toString()));
                 if(check_editing){
                     if(pw.getText().toString().matches("")||pw2.getText().toString().matches("")){

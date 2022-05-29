@@ -133,14 +133,6 @@ public class EditPostActivity extends AppCompatActivity {
                 android.R.layout.simple_spinner_dropdown_item);
         spinner_2.setAdapter(adapter2);
         spinner_2.setSelection(EditPost.getCur_people()-1);
-        spinner_2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                EditPost.setCur_people(Integer.parseInt(number_of_people2[position]));
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {}
-        });
 
 
         // 카테고리 선택
@@ -426,7 +418,8 @@ public class EditPostActivity extends AppCompatActivity {
                             .enqueue(new Callback<Integer>() {
                                 @Override
                                 public void onResponse(Call<Integer> call, Response<Integer> response) {
-
+                                    Toast.makeText(EditPostActivity.this,"수정 성공!",Toast.LENGTH_SHORT).show();
+                                    finish();
                                 }
 
                                 @Override

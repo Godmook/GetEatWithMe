@@ -18,6 +18,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import net.daum.mf.map.api.CameraUpdate;
 import net.daum.mf.map.api.CameraUpdateFactory;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
@@ -85,7 +86,6 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                     UserProfileAPI userProfileAPI = kaKaofitService.getKakaoFit().create(UserProfileAPI.class);
                     SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
                     MapPoint mapPoint = MapPoint.mapPointWithGeoCoord(Double.parseDouble(auto.getString("latitude", null)), Double.parseDouble(auto.getString("longitude", null)));
-                    mapView.setMapCenterPointAndZoomLevel(mapPoint, 5,true);
                     Call<ResultSearchKeyword> call = userProfileAPI.GetSearchKeyword(BuildConfig.kakaoRestApiKey, Query, auto.getString("longitude", null), auto.getString("latitude", null), "10000");
                     try {
                         resultSearchKeyword = new GetMarker().execute(call).get();
@@ -110,7 +110,20 @@ public class SearchRestaurantActivity extends AppCompatActivity {
                         mymarker.setItemName(m.getName());
                         markerarr.add(mymarker);
                     }
+                    double Max_distance;
+                    for(int i=0;i<markerarr.size();i++){
+                        for(int j=i+1;j<markerarr.size();j++){
+
+                        }
+                    }
                     mapView.addPOIItems(markerarr.toArray(new MapPOIItem[markerarr.size()]));
+                    if(markerarr.size()>0) {
+                        mapView.moveCamera(CameraUpdateFactory.newMapPointAndDiameter(markerarr.get(0).getMapPoint(), 1000));
+                    }
+                    else{
+                        mapView.moveCamera(CameraUpdateFactory.newMapPointAndDiameter(mapPoint,1000));
+                        Toast.makeText(SearchRestaurantActivity.this,"검색한 장소가 없습니다!",Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

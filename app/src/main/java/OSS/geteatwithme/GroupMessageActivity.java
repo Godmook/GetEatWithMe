@@ -127,6 +127,36 @@ public class GroupMessageActivity extends AppCompatActivity {
             }
         });
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app");
+        DatabaseReference masterInfo = database.getReference().child("chatrooms").child(destinationRoom).child("master");
+        masterInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot host : snapshot.getChildren()){
+                    if(host.getValue(String.class).equals(uid)){
+                        Button button = new Button(getApplicationContext());
+                        button.setText("방 폭파..");
+                        button.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                // 룸 지우기
+                                DatabaseReference rRef = database.getReference("chatrooms").child(destinationRoom);
+                                rRef.removeValue();
+
+                                finish();
+                            }
+                        });
+                        ((LinearLayout)findViewById(R.id.top_layout)).addView(button);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
     void init(){
         Button button = (Button) findViewById(R.id.groupMessageActivity_button);
@@ -139,10 +169,10 @@ public class GroupMessageActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if(editText.getText().toString().equals(""))
-                        button.setEnabled(false);
-                    else
-                        button.setEnabled(true);
+                if(editText.getText().toString().equals(""))
+                    button.setEnabled(false);
+                else
+                    button.setEnabled(true);
             }
 
             @Override
@@ -310,9 +340,6 @@ public class GroupMessageActivity extends AppCompatActivity {
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
             String time = simpleDateFormat.format(date);
             messageViewHolder.textView_timestamp.setText(time);
-
-
-
         }
 
         @Override

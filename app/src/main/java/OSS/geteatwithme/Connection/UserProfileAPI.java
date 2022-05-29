@@ -142,6 +142,7 @@ public interface UserProfileAPI {
     Call<Void>UpdateCurPeople(
             @Path("id")int id
     );
+    @FormUrlEncoded
     @POST("/update/post/data/{post_id}")
     Call<Integer>UpdatePostData(
       @Path("post_id")int post_id,
