@@ -166,4 +166,8 @@ public interface UserProfileAPI {
     Call<Void>DeletePostData(
             @Path("post_id")int post_id
     );
+    @POST("/update/visible/{post_id}")
+    Call<Void>updateVisible(
+            @Path("post_id")int post_id
+    );
 }

@@ -144,8 +144,21 @@ public class GroupMessageActivity extends AppCompatActivity {
                                 // 룸 지우기
                                 DatabaseReference rRef = database.getReference("chatrooms").child(destinationRoom);
                                 rRef.removeValue();
+                                RetrofitService retrofitService = new RetrofitService();
+                                UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
+                                String substr=destinationRoom.substring(4);
+                                userProfileAPI.updateVisible(Integer.parseInt(substr))
+                                        .enqueue(new Callback<Void>() {
+                                            @Override
+                                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                                finish();
+                                            }
 
-                                finish();
+                                            @Override
+                                            public void onFailure(Call<Void> call, Throwable t) {
+
+                                            }
+                                        });
                             }
                         });
                         ((LinearLayout)findViewById(R.id.top_layout)).addView(button);
@@ -273,7 +286,11 @@ public class GroupMessageActivity extends AppCompatActivity {
         public GroupMessageRecyclerViewAdapter(){
             getMessageList();
         }
+        // 방 폭파되면 나머지 나가지게 하기
         void getMessageList() {
+            if(FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(destinationRoom)==null){
+                finish();
+            }
             databaseReference = FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(destinationRoom).child("comment");
             valueEventListener = databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
