@@ -80,17 +80,19 @@ public class MyPostListActivity extends AppCompatActivity {
         int idx = 0;
         for (Post p : my_posts) {
             MyPostView postView = new MyPostView(this);
-            postView.set(p);
-            postView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent myIntent = new Intent(getApplicationContext(), EditPostActivity.class);
-                    myIntent.putExtra("postID", postView.getPostID());
-                    startActivity(myIntent);
-                    finish();
-                }
-            });
-            linearlayout.addView(postView, idx++);
+            if(p.getPost_visible()==1){
+                postView.set(p);
+                postView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent myIntent = new Intent(getApplicationContext(), EditPostActivity.class);
+                        myIntent.putExtra("postID", postView.getPostID());
+                        startActivity(myIntent);
+                        finish();
+                    }
+                });
+                linearlayout.addView(postView, idx++);
+            }
         }
 
         ScrollView view = (ScrollView)findViewById(R.id.my_posts_scroll);
