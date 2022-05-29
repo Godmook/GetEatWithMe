@@ -26,10 +26,14 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
 import OSS.geteatwithme.Connection.RetrofitService;
@@ -413,6 +417,12 @@ public class EditPostActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(Call<Integer> call, Response<Integer> response) {
                                     Toast.makeText(EditPostActivity.this,"수정 성공!",Toast.LENGTH_SHORT).show();
+                                    Map<String,String> map= new HashMap<>();
+                                    map.put("Can Use Chat","true");
+                                    map.put("Restaurant_name",EditPost.getRestaurant());
+                                    map.put("Meeting_date",EditPost.getMeeting_date());
+                                    String room_number="Room"+POST_ID;
+                                    FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(room_number).child("Chatting").setValue(map);
                                     finish();
                                 }
 
