@@ -62,6 +62,7 @@ public class ChattingRoomActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent myIntent = new Intent(getApplicationContext(), GroupMessageActivity.class); // test - Activity 변경 필요
+                    myIntent.putExtra("chatRoomName",c.chatRoomName);
                     myIntent.putExtra("chatRoomID", c.chatRoomId);
                     startActivity(myIntent);
                 }

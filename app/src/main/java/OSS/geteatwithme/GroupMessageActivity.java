@@ -33,6 +33,8 @@ import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 
+import org.w3c.dom.Text;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -59,7 +61,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class GroupMessageActivity extends AppCompatActivity {
-    String destinationRoom;
+    String destinationRoom,Roomname;
     String uid;
     EditText editText;
 
@@ -81,6 +83,7 @@ public class GroupMessageActivity extends AppCompatActivity {
         Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         Intent myIntent=new Intent();
         destinationRoom = getIntent().getStringExtra("chatRoomID");
+        Roomname=getIntent().getStringExtra("chatRoomName");
         SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
         uid=auto.getString("Nickname",null);
         editText = (EditText)findViewById(R.id.groupMessageActivity_editText);
@@ -94,7 +97,9 @@ public class GroupMessageActivity extends AppCompatActivity {
                         names.add(item.getValue(String.class));
                     }
                 }
-
+                Roomname+="\n참여자: "+ names.size();
+                TextView textView= (TextView) findViewById(R.id.textView18);
+                textView.setText(Roomname);
                 FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -156,7 +161,40 @@ public class GroupMessageActivity extends AppCompatActivity {
 
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
+                        FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(destinationRoom).child("userInfo").addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
 
+                                for(DataSnapshot item : dataSnapshot.getChildren()){
+                                    if(!names.contains(item.getValue(String.class))) {
+                                        names.add(item.getValue(String.class));
+                                    }
+                                }
+                                Roomname=getIntent().getStringExtra("chatRoomName");
+                                Roomname+="\n참여자: "+ names.size();
+                                TextView textView= (TextView) findViewById(R.id.textView18);
+                                textView.setText(Roomname);
+                                FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        for(DataSnapshot item : snapshot.getChildren()){
+                                            if(names.contains(item.getKey())) {
+                                                user_token.put(item.getKey(), item.getValue(String.class));
+                                            }
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
                         FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("chatrooms").child(destinationRoom).child("userInfo").addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {

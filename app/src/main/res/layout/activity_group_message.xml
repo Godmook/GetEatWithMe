@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:layout_weight="1"
-            android:text="TextView"
+            android:text="채팅방"
             android:textColor="@color/ivory"
             android:textSize="30sp" />
     </LinearLayout>
