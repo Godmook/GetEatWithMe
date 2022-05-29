@@ -1,5 +1,6 @@
 package OSS.geteatwithme;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -11,6 +12,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -110,6 +117,23 @@ public class MyPageActivity extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+                String ns=auto.getString("Nickname",null);
+                FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for(DataSnapshot postsnapshot :snapshot.getChildren()){
+                            if(postsnapshot.getKey().equals(ns)){
+                                postsnapshot.getRef().removeValue();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
                 SharedPreferences pref = getSharedPreferences("LoginSource", MODE_PRIVATE);
                 SharedPreferences.Editor editor = pref.edit();
                 editor.clear();

@@ -42,6 +42,7 @@ public class SignInActivity extends AppCompatActivity {
     boolean login_result = false;
     private static final String TAG="SignInActivity";
     String token;
+    UserProfile us;
     private class GetTokenTask extends AsyncTask<Call,Void, UserProfile> {
         @Override
         protected UserProfile doInBackground(Call... calls) {
@@ -143,7 +144,7 @@ public class SignInActivity extends AppCompatActivity {
                                 RetrofitService retrofitService = new RetrofitService();
                                 UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
                                 Call<UserProfile> calls =userProfileAPI.getUserProfile(id);
-                                UserProfile us=new UserProfile();
+                                us=new UserProfile();
                                 try {
                                     us=new GetTokenTask().execute(calls).get();
                                 } catch (ExecutionException e) {
@@ -159,13 +160,13 @@ public class SignInActivity extends AppCompatActivity {
                                 autoLoginEdit.putString("Nickname",us.getNickname());
                                 autoLoginEdit.commit();
                                 Toast.makeText(getApplicationContext(), "로그인 성공!", Toast.LENGTH_LONG).show();
-                                // id 저장
                                 RetrofitService retrofitServices = new RetrofitService();
                                 UserProfileAPI uk = retrofitServices.getRetrofit().create(UserProfileAPI.class);
                                 uk.UpdateToken(id,token)
                                         .enqueue(new Callback<Integer>() {
                                             @Override
                                             public void onResponse(Call<Integer> call, Response<Integer> response) {
+                                                FirebaseDatabase.getInstance("https://geteatwithme-default-rtdb.asia-southeast1.firebasedatabase.app").getReference().child("users").child(us.getNickname()).setValue(us.getToken_id());
                                                 ((user)getApplication()).setUserID(id);
                                                 Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
                                                 myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -178,6 +179,7 @@ public class SignInActivity extends AppCompatActivity {
 
                                             }
                                         });
+                                // id 저장
                             }
                             // 로그인 실패
                             else {
