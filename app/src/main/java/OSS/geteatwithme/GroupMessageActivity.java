@@ -3,6 +3,7 @@ package OSS.geteatwithme;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -135,7 +136,8 @@ public class GroupMessageActivity extends AppCompatActivity {
                 for(DataSnapshot host : snapshot.getChildren()){
                     if(host.getValue(String.class).equals(uid)){
                         Button button = new Button(getApplicationContext());
-                        button.setText("방 폭파..");
+                        button.setText("종료");
+                        button.setBackgroundColor(Color.parseColor("#FD9F28")); // 배경 색 세팅
                         button.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -147,6 +149,7 @@ public class GroupMessageActivity extends AppCompatActivity {
                             }
                         });
                         ((LinearLayout)findViewById(R.id.top_layout)).addView(button);
+                        break;
                     }
                 }
             }
