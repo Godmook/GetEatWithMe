@@ -239,12 +239,16 @@
                     android:textColor="@color/black"
                     android:textSize="20sp" />
 
-                <Spinner
-                    android:id="@+id/edit_cur_people_spinner"
+                <TextView
+                    android:id="@+id/edit_cur_people_spinner_text"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:layout_margin="3dp"
-                    android:spinnerMode="dropdown" />
+                    android:fontFamily="@font/gmarket_sans_ttf_light"
+                    android:gravity="center_vertical"
+                    android:text="TextView"
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/edit_date_text"

@@ -73,7 +73,7 @@ public class EditUserProfileActivity extends AppCompatActivity {
         pw=findViewById(R.id.edit_profile_PW);
         pw2=findViewById(R.id.edit_profile_PW2);
         age=findViewById(R.id.edit_profile_age);
-        nickname=findViewById(R.id.edit_profile_Nickname);
+        nickname=findViewById(R.id.edit_profile_nickname_text);
         gender=findViewById(R.id.edit_profile_gender_text);
 
         RetrofitService retrofitService = new RetrofitService();
