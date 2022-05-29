@@ -128,6 +128,7 @@ public class PostingActivity extends AppCompatActivity {
         radioButtons[4] = (RadioButton) findViewById(R.id.radioButton_4);
         radioButtons[5] = (RadioButton) findViewById(R.id.radioButton_5);
         radioButtons[6] = (RadioButton) findViewById(R.id.radioButton_6);
+        radioButtons[0].setChecked(true);
         // 한식
         radioButtons[0].setOnClickListener(new View.OnClickListener(){
             @Override
