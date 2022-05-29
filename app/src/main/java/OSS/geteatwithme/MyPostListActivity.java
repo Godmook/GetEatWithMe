@@ -31,7 +31,21 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MyPostListActivity extends AppCompatActivity {
-
+    private static double degtoRad(double deg){
+        return deg*Math.PI/180.0;
+    }
+    private static double radtoDeg(double rad){
+        return rad*180/Math.PI;
+    }
+    public static double getDistance(Post p, double longitude, double latitude){
+        double theta = longitude - p.getLongitude();
+        double distance = Math.sin(degtoRad(latitude)) * Math.sin(degtoRad(p.getLatitude())) + Math.cos(degtoRad(latitude)) * Math.cos(degtoRad(p.getLatitude())) * Math.cos(degtoRad(theta));
+        distance = Math.acos(distance);
+        distance = radtoDeg(distance);
+        distance = distance*60*1.1515;
+        distance = distance*1609.344;
+        return distance;
+    }
     LinkedList<Post> my_posts = new LinkedList<Post>();
     LinearLayout linearlayout = null;
 
@@ -51,7 +65,12 @@ public class MyPostListActivity extends AppCompatActivity {
     UserProfile user_info = new UserProfile();
 
     void showMyPosts() {
-
+        SharedPreferences auto = getSharedPreferences("LoginSource", Activity.MODE_PRIVATE);
+        String longitude=auto.getString("longitude",null);
+        String latitude=auto.getString("latitude",null);
+        for(Post p : my_posts) {
+            p.setDistance(getDistance(p,Double.parseDouble(longitude), Double.parseDouble(latitude)));
+        }
         if (linearlayout != null)
             ((ViewGroup) linearlayout.getParent()).removeView(linearlayout);
         linearlayout = new LinearLayout(this);

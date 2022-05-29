@@ -367,8 +367,19 @@ public class EditPostActivity extends AppCompatActivity {
         delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 삭제 후
-                finish();
+                userProfileAPI.DeletePostData(POST_ID)
+                        .enqueue(new Callback<Void>() {
+                            @Override
+                            public void onResponse(Call<Void> call, Response<Void> response) {
+                                // 삭제 후
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(Call<Void> call, Throwable t) {
+
+                            }
+                        });
             }
         });
         cancel = (Button)findViewById(R.id.btn_edit_cancel);
@@ -394,8 +405,8 @@ public class EditPostActivity extends AppCompatActivity {
                     // 정보 서버에 posting
                     RetrofitService retrofitService = new RetrofitService();
                     UserProfileAPI userProfileAPI = retrofitService.getRetrofit().create(UserProfileAPI.class);
-                    userProfileAPI.PutUserPost(
-                            EditPost.getId(),
+                    userProfileAPI.UpdatePostData(
+                            EditPost.getPostID(),
                             EditPost.getRestaurant(),
                             EditPost.getMeeting_place(),
                             EditPost.getCategory(),
@@ -415,15 +426,12 @@ public class EditPostActivity extends AppCompatActivity {
                             .enqueue(new Callback<Integer>() {
                                 @Override
                                 public void onResponse(Call<Integer> call, Response<Integer> response) {
-                                    Toast.makeText(EditPostActivity.this,"성공!",Toast.LENGTH_SHORT).show();
-                                    Intent myIntent = new Intent(getApplicationContext(), MainActivity.class);
-                                    myIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                                    startActivity(myIntent);
+
                                 }
 
                                 @Override
                                 public void onFailure(Call<Integer> call, Throwable t) {
-                                    Toast.makeText(EditPostActivity.this,"실패!",Toast.LENGTH_SHORT).show();
+
                                 }
                             });
                 }

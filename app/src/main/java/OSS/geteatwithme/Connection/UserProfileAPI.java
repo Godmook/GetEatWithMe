@@ -8,6 +8,7 @@ import OSS.geteatwithme.PostInfo.Post;
 import OSS.geteatwithme.UserInfo.UserProfile;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -140,5 +141,28 @@ public interface UserProfileAPI {
     @POST("/update/post/curpeople/{id}")
     Call<Void>UpdateCurPeople(
             @Path("id")int id
+    );
+    @POST("/update/post/data/{post_id}")
+    Call<Integer>UpdatePostData(
+      @Path("post_id")int post_id,
+      @Field("restaurant")String restaurant,
+      @Field("meeting_place")String meeting_place,
+      @Field("category")int category,
+      @Field("max_people")int max_people,
+      @Field("cur_people")int cur_people,
+      @Field("meeting_date")String meeting_date,
+      @Field("meeting_time")String meeting_time,
+      @Field("contents")String contents,
+      @Field("Longtitude")Double Longtitude,
+      @Field("Latitude")Double Latitude,
+      @Field("meet_x")Double meet_x,
+      @Field("meet_y")Double meet_y,
+      @Field("restaurant_id")int restaurant_id,
+      @Field("visible")int visible,
+      @Field("sec")int sec
+    );
+    @POST("/delete/post/{post_id}")
+    Call<Void>DeletePostData(
+            @Path("post_id")int post_id
     );
 }
