@@ -58,11 +58,10 @@ public class EditPostActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> resultLauncher;
     ActivityResultLauncher<Intent> resultLauncher2;
     String []number_of_people1 = {"2", "3", "4", "5", "6", "7", "8"};
-    String []number_of_people2 = {"1", "2", "3", "4", "5", "6", "7"};
     EditText editPosting;
     Button cancel, delete, edit;
     Switch gender_visible;
-    TextView gender_open_text;
+    TextView gender_open_text, cur_people_text;
     TextView restaurant_view, meetingplace_view;
     DatePickerDialog datePickerDialog;
     LinearLayout lay1, lay2;
@@ -109,7 +108,7 @@ public class EditPostActivity extends AppCompatActivity {
         String tmp_String;
         // 모일 인원 및 모인 인원 spinner 설정
         Spinner spinner_1 = findViewById(R.id.edit_max_people_spinner);
-        Spinner spinner_2 = findViewById(R.id.edit_cur_people_spinner);
+        cur_people_text=(TextView)findViewById(R.id.edit_cur_people_spinner_text);
         //모일 인원 spinner 설정
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(
                 this, android.R.layout.simple_spinner_item, number_of_people1);
@@ -126,13 +125,8 @@ public class EditPostActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        // 모인 인원 spinner 설정
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(
-                this, android.R.layout.simple_spinner_item, number_of_people2);
-        adapter2.setDropDownViewResource(
-                android.R.layout.simple_spinner_dropdown_item);
-        spinner_2.setAdapter(adapter2);
-        spinner_2.setSelection(EditPost.getCur_people()-1);
+        // 모인 인원 설정
+        cur_people_text.setText(Integer.toString(EditPost.getCur_people()));
 
 
         // 카테고리 선택
