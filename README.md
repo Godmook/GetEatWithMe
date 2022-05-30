@@ -38,13 +38,17 @@
    - 프로젝트 clone
    - 프로젝트를 clone 하면 ERROR 가 발생하는 것을 볼 수 있습니다. 이 때, Gradle Scripts/local.properties 에 해당 정보를 추가해야 합니다.
    ```xml
-    sdk.dir=C\:\\Users\\cmoh4\\AppData\\Local\\Android\\Sdk
+    sdk.dir="이 부분은 자동으로 채워져 있을 겁니다. 건들일 필요 없습니다"
     kakao_api_key = "카카오 네이티브 앱 키"
     kakao_rest_api_key = "KakaoAK 카카오 REST API 키"
    ```
 ## 프로젝트 사용법
    1. 프로젝트를 설치하고 실행하면 작동합니다.
 ## 프로젝트 Activity
+#### SignUpActivity (activity_sign_up.xml)
+   회원가입 페이지로 이름, 아이디, 나이, 비밀번호, 닉네임, 성별을 입력받는다.<br>
+   아이디, 닉네임은 중복검사를 통해 유일한 아이디와 닉네임만 사용 가능하고, 비밀번호는 입력 후 비밀번호 확인을 거친다.<br>
+   ![KakaoTalk_20220530_182756222](https://user-images.githubusercontent.com/68294499/170962274-69a6a506-6eeb-4b0c-8e77-4219828b5835.jpg){: width="50%" height="50%"}
 
 ## 버그
   -5월 30일(배포일 기준) 에서는 현재 버그는 없습니다.
