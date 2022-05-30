@@ -63,11 +63,13 @@
 앱의 기본 화면으로 사용자의 현재 위치에 기반하여 신청 가능한 게시물을 보여준다. 게시글 검색 및 등록이 가능하다. <br>
 게시글을 선택하는 경우 해당 게시물의 상세 정보 페이지를 확인 할 수 있다.  버튼을 통해 채팅, 알림 화면, 마이 페이지로 이동할 수 있다. <br>
 
-<img src ="https://user-images.githubusercontent.com/67624124/171014777-48463fa3-ac68-4389-8852-00f090921bfb.png" width="30%" height="30%">
+   <img src ="https://user-images.githubusercontent.com/67624124/171014777-48463fa3-ac68-4389-8852-00f090921bfb.png" width="30%" height="30%">
 
 #### ShowPostActivity (activity_show_post.xml)
    사용자가 선택한 게시물의 상세 정보를 보여준다. 사용자는 음식점 이름, 위치 , 만날 장소, 거리, 인원, 시간 등을 확인할 수 있다. <br>
    상세 정보를 확인한 뒤 신청 버튼으로 해당 게시물의 같이 먹기 신청이 가능하다. <br>
+   
+   <img src ="https://user-images.githubusercontent.com/67624124/171015532-822ec04e-3073-41b7-ac1c-905d3f57b3a8.png" width="30%" height="30%">
 
 #### PostingActivity (activity_posting.xml)
  음식점, 만날 장소, 음식점 카테고리, 모일 인원 및 모인인원, 만날 날짜, 만날 시간, 게시글 내용을 입력받아 게시물을 만들어 등록한다.<br>
@@ -108,11 +110,15 @@
 #### alarmActivity (activity_alarm_activity.xml)
    현재 사용자에게 온 알림을 모두 확인할 수 있다. <br>
    같이 먹기 신청, 신청 수락, 신청 거부 알림이 있으며, 같이 먹기 신청 알림의 경우 사용자는 수락과 거부를 결정할 수 있다. <br>
+   
+   <img src="https://user-images.githubusercontent.com/67624124/171016247-48f35083-6e02-4de6-8c6e-df59fb373419.png" width="30%" height="30%">
 
 #### ChattingRoomActivity (activity_chatting_room.xml)
    사용자가 현재 사용할 수 있는 모든 채팅방 목록을 보여준다. <br>
    채팅방 목록에서는 채팅방 제목, 마지막으로 온 메시지, 마지막 메시지가 온 시간이 표시된다. <br>
    각 채팅방을 선택하면 해당 채팅방으로 들어가진다. <br>
+   
+   <img src="https://user-images.githubusercontent.com/67624124/171016292-1c1a232a-d6a3-403e-a012-853ce9973f04.png" width="30%" height="30%">
    
 #### GroupMessageActivity (activity_group_messag.xml)
    게시물별 모이기로 한 사용자들의 단체채팅방으로, 실시간 채팅 기능을 제공한다. <br>
