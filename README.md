@@ -27,8 +27,7 @@
    - 안드로이드와 Retrofit 을 이용한 통신을 하기 위해서 Retrofit dependency 사용
    - json 을 쉽게 변환하기 위해서 convertor-gson dependency 사용
    - firebase 를 이용하기 위해서 firebase-database, firbase-messaging dependency 사용
-
-2. 배포 환경
+배포 환경
    - 프로젝트의 Hash Key 값을 Kakao Developer 사이트에 등록해서 배포 시에도 지도 보이게 적용
    - 카카오 API Key를 숨기기 위해 local properties 에 숨겨서 배포 시 안보이게 적용
 
