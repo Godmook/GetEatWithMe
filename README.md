@@ -79,3 +79,11 @@
   -5월 30일(배포일 기준) 에서는 현재 버그는 없습니다.
 
 ## 프로젝트 작성자 및 도움을 준 사람
+#### 작성자
+- 김예진 [Github](https://github.com/originalchaltteokcookie)
+  <br>이메일 wndrnrdk@naver.com
+- 정현진 [Github](https://github.com/Hyunjin-Jung)
+  <br>이메일 hjjung0810@gmail.com
+#### 도움을 준 사람
+- 오창묵 [Github](https://github.com/Godmook)
+  <br>이메일 cmoh4135@naver.com
