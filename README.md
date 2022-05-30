@@ -48,8 +48,23 @@
 #### SignUpActivity (activity_sign_up.xml)
    회원가입 페이지로 이름, 아이디, 나이, 비밀번호, 닉네임, 성별을 입력받는다.<br>
    아이디, 닉네임은 중복검사를 통해 유일한 아이디와 닉네임만 사용 가능하고, 비밀번호는 입력 후 비밀번호 확인을 거친다.<br>
-   ![KakaoTalk_20220530_182756222](https://user-images.githubusercontent.com/68294499/170962274-69a6a506-6eeb-4b0c-8e77-4219828b5835.jpg){: width="50%" height="50%"}
+   
+   <img src="https://user-images.githubusercontent.com/68294499/170963400-9c1da438-e9fe-4bc0-8183-39697896fb17.png" width="30%" height="30%">
+   
+#### SignInActivity (activity_sign_in.xml)
 
+   <img src="https://user-images.githubusercontent.com/68294499/170962274-69a6a506-6eeb-4b0c-8e77-4219828b5835.jpg" width="30%" height="30%">
+   
+#### MainActivity
+
+#### PostingActivity (activity_posting.xml)
+ 음식점, 만날 장소, 음식점 카테고리, 모일 인원 및 모인인원, 만날 날짜, 만날 시간, 게시글 내용을 입력받아 게시물을 만들어 등록한다.<br>
+ 이때 작성자의 성별 공개/비공개를 설정할 수 있다.<br>
+ 
+<img width="1137" alt="제목 없음" src="https://user-images.githubusercontent.com/68294499/170965375-662d6615-9b71-4e87-9764-79b7c3cfae27.png">
+
+
+   
 ## 버그
   -5월 30일(배포일 기준) 에서는 현재 버그는 없습니다.
 
