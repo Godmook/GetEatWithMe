@@ -99,7 +99,7 @@
    
    <img src="https://user-images.githubusercontent.com/68294499/170970647-b3ad6390-fb73-46c8-baf4-fe3f0f5323cd.png" width="30%" height="30%">
    
-#### MyPostListActivity (activity_my_post_list.xml.xml)
+#### EditPostActivity (activity_eidt_post.xml)
    기존 올렸던 게시물을 수정한다.<br>
    음식점, 만날 장소, 음식점 카테고리, 모일인원, 만날 날짜, 만날 시간, 게시물 내용, 성별 공개/비공개 를 수정할 수 있다.<br>
    다만 현재 모인 인원은 수정 불가능하다.<br>
@@ -124,6 +124,8 @@
    게시물별 모이기로 한 사용자들의 단체채팅방으로, 실시간 채팅 기능을 제공한다. <br>
    작성자가 신청자의 신청을 수락하면 신청자는 채팅방에 자동으로 초대된다. <br>
    게시물을 작성한 작성자는 채팅방을 없앨 수 있으며, 채팅방을 없애면 동시에 그 게시물이 삭제된다. <br>
+   
+   <img src="https://user-images.githubusercontent.com/67624124/171016921-00bf6163-9f48-4f3e-999c-6bd36df16805.png" width="30%" height="30%">
    
 ## 버그
   -5월 30일(배포일 기준) 에서는 현재 버그는 없습니다.
