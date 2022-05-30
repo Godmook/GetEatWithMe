@@ -28,7 +28,7 @@
                 android:background="#FFC423"
                 android:fontFamily="@font/gmarket_sans_ttf_bold"
                 android:gravity="center_vertical"
-                android:text="GetEatWithMe"
+                android:text="알림"
                 android:textColor="#FFF3D3"
                 android:textSize="30sp" />
         </LinearLayout>
