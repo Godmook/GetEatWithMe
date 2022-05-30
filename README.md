@@ -63,7 +63,17 @@
  
 <img width="1137" alt="제목 없음" src="https://user-images.githubusercontent.com/68294499/170965375-662d6615-9b71-4e87-9764-79b7c3cfae27.png">
 
-
+#### SearchRestaurantActivity (activity_search_restaurant.xml)
+   찾고자 하는 음식점 또는 장소를 검색 후 지도에서 정확한 장소를 선택한다.<br>
+   
+   <img src="https://user-images.githubusercontent.com/68294499/170966463-989abfef-42e5-43ff-b20a-a7e5e96370aa.png" width="30%" height="30%">
+   
+#### MyPageActivity (activity_my_page.xml)
+   현재 사용자의 정보(닉네임, 이름, 아이디, 나이, 성별)를 표시한다.<br>
+   이곳에서 사용자가 작성한 게시물을 수정 및 삭제하는 페이지로 이동하거나,<br>
+   사용자의 회원정보를 수정하는 페이지로 이동하거나 로그아웃할 수 있다.<br>
+   
+   <img src="https://user-images.githubusercontent.com/68294499/170967100-0fab088f-cd77-41c1-801f-05b4d6db0608.png" width="30%" height="30%">
    
 ## 버그
   -5월 30일(배포일 기준) 에서는 현재 버그는 없습니다.
