@@ -94,6 +94,7 @@ public class EditPostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post);
+        Utils.setStatusBarColor(this, Utils.StatusBarColorType.MAIN_ORANGE_STATUS_BAR);
         Intent secondIntent=getIntent();
         POST_ID = secondIntent.getIntExtra("postID", 0);
 
