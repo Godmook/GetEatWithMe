@@ -45,17 +45,27 @@
 ## 프로젝트 사용법
    1. 프로젝트를 설치하고 실행하면 작동합니다.
 ## 프로젝트 Activity
+
+#### SignInActivity (activity_sign_in.xml)
+   앱 실행 시 처음으로 볼 수 있는 화면으로, 로그인 기능을 제공한다.<br> 
+   아이디와 비밀번호를 입력 후 로그인 버튼을 누르면 계정 정보가 올바른지 확인한다. <br>
+   기기에서 로그인을 한 적 있으면 바로 전체 게시물 확인 페이지로 이동하는 자동 로그인 서비스를 지원한다. <br>
+
+   <img src="https://user-images.githubusercontent.com/68294499/170962274-69a6a506-6eeb-4b0c-8e77-4219828b5835.jpg" width="30%" height="30%">
+   
 #### SignUpActivity (activity_sign_up.xml)
    회원가입 페이지로 이름, 아이디, 나이, 비밀번호, 닉네임, 성별을 입력받는다.<br>
    아이디, 닉네임은 중복검사를 통해 유일한 아이디와 닉네임만 사용 가능하고, 비밀번호는 입력 후 비밀번호 확인을 거친다.<br>
    
    <img src="https://user-images.githubusercontent.com/68294499/170963400-9c1da438-e9fe-4bc0-8183-39697896fb17.png" width="30%" height="30%">
    
-#### SignInActivity (activity_sign_in.xml)
-
-   <img src="https://user-images.githubusercontent.com/68294499/170962274-69a6a506-6eeb-4b0c-8e77-4219828b5835.jpg" width="30%" height="30%">
-   
 #### MainActivity
+앱의 기본 화면으로 사용자의 현재 위치에 기반하여 신청 가능한 게시물을 보여준다. 게시글 검색 및 등록이 가능하다. <br>
+게시글을 선택하는 경우 해당 게시물의 상세 정보 페이지를 확인 할 수 있다.  버튼을 통해 채팅, 알림 화면, 마이 페이지로 이동할 수 있다. <br>
+
+#### ShowPostActivity (activity_show_post.xml)
+   사용자가 선택한 게시물의 상세 정보를 보여준다. 사용자는 음식점 이름, 위치 , 만날 장소, 거리, 인원, 시간 등을 확인할 수 있다. <br>
+   상세 정보를 확인한 뒤 신청 버튼으로 해당 게시물의 같이 먹기 신청이 가능하다. <br>
 
 #### PostingActivity (activity_posting.xml)
  음식점, 만날 장소, 음식점 카테고리, 모일 인원 및 모인인원, 만날 날짜, 만날 시간, 게시글 내용을 입력받아 게시물을 만들어 등록한다.<br>
@@ -93,6 +103,20 @@
    
    <img src="https://user-images.githubusercontent.com/68294499/170970881-656af35f-1f21-4df5-aff6-3ae30a099497.png" width="30%" height="30%">
    
+#### alarmActivity (activity_alarm_activity.xml)
+   현재 사용자에게 온 알림을 모두 확인할 수 있다. <br>
+   같이 먹기 신청, 신청 수락, 신청 거부 알림이 있으며, 같이 먹기 신청 알림의 경우 사용자는 수락과 거부를 결정할 수 있다. <br>
+
+#### ChattingRoomActivity (activity_chatting_room.xml)
+   사용자가 현재 사용할 수 있는 모든 채팅방 목록을 보여준다. <br>
+   채팅방 목록에서는 채팅방 제목, 마지막으로 온 메시지, 마지막 메시지가 온 시간이 표시된다. <br>
+   각 채팅방을 선택하면 해당 채팅방으로 들어가진다. <br>
+   
+#### GroupMessageActivity (activity_group_messag.xml)
+   게시물별 모이기로 한 사용자들의 단체채팅방으로, 실시간 채팅 기능을 제공한다. <br>
+   작성자가 신청자의 신청을 수락하면 신청자는 채팅방에 자동으로 초대된다. <br>
+   게시물을 작성한 작성자는 채팅방을 없앨 수 있으며, 채팅방을 없애면 동시에 그 게시물이 삭제된다. <br>
+   
 ## 버그
   -5월 30일(배포일 기준) 에서는 현재 버그는 없습니다.
 
@@ -101,7 +125,7 @@
 - 김예진 [Github](https://github.com/originalchaltteokcookie)
   <br>이메일 wndrnrdk@naver.com
 - 정현진 [Github](https://github.com/Hyunjin-Jung)
-  <br>이메일 hjjung0810@gmail.com
+  <br>이메일 hjjung0810@naver.com
 #### 도움을 준 사람
 - 오창묵 [Github](https://github.com/Godmook)
   <br>이메일 cmoh4135@naver.com
