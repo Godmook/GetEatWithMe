@@ -75,6 +75,24 @@
    
    <img src="https://user-images.githubusercontent.com/68294499/170967100-0fab088f-cd77-41c1-801f-05b4d6db0608.png" width="30%" height="30%">
    
+#### EditUserProfileAcitivity (activity_edit_user_profile.xml)
+   기존 회원정보에서 나이, 비밀번호를 수정 가능하다.<br>
+   
+   <img src="https://user-images.githubusercontent.com/68294499/170970381-ea0f1447-681c-4b74-9cc8-1a78ad15d953.png" width="30%" height="30%">
+   
+#### MyPostListActivity (activity_my_post_list.xml.xml)
+   기기에 로그인 되어있는 사용자가 작성한 글들을 리스트로 확인할 수 있다.<br>
+   
+   <img src="https://user-images.githubusercontent.com/68294499/170970647-b3ad6390-fb73-46c8-baf4-fe3f0f5323cd.png" width="30%" height="30%">
+   
+#### MyPostListActivity (activity_my_post_list.xml.xml)
+   기존 올렸던 게시물을 수정한다.<br>
+   음식점, 만날 장소, 음식점 카테고리, 모일인원, 만날 날짜, 만날 시간, 게시물 내용, 성별 공개/비공개 를 수정할 수 있다.<br>
+   다만 현재 모인 인원은 수정 불가능하다.<br>
+   이 기능은 ‘내 게시물 보기’에서 수정할 게시물을 선택해서 진행할 수 있다.<br>
+   
+   <img src="https://user-images.githubusercontent.com/68294499/170970881-656af35f-1f21-4df5-aff6-3ae30a099497.png" width="30%" height="30%">
+   
 ## 버그
   -5월 30일(배포일 기준) 에서는 현재 버그는 없습니다.
 
